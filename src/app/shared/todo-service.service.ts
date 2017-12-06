@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {TodoList} from './todo-list.model';
+import {forEach} from '@angular/router/src/utils/collection';
 
 @Injectable()
 export class TodoService {
@@ -16,6 +17,14 @@ export class TodoService {
         .set('Content-Type', 'application/x-www-form-urlencoded')
     })
       .toPromise().then(response => {
+        const todoLists: TodoList[] = response['_embedded']['todoLists'] as TodoList[];
+
+        todoLists.forEach(todoList => {
+          const selfLink: String = todoList._links['self']['href'];
+          todoList.id = Number(selfLink.substr(selfLink.length - 1, 1));
+        });
+
+        console.log(todoLists);
         return response['_embedded']['todoLists'] as TodoList[];
         });
   }
