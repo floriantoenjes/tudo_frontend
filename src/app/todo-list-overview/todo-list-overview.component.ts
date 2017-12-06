@@ -13,8 +13,8 @@ export class TodoListOverviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.todoService.getTodoLists().then(todoLists => {
-      this.todoLists = todoLists;
+    this.todoService.getTodoLists().then(response => {
+      this.todoLists = response;
     });
   }
 }

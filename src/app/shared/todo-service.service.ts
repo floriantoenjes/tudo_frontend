@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {TodoList} from './todo-list.model';
+import {Response} from './response.model';
 
 @Injectable()
 export class TodoService {
@@ -15,8 +16,10 @@ export class TodoService {
       headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
         .set('Content-Type', 'application/x-www-form-urlencoded')
     })
-      .toPromise()
-      .then(response => response as TodoList[]);
+      .toPromise().then(response => {
+        console.log(response['_embedded']['todoLists']);
+        return response['_embedded']['todoLists'] as TodoList[];
+        });
   }
 
 }
