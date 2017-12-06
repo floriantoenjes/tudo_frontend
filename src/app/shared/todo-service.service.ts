@@ -41,6 +41,7 @@ export class TodoService {
           const selfLink: String = todo['_links']['self']['href'];
           todo.id = Number(selfLink.substr(selfLink.length - 1, 1));
         });
+        console.log(todos);
         return todos as Todo[];
       });
   }
