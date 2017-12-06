@@ -4,6 +4,7 @@ import {TodoList} from './todo-list.model';
 import {forEach} from '@angular/router/src/utils/collection';
 import {Todo} from './todo.model';
 import {TodoForm} from './todo-form.model';
+import {TodoComplete} from './todo-complete.model';
 
 @Injectable()
 export class TodoService {
@@ -38,9 +39,18 @@ export class TodoService {
       .then(response => {
         const todos: Todo[] = response['_embedded']['todos'];
 
+        const todosCompleted: TodoComplete[] = [];
+
         todos.forEach(todo => {
           const selfLink: String = todo['_links']['self']['href'];
           todo.id = Number(selfLink.substr(selfLink.length - 1, 1));
+
+          const todoComplete: TodoComplete = new TodoComplete;
+
+          this.getTodoForm(todo.id).then(todoForm => {
+            Object.assign(todoComplete, todo);
+            Object.assign(todoComplete, todoForm);
+          });
         });
         console.log(todos);
         return todos as Todo[];
