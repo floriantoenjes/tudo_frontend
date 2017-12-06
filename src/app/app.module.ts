@@ -12,6 +12,7 @@ import {ContactsComponent} from './contacts/contacts.component';
 import { ContactRequestsComponent } from './contact-requests/contact-requests.component';
 import { AssignedTodoListComponent } from './assigned-todo-list/assigned-todo-list.component';
 import { AssignedTodoComponent } from './assigned-todo/assigned-todo.component';
+import { UserComponent } from './user/user.component';
 
 const appRoutes: Routes = [
   {pathMatch: 'full', path: '', component: TodoListOverviewComponent},
@@ -21,7 +22,8 @@ const appRoutes: Routes = [
   {pathMatch: 'full', path: 'contacts', component: ContactsComponent},
   {pathMatch: 'full', path: 'contact_requests', component: ContactRequestsComponent},
   {pathMatch: 'full', path: 'assigned_todo_list', component: AssignedTodoListComponent},
-  {pathMatch: 'full', path: 'assigned_todo_list/:todoId', component: AssignedTodoComponent}
+  {pathMatch: 'full', path: 'assigned_todo_list/:todoId', component: AssignedTodoComponent},
+  {pathMatch: 'full', path: 'users/:userId', component: UserComponent}
   ];
 
 @NgModule({
@@ -35,7 +37,8 @@ const appRoutes: Routes = [
     ContactsComponent,
     ContactRequestsComponent,
     AssignedTodoListComponent,
-    AssignedTodoComponent
+    AssignedTodoComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
