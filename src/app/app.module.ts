@@ -14,6 +14,7 @@ import { AssignedTodoListComponent } from './assigned-todo-list/assigned-todo-li
 import { AssignedTodoComponent } from './assigned-todo/assigned-todo.component';
 import { UserComponent } from './user/user.component';
 import {HttpClientModule} from '@angular/common/http';
+import {TodoService} from './shared/todo-service.service';
 
 const appRoutes: Routes = [
   {pathMatch: 'full', path: '', component: TodoListOverviewComponent},
@@ -46,7 +47,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [TodoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
