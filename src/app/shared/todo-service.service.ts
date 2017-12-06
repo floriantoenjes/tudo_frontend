@@ -30,7 +30,7 @@ export class TodoService {
       });
   }
 
-  getTodos(todoId: Number): Promise<Todo[]> {
+  getTodos(todoId: Number): Promise<TodoComplete[]> {
     return this.http.get(`http://localhost:8080/api/v1/todoLists/${todoId}/todos`, {
       headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -39,7 +39,7 @@ export class TodoService {
       .then(response => {
         const todos: Todo[] = response['_embedded']['todos'];
 
-        const todosCompleted: TodoComplete[] = [];
+        const todosComplete: TodoComplete[] = [];
 
         todos.forEach(todo => {
           const selfLink: String = todo['_links']['self']['href'];
@@ -50,10 +50,11 @@ export class TodoService {
           this.getTodoForm(todo.id).then(todoForm => {
             Object.assign(todoComplete, todo);
             Object.assign(todoComplete, todoForm);
+            todosComplete.push(todoComplete);
           });
         });
         console.log(todos);
-        return todos as Todo[];
+        return todosComplete;
       });
   }
   getTodoForm(todoFormId: Number): Promise<TodoForm> {

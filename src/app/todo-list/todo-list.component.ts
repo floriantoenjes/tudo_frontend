@@ -1,20 +1,20 @@
 import {Component, OnInit} from '@angular/core';
-import {Todo} from '../shared/todo.model';
 import {TodoService} from '../shared/todo-service.service';
+import {TodoComplete} from '../shared/todo-complete.model';
 
 @Component({
   selector: 'app-todo-list',
   templateUrl: 'todo-list.component.html'
 })
 export class TodoListComponent implements OnInit {
-  todos: Todo[];
+  todosComplete: TodoComplete[];
 
   constructor(private todoService: TodoService) {
   }
 
   ngOnInit(): void {
     this.todoService.getTodos(1).then(response => {
-      this.todos = response;
+      this.todosComplete = response;
     });
   }
 }
