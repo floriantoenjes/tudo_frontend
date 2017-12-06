@@ -4,5 +4,5 @@ import { Component } from '@angular/core';
   selector: 'app-todo-list',
   templateUrl: 'todo-list-overview.component.html'
 })
-export class TodoListComponent {
+export class TodoListOverviewComponent {
 }
