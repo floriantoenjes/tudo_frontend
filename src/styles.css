@@ -1,1 +1,86 @@
 /* You can add global styles to this file, and also import other style files */
+@import "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css";
+
+html {
+  font-family: sans-serif;
+}
+
+.todo-list-table {
+  margin: 0 auto 0 auto;
+  font-size: 1.5em;
+
+}
+
+.todo-list-heading {
+  margin-top: 15vh;
+}
+
+
+.todo-table {
+  margin: 1em auto 0 auto;
+}
+
+.todo-table td {
+  padding: 0.5em;
+}
+
+nav {
+  margin: 4em auto 0 auto;
+}
+
+h2 {
+  padding: 0.5em;
+}
+
+.todo-attribute-table {
+  margin: 1em auto 0 auto;
+}
+
+.todo-attribute-table th {
+  padding-right: 1.5em;
+}
+
+.todo-attribute-table td {
+  padding: 0.5em;
+}
+
+.todo-list-backlink {
+  margin-top: 1em;
+}
+
+.btn-list {
+  padding: 1em;
+}
+
+.btn {
+  cursor: pointer;
+}
+
+.sign-in-table {
+  margin: 0 auto;
+}
+
+.sign-in-table td {
+  padding: 0.25em;
+}
+
+#sign-in-btn {
+  display: block;
+  margin: 0 auto;
+}
+
+.user-table {
+  margin: 0 auto;
+}
+
+.user-detail-container {
+  margin: 0 auto;
+}
+
+.centered-block {
+  margin: 0 auto;
+}
+
+.contact-request-table td {
+  padding: 0.25em;
+}
