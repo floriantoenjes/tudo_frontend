@@ -13,6 +13,7 @@ import { ContactRequestsComponent } from './contact-requests/contact-requests.co
 import { AssignedTodoListComponent } from './assigned-todo-list/assigned-todo-list.component';
 import { AssignedTodoComponent } from './assigned-todo/assigned-todo.component';
 import { UserComponent } from './user/user.component';
+import {HttpClientModule} from '@angular/common/http';
 
 const appRoutes: Routes = [
   {pathMatch: 'full', path: '', component: TodoListOverviewComponent},
@@ -42,6 +43,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [],
