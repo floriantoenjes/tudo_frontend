@@ -2,22 +2,20 @@
   <h2>Todo Lists</h2>
 </div>
 <table class="todo-list-table text-center">
-  <tr>
+  <tr *ngFor="let todoList of todoLists">
     <td>
-      <a routerLink="/todo_list/1" routerLinkActive="active">My First Todo List</a>
+      <a routerLink="/todo_list/1" routerLinkActive="active">{{todoList.name}}</a>
     </td>
   </tr>
 
-  <tr>
-    <td>
-      <a href="list.html">My Second Todo List</a>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <a href="list.html">My Third Todo List</a>
-    </td>
-  </tr>
+  <!--<tr>-->
+    <!--<td>-->
+      <!--<a href="list.html">My Second Todo List</a>-->
+    <!--</td>-->
+  <!--</tr>-->
+  <!--<tr>-->
+    <!--<td>-->
+      <!--<a href="list.html">My Third Todo List</a>-->
+    <!--</td>-->
+  <!--</tr>-->
 </table>
-
-<p *ngFor="let todoList of todoLists">{{todoList.name}}</p>
