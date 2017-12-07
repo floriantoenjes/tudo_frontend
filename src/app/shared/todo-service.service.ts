@@ -58,6 +58,18 @@ export class TodoService {
       });
   }
 
+  getAssignedTodos(): Promise<Todo[]> {
+    return this.http.get('http://localhost:8080/api/v1/todos/search/findAllByAssignedUsersContaining?assignee=/api/v1/users/3/' +
+      '&projection=todoProjection', {
+      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjM6cGFzc3dvcmQ=')
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+    })
+      .toPromise()
+      .then(response => {
+        return response['_embedded']['todos'] as Todo[];
+      });
+  }
+
   getTodoForm(todoFormId: Number): Promise<TodoForm> {
     return this.http.get(`http://localhost:8080/api/v1/todos/${todoFormId}/todoForm`, {
       headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
