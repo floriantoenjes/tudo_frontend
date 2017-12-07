@@ -16,6 +16,7 @@ import { UserComponent } from './user/user.component';
 import {HttpClientModule} from '@angular/common/http';
 import {TodoService} from './shared/todo.service';
 import {FormsModule} from '@angular/forms';
+import {UserService} from './shared/user.service';
 
 const appRoutes: Routes = [
   {pathMatch: 'full', path: '', component: TodoListOverviewComponent},
@@ -49,7 +50,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FormsModule
   ],
-  providers: [TodoService],
+  providers: [TodoService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
