@@ -24,6 +24,8 @@ export class TodoComponent implements OnInit {
   }
 
   onSubmit() {
-    this.todoService.updateTodo(this.todo);
+    this.todoService.updateTodo(this.todo).then(response => {
+      console.log(response);
+    });
   }
 }

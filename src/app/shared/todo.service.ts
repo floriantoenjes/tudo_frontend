@@ -94,7 +94,7 @@ export class TodoService {
       });
   }
 
-  updateTodo(todo: Todo): void {
+  updateTodo(todo: Todo): Promise<Todo> {
     const todoHead: TodoHead = new TodoHead();
     todoHead.name = todo.name;
     todoHead.createdAt = todo.createdAt;
@@ -105,23 +105,32 @@ export class TodoService {
 
     const todoForm: TodoForm = todo.todoForm;
 
+    let newTodoHead: TodoHead;
+    let newTodoForm: TodoForm;
 
-    this.http.put(`http://localhost:8080/api/v1/todos/${todo.id}?projection=todoProjection`, todoHead, {
+    this.http.put(`http://localhost:8080/api/v1/todos/${todo.id}`, todoHead, {
       headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
         .set('Content-Type', 'application/json')
     })
       .toPromise()
       .then(response => {
-        return response as Todo;
+        newTodoHead = response as TodoHead;
       });
 
-    this.http.put(`http://localhost:8080/api/v1/todoForms/${todoForm.id}`, todoForm, {
+    return this.http.put(`http://localhost:8080/api/v1/todoForms/${todoForm.id}`, todoForm, {
       headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
         .set('Content-Type', 'application/json')
     })
       .toPromise()
       .then(response => {
-        return response as TodoForm;
+        newTodoForm = response as TodoForm;
+
+        const newTodo: Todo = new Todo();
+        newTodo.todoForm = new TodoForm();
+        Object.assign(newTodo, newTodoHead);
+        Object.assign(newTodo.todoForm, newTodoForm);
+
+        return newTodo;
       });
   }
 
