@@ -110,7 +110,7 @@ export class TodoService {
 
     this.http.put(`http://localhost:8080/api/v1/todos/${todo.id}`, todoHead, {
       headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
-        .set('Content-Type', 'application/x-www-form-urlencoded')
+        .set('Content-Type', 'application/json')
     })
       .toPromise()
       .then(response => {
