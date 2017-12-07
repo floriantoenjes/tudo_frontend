@@ -15,12 +15,15 @@ export class TodoComponent implements OnInit {
     this.todo.todoForm = new TodoForm();
   }
 
-
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.todoService.getTodo(+params['todoId']).then(response => {
         this.todo = response;
       });
     });
+  }
+
+  onSubmit() {
+    console.log(this.todo);
   }
 }
