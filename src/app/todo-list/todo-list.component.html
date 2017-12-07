@@ -12,7 +12,7 @@
     <th>Completed</th>
     <th>Remove</th>
   </tr>
-  <tr *ngFor="let todo of todosComplete">
+  <tr *ngFor="let todo of todos">
     <td><a routerLink="/todo_list/1/todo/1">{{todo.name}}</a></td>
     <td>
       <input type="number" min="0" max="100" value="100">

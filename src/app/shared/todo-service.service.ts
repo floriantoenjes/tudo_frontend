@@ -4,7 +4,6 @@ import {TodoList} from './todo-list.model';
 import {forEach} from '@angular/router/src/utils/collection';
 import {Todo} from './todo.model';
 import {TodoForm} from './todo-form.model';
-import {TodoComplete} from './todo-complete.model';
 
 @Injectable()
 export class TodoService {
@@ -30,21 +29,21 @@ export class TodoService {
       });
   }
 
-  getTodos(todoId: Number): Promise<TodoComplete[]> {
+  getTodos(todoId: Number): Promise<Todo[]> {
     return this.http.get(`http://localhost:8080/api/v1/todoLists/${todoId}/todos?projection=todoProjection`, {
       headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
         .set('Content-Type', 'application/x-www-form-urlencoded')
     })
       .toPromise()
       .then(response => {
-        const todosComplete: TodoComplete[] = response['_embedded']['todos'];
+        const todos: Todo[] = response['_embedded']['todos'];
 
-        todosComplete.forEach(todoComplete => {
-          const selfLink: String = todoComplete['_links']['self']['href'];
-          todoComplete.id = Number(selfLink.substr(selfLink.length - 1, 1));
+        todos.forEach(todo => {
+          const selfLink: String = todo['_links']['self']['href'];
+          todo.id = Number(selfLink.substr(selfLink.length - 1, 1));
         });
-        console.log(todosComplete);
-        return todosComplete;
+        console.log(todos);
+        return todos;
       });
   }
 
