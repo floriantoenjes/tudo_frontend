@@ -6,14 +6,13 @@
   <tr>
     <th>Description:</th>
     <td>
-      <textarea rows="5" cols="40">I have to start running again to improve my stamina and confidence.
-      </textarea>
+      <textarea rows="5" cols="40">{{todo.description}}</textarea>
     </td>
   </tr>
   <tr>
     <th>Progress in %:</th>
     <td>
-      <input type="number" min="0" max="100" value="50"/>
+      <input type="number" min="0" max="100" value="todo.todoForm.progress"/>
     </td>
   </tr>
   <tr>
@@ -27,33 +26,33 @@
   <tr>
     <th>Created at:</th>
     <td>
-      05.12.2017
+      {{todo.createdAt}}
     </td>
   </tr>
   <tr>
     <th>Due date:</th>
     <td>
-      <input type="date" value="2017-12-06" />
+      <input type="date" value="{{todo.dueDate}}}" />
     </td>
   </tr>
   <tr>
     <th>Last updated:</th>
-    <td>05.12.2017</td>
+    <td>{{todo.todoForm.lastUpdated}}</td>
   </tr>
   <tr>
     <th>Completed at:</th>
-    <td>06.12.2017</td>
+    <td>{{todo.todoForm.completedAt}}</td>
   </tr>
   <tr>
     <th>Tags:</th>
     <td>
-      <input type="text" size="42" value="running, sports, stamina, confidence" />
+      <input type="text" size="42" value="{{todo.tags}}" />
     </td>
   </tr>
   <tr>
     <th>Location:</th>
     <td>
-      <input type="text" value="Ganderkesee" />
+      <input type="text" value="{{todo.location}}" />
     </td>
   </tr>
   <tr>
