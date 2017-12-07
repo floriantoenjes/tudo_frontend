@@ -15,7 +15,6 @@ export class AssignedTodoListComponent implements OnInit {
 
   ngOnInit(): void {
     this.todoService.getAssignedTodos().then(todos => {
-      console.log(todos);
       this.todos = todos;
     });
   }

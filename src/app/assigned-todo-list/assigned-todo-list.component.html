@@ -9,54 +9,54 @@
     <th>Completed</th>
     <!--<th>Remove</th>-->
   </tr>
-  <tr>
-    <td><a routerLink="/assigned_todo_list/1">Go running</a></td>
+  <tr *ngFor="let todo of todos">
+    <td><a routerLink="/assigned_todo_list/{{todo.id}}">{{todo.name}}</a></td>
     <td>
-      <input type="number" min="0" max="100" value="100">
+      <input type="number" min="0" max="100" value="{{todo.todoForm.progress}}">
     </td>
-    <td>05.12.2017</td>
+    <td>{{todo.dueDate}}</td>
     <td class="text-center">
-      <input type="checkbox" />
+      <input type="checkbox" [(ngModel)]="todo.todoForm.completed"/>
     </td>
-  </tr>
-  <tr>
-    <td><a href="#">Go swimming</a></td>
-    <td>
-      <input type="number" min="0" max="100" value="100">
-    </td>
-    <td>05.12.2017</td>
-    <td class="text-center">
-      <input type="checkbox" />
-    </td>
-  </tr>
-  <tr>
-    <td><a href="#">Go shop groceries</a></td>
-    <td>
-      <input type="number" min="0" max="100" value="100">
-    </td>
-    <td>05.12.2017</td>
-    <td class="text-center">
-      <input type="checkbox" />
-    </td>
-  </tr>
-  <tr>
-    <td><a href="#">Buy christmas gifts</a></td>
-    <td>
-      <input type="number" min="0" max="100" value="100">
-    </td>
-    <td>05.12.2017</td>
-    <td class="text-center">
-      <input type="checkbox" />
-    </td>
-  </tr>
-  <tr>
-    <td><a href="#">Run</a></td>
-    <td>
-      <input type="number" min="0" max="100" value="100">
-    </td>
-    <td>05.12.2017</td>
-    <td class="text-center">
-      <input type="checkbox" />
-    </td>
-  </tr>
+  <!--</tr>-->
+  <!--<tr>-->
+    <!--<td><a href="#">Go swimming</a></td>-->
+    <!--<td>-->
+      <!--<input type="number" min="0" max="100" value="100">-->
+    <!--</td>-->
+    <!--<td>05.12.2017</td>-->
+    <!--<td class="text-center">-->
+      <!--<input type="checkbox" />-->
+    <!--</td>-->
+  <!--</tr>-->
+  <!--<tr>-->
+    <!--<td><a href="#">Go shop groceries</a></td>-->
+    <!--<td>-->
+      <!--<input type="number" min="0" max="100" value="100">-->
+    <!--</td>-->
+    <!--<td>05.12.2017</td>-->
+    <!--<td class="text-center">-->
+      <!--<input type="checkbox" />-->
+    <!--</td>-->
+  <!--</tr>-->
+  <!--<tr>-->
+    <!--<td><a href="#">Buy christmas gifts</a></td>-->
+    <!--<td>-->
+      <!--<input type="number" min="0" max="100" value="100">-->
+    <!--</td>-->
+    <!--<td>05.12.2017</td>-->
+    <!--<td class="text-center">-->
+      <!--<input type="checkbox" />-->
+    <!--</td>-->
+  <!--</tr>-->
+  <!--<tr>-->
+    <!--<td><a href="#">Run</a></td>-->
+    <!--<td>-->
+      <!--<input type="number" min="0" max="100" value="100">-->
+    <!--</td>-->
+    <!--<td>05.12.2017</td>-->
+    <!--<td class="text-center">-->
+      <!--<input type="checkbox" />-->
+    <!--</td>-->
+  <!--</tr>-->
 </table>
