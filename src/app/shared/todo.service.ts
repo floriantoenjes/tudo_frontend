@@ -39,6 +39,7 @@ export class TodoService {
 
         todos.forEach(todo => {
           const selfLink: String = todo['_links']['self']['href'];
+          // ToDo: Use split instead of last digit to fetch values with many digits and not only one
           todo.id = Number(selfLink.substr(selfLink.length - 1, 1));
         });
         console.log(todos);
@@ -86,5 +87,9 @@ export class TodoService {
         return response as TodoForm;
       });
   }
+
+  updateTodo(todo: Todo): void {
+  }
+
 
 }
