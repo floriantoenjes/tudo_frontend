@@ -7,6 +7,7 @@ import {User} from '../shared/user.model';
   templateUrl: 'users.component.html'
 })
 export class UsersComponent implements OnInit {
+  title: String = 'User List';
   users: User[];
 
   constructor(private userService: UserService) {
