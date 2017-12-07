@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {TodoList} from './todo-list.model';
 import {Todo} from './todo.model';
 import {TodoForm} from './todo-form.model';
+import {TodoHead} from './todo-head.model';
 
 @Injectable()
 export class TodoService {
@@ -54,7 +55,12 @@ export class TodoService {
     })
       .toPromise()
       .then(response => {
-        return response as Todo;
+        const todo: Todo = response as Todo;
+
+        const selfLink: String = todo['_links']['self']['href'];
+        todo.id = Number(selfLink.substr(selfLink.length - 1, 1));
+
+        return todo;
       });
   }
 
@@ -89,6 +95,27 @@ export class TodoService {
   }
 
   updateTodo(todo: Todo): void {
+    const todoHead: TodoHead = new TodoHead();
+    todoHead.name = todo.name;
+    todoHead.createdAt = todo.createdAt;
+    todoHead.description = todo.description;
+    todoHead.dueDate = todo.dueDate;
+    todoHead.location = todo.location;
+    todoHead.tags = todo.tags;
+
+    const todoForm: TodoForm = todo.todoForm;
+
+    console.log('TodoHead:');
+    console.log(todoHead);
+
+    this.http.put(`http://localhost:8080/api/v1/todos/${todo.id}`, todoHead, {
+      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+    })
+      .toPromise()
+      .then(response => {
+        console.log(response);
+      });
   }
 
 
