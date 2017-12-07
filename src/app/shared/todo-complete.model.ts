@@ -1,14 +1,12 @@
+import {TodoForm} from './todo-form.model';
+
 export class TodoComplete {
   name: String;
   description: String;
   createdAt: Date;
   dueDate: Date;
   tags: String[];
-  // ToDo: Add location model
   location: null;
-  id: Number
-  progress: Number;
-  completed: Boolean;
-  completedAt: Date;
-  lastUpdated: Date;
+  id: Number;
+  todoForm: TodoForm;
 }

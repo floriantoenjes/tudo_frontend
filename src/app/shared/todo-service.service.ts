@@ -31,32 +31,23 @@ export class TodoService {
   }
 
   getTodos(todoId: Number): Promise<TodoComplete[]> {
-    return this.http.get(`http://localhost:8080/api/v1/todoLists/${todoId}/todos`, {
+    return this.http.get(`http://localhost:8080/api/v1/todoLists/${todoId}/todos?projection=todoProjection`, {
       headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
         .set('Content-Type', 'application/x-www-form-urlencoded')
     })
       .toPromise()
       .then(response => {
-        const todos: Todo[] = response['_embedded']['todos'];
+        const todosComplete: TodoComplete[] = response['_embedded']['todos'];
 
-        const todosComplete: TodoComplete[] = [];
-
-        todos.forEach(todo => {
-          const selfLink: String = todo['_links']['self']['href'];
-          todo.id = Number(selfLink.substr(selfLink.length - 1, 1));
-
-          const todoComplete: TodoComplete = new TodoComplete;
-
-          this.getTodoForm(todo.id).then(todoForm => {
-            Object.assign(todoComplete, todo);
-            Object.assign(todoComplete, todoForm);
-            todosComplete.push(todoComplete);
-          });
+        todosComplete.forEach(todoComplete => {
+          const selfLink: String = todoComplete['_links']['self']['href'];
+          todoComplete.id = Number(selfLink.substr(selfLink.length - 1, 1));
         });
-        console.log(todos);
+        console.log(todosComplete);
         return todosComplete;
       });
   }
+
   getTodoForm(todoFormId: Number): Promise<TodoForm> {
     return this.http.get(`http://localhost:8080/api/v1/todos/${todoFormId}/todoForm`, {
       headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
