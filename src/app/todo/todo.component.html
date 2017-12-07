@@ -1,6 +1,6 @@
 <form (submit)="onSubmit()">
   <div class="col-sm-12 text-center">
-    <h4 class="todo-list-backlink"><a href="list.html">My Second Todo List</a></h4>
+    <h4 class="todo-list-backlink"><a routerLink="/todo_list/{{todoListId}}">My Second Todo List</a></h4>
     <h2><input type="text" name="name" [(ngModel)]="todo.name"/></h2>
   </div>
   <table class="todo-attribute-table">
