@@ -1,27 +1,26 @@
 <div class="col-sm-12 text-center">
   <h4 class="todo-list-backlink"><a href="list.html">My Second Todo List</a></h4>
-  <h2>Go running</h2>
+  <h2>{{todo.name}}</h2>
 </div>
 <table class="todo-attribute-table">
   <tr>
     <th>Description:</th>
     <td>
-                    <textarea rows="5" cols="40">I have to start running again to improve my stamina and confidence.
-                    </textarea>
+      <textarea rows="5" cols="40">I have to start running again to improve my stamina and confidence.
+      </textarea>
     </td>
   </tr>
   <tr>
     <th>Progress in %:</th>
     <td>
-      <input type="number" min="0" max="100" value="50" />
+      <input type="number" min="0" max="100" value="50"/>
     </td>
   </tr>
   <tr>
     <th>Assignee:</th>
     <td>
       <select>
-        <option>Florian</option>
-        <option>Paul</option>
+        <option *ngFor="let assignedUser of todo.assignedUsers">{{assignedUser.username}}</option>
       </select>
     </td>
   </tr>
@@ -60,7 +59,7 @@
   <tr>
     <th>Completed:</th>
     <td>
-      <input type="checkbox" />
+      <input type="checkbox" [(ngModel)]="todo.todoForm.completed"/>
     </td>
   </tr>
 </table>
