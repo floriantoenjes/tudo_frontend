@@ -3,7 +3,7 @@
 </div>
 <table class="user-table text-center">
   <tr *ngFor="let user of users">
-    <td><a routerLink="/users/1">{{user.username}}</a></td>
+    <td><a routerLink="/users/{{user.id}}">{{user.username}}</a></td>
   </tr>
   <!--<tr>-->
     <!--<td><a href="user_detail.html">Paul</a></td>-->
