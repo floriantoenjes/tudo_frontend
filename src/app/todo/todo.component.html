@@ -1,19 +1,19 @@
 <form (submit)="onSubmit()">
   <div class="col-sm-12 text-center">
     <h4 class="todo-list-backlink"><a href="list.html">My Second Todo List</a></h4>
-    <h2><input type="text" value="{{todo.name}}"/></h2>
+    <h2><input type="text" name="name" [(ngModel)]="todo.name"/></h2>
   </div>
   <table class="todo-attribute-table">
     <tr>
       <th>Description:</th>
       <td>
-        <textarea rows="5" cols="40">{{todo.description}}</textarea>
+        <textarea rows="5" cols="40" name="description" [(ngModel)]="todo.description"></textarea>
       </td>
     </tr>
     <tr>
       <th>Progress in %:</th>
       <td>
-        <input type="number" min="0" max="100" value="todo.todoForm.progress"/>
+        <input type="number" min="0" max="100" name="progress" [(ngModel)]="todo.todoForm.progress"/>
       </td>
     </tr>
     <tr>
@@ -33,7 +33,7 @@
     <tr>
       <th>Due date:</th>
       <td>
-        <input type="date" value="{{todo.dueDate}}}" />
+        <input type="date" name="dueDate" [(ngModel)]="todo.dueDate" />
       </td>
     </tr>
     <tr>
@@ -47,12 +47,13 @@
     <tr>
       <th>Tags:</th>
       <td>
-        <input type="text" size="42" value="{{todo.tags}}" />
+        <input type="text" size="42" name="tags" [(ngModel)]="todo.tags" />
       </td>
     </tr>
     <tr>
       <th>Location:</th>
       <td>
+        <!--ToDo: Create location model-->
         <input type="text" value="{{todo.location}}" />
       </td>
     </tr>
