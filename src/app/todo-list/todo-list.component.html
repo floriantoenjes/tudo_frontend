@@ -13,19 +13,18 @@
     <th>Remove</th>
   </tr>
   <tr *ngFor="let todo of todos">
-    <td><a routerLink="/todo_list/1/todo/1">{{todo.name}}</a></td>
+    <td><a routerLink="/todo_list/1/todo/{{todo.id}}">{{todo.name}}</a></td>
     <td>
       <input type="number" min="0" max="100" value="100">
     </td>
     <td>{{todo.dueDate}}</td>
     <td>
       <select>
-        <option>Florian</option>
-        <option>Paul</option>
+        <option *ngFor="let assignedUser of todo.assignedUsers">{{assignedUser.username}}</option>
       </select>
     </td>
     <td class="text-center">
-      <input type="checkbox" [checked]="todo.completed"/>
+      <input type="checkbox" [(ngModel)]="todo.todoForm.completed"/>
     </td>
     <td>
       <button type="button" class="btn btn-danger">Delete</button>
