@@ -14,7 +14,7 @@ import { AssignedTodoListComponent } from './assigned-todo-list/assigned-todo-li
 import { AssignedTodoComponent } from './assigned-todo/assigned-todo.component';
 import { UserComponent } from './user/user.component';
 import {HttpClientModule} from '@angular/common/http';
-import {TodoService} from './shared/todo-service.service';
+import {TodoService} from './shared/todo.service';
 import {FormsModule} from '@angular/forms';
 
 const appRoutes: Routes = [

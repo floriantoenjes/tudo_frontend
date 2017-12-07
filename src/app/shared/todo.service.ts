@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {TodoList} from './todo-list.model';
-import {forEach} from '@angular/router/src/utils/collection';
 import {Todo} from './todo.model';
 import {TodoForm} from './todo-form.model';
 
