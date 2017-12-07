@@ -20,7 +20,6 @@ export class TodoComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.todoService.getTodo(+params['todoId']).then(response => {
         this.todo = response;
-        console.log(response);
       });
     });
   }
