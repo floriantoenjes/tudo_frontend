@@ -13,10 +13,10 @@ import {UserService} from '../shared/user.service';
 export class TodoComponent implements OnInit {
   todoListId: Number;
   todo: Todo = new Todo();
-  contacts: User[];
+  filteredContacts: User[];
   assignedUsers: User[];
-  assignedUsersAfter: String[];
-  originalContacts: User[];
+  assignedUsersBinding: String[];
+  contacts: User[];
   tags: String;
 
   constructor(private todoService: TodoService, private userService: UserService, private route: ActivatedRoute, private router: Router) {
@@ -33,8 +33,7 @@ export class TodoComponent implements OnInit {
 
         this.getContacts().then(contacts => {
           this.contacts = contacts;
-          this.originalContacts = contacts;
-          this.contacts = this.filterContactsForAssignedUsers(contacts, assignedUsers);
+          this.filteredContacts = this.filterContactsForAssignedUsers(contacts, assignedUsers);
         });
 
         this.tags = todo.tags.toString();
@@ -67,14 +66,14 @@ export class TodoComponent implements OnInit {
 
     const assignedUsersAfterReal = [];
 
-    if (this.assignedUsersAfter) {
+    if (this.assignedUsersBinding) {
 
-      this.assignedUsersAfter.forEach(assignedUserName => {
-        for (let i = 0; i < this.originalContacts.length; i++) {
-          if (this.originalContacts[i].username === assignedUserName) {
+      this.assignedUsersBinding.forEach(assignedUserName => {
+        for (let i = 0; i < this.contacts.length; i++) {
+          if (this.contacts[i].username === assignedUserName) {
             const user: User = new User();
             user.username = assignedUserName;
-            user.id = this.originalContacts[i].id;
+            user.id = this.contacts[i].id;
             assignedUsersAfterReal.push(user);
           }
         }
