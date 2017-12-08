@@ -61,25 +61,29 @@ export class TodoComponent implements OnInit {
 
   onSubmit() {
     this.todo.tags = this.tags.split(',');
+
     this.todoService.updateTodo(this.todo).then(response => {
       this.router.navigateByUrl('todo_list/1');
     });
 
     const newAssignedUsers = [];
+    this.mapToUserModel(this.assignedUsersBinding, newAssignedUsers);
 
-    // ToDo: Refactor with single responsibility principle in mind
-    if (this.assignedUsersBinding) {
-      this.assignedUsersBinding.forEach(assignedUserName => {
-        for (let i = 0; i < this.contacts.length; i++) {
-          if (this.contacts[i].username === assignedUserName) {
-            const user: User = new User();
-            user.username = assignedUserName;
-            user.id = this.contacts[i].id;
-            newAssignedUsers.push(user);
-          }
-        }
-      });
+    if (this.assignedUsersBinding !== undefined) {
       this.todoService.addAssignees(this.todo.id, newAssignedUsers);
     }
+  }
+
+  mapToUserModel(assignedUsersBinding: String[], newAssignedUsers: User[]) {
+    this.assignedUsersBinding.forEach(assignedUserName => {
+      for (let i = 0; i < this.contacts.length; i++) {
+        if (this.contacts[i].username === assignedUserName) {
+          const user: User = new User();
+          user.username = assignedUserName;
+          user.id = this.contacts[i].id;
+          newAssignedUsers.push(user);
+        }
+      }
+    });
   }
 }
