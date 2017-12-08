@@ -61,7 +61,7 @@ export class TodoComponent implements OnInit {
   onSubmit() {
     this.todo.tags = this.tags.split(',');
     this.todoService.updateTodo(this.todo).then(response => {
-      // this.router.navigateByUrl('todo_list/1');
+      this.router.navigateByUrl('todo_list/1');
     });
 
     this.assignedUsersAfterReal = [];
@@ -69,34 +69,38 @@ export class TodoComponent implements OnInit {
     console.log('UsersAfter');
     console.log(this.assignedUsersAfter);
 
-    this.assignedUsersAfter.forEach(assignedUserName => {
-      for (let i = 0; i < this.originalContacts.length; i++) {
+    if (this.assignedUsersAfter) {
 
-        console.log('forName');
-        console.log(this.originalContacts[i].username);
-        console.log(assignedUserName);
+      this.assignedUsersAfter.forEach(assignedUserName => {
+        for (let i = 0; i < this.originalContacts.length; i++) {
 
-        console.log('Length');
-        console.log(this.originalContacts.length);
-        console.log(this.assignedUsersAfter.length);
+          console.log('forName');
+          console.log(this.originalContacts[i].username);
+          console.log(assignedUserName);
 
-        if (this.originalContacts[i].username === assignedUserName) {
+          console.log('Length');
+          console.log(this.originalContacts.length);
+          console.log(this.assignedUsersAfter.length);
 
-          console.log('For ID');
-          console.log(this.originalContacts[i].id);
+          if (this.originalContacts[i].username === assignedUserName) {
 
-          const user: User = new User();
-          user.username = assignedUserName;
-          user.id = this.originalContacts[i].id;
-          this.assignedUsersAfterReal.push(user);
+            console.log('For ID');
+            console.log(this.originalContacts[i].id);
+
+            const user: User = new User();
+            user.username = assignedUserName;
+            user.id = this.originalContacts[i].id;
+            this.assignedUsersAfterReal.push(user);
+          }
         }
-      }
-    });
+      });
 
-    console.log('UsersReal');
-    console.log(this.assignedUsersAfterReal);
+      console.log('UsersReal');
+      console.log(this.assignedUsersAfterReal);
 
-    this.todoService.addAssignees(this.todo.id, this.assignedUsersAfterReal);
+      this.todoService.addAssignees(this.todo.id, this.assignedUsersAfterReal);
+
+    }
 
   }
 }
