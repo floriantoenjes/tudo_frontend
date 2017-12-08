@@ -26,21 +26,28 @@ export class TodoComponent implements OnInit {
       this.todoService.getTodo(+params['todoId']).then(response => {
         this.todo = response;
         this.assignedUsers = this.todo['assignedUsers'];
+
+        this.getContacts();
       });
     });
 
+  }
+
+  getContacts(): void {
     this.userService.getContacts().then(response => {
       this.contacts = response;
+      this.filterContactsForAssignedUsers();
+    });
+  }
 
-      this.contacts = this.contacts.filter(contact => {
-        for (let i = 0; i < this.assignedUsers.length; i++) {
-          if (this.assignedUsers[i].username === contact.username) {
-            return false;
-          }
+  filterContactsForAssignedUsers(): void {
+    this.contacts = this.contacts.filter(contact => {
+      for (let i = 0; i < this.assignedUsers.length; i++) {
+        if (this.assignedUsers[i].username === contact.username) {
+          return false;
         }
-        return true;
-      });
-
+      }
+      return true;
     });
   }
 
