@@ -16,6 +16,7 @@ export class TodoComponent implements OnInit {
   contacts: User[];
   assignedUsers: User[];
   assignedUsersAfter: User[];
+  tags: String;
 
   constructor(private todoService: TodoService, private userService: UserService, private route: ActivatedRoute, private router: Router) {
     this.todo.todoForm = new TodoForm();
@@ -29,6 +30,8 @@ export class TodoComponent implements OnInit {
         this.assignedUsers = this.todo['assignedUsers'];
 
         this.getContacts();
+
+        this.tags = response.tags.toString();
       });
     });
 
@@ -53,11 +56,8 @@ export class TodoComponent implements OnInit {
   }
 
   onSubmit() {
+    this.todo.tags = this.tags.split(',');
     this.todoService.updateTodo(this.todo).then(response => {
-
-      console.log('Assigned User:');
-      console.log(this.assignedUsersAfter);
-
       this.router.navigateByUrl('todo_list/1');
     });
   }
