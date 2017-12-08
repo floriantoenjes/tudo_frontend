@@ -16,7 +16,6 @@ export class TodoComponent implements OnInit {
   contacts: User[];
   assignedUsers: User[];
   assignedUsersAfter: String[];
-  assignedUsersAfterReal: User[] = [];
   originalContacts: User[];
   tags: String;
 
@@ -66,7 +65,7 @@ export class TodoComponent implements OnInit {
       this.router.navigateByUrl('todo_list/1');
     });
 
-    this.assignedUsersAfterReal = [];
+    const assignedUsersAfterReal = [];
 
     if (this.assignedUsersAfter) {
 
@@ -76,13 +75,13 @@ export class TodoComponent implements OnInit {
             const user: User = new User();
             user.username = assignedUserName;
             user.id = this.originalContacts[i].id;
-            this.assignedUsersAfterReal.push(user);
+            assignedUsersAfterReal.push(user);
           }
         }
       });
 
 
-      this.todoService.addAssignees(this.todo.id, this.assignedUsersAfterReal);
+      this.todoService.addAssignees(this.todo.id, assignedUsersAfterReal);
 
     }
 
