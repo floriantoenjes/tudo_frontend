@@ -28,6 +28,7 @@ export class TodoComponent implements OnInit {
       this.todoListId = +params['todoListId'];
       this.todoService.getTodo(+params['todoId']).then(todo => {
         this.todo = todo;
+
         const assignedUsers: User[] = todo['assignedUsers'];
         this.assignedUsers = assignedUsers;
 
@@ -64,25 +65,21 @@ export class TodoComponent implements OnInit {
       this.router.navigateByUrl('todo_list/1');
     });
 
-    const assignedUsersAfterReal = [];
+    const newAssignedUsers = [];
 
+    // ToDo: Refactor with single responsibility principle in mind
     if (this.assignedUsersBinding) {
-
       this.assignedUsersBinding.forEach(assignedUserName => {
         for (let i = 0; i < this.contacts.length; i++) {
           if (this.contacts[i].username === assignedUserName) {
             const user: User = new User();
             user.username = assignedUserName;
             user.id = this.contacts[i].id;
-            assignedUsersAfterReal.push(user);
+            newAssignedUsers.push(user);
           }
         }
       });
-
-
-      this.todoService.addAssignees(this.todo.id, assignedUsersAfterReal);
-
+      this.todoService.addAssignees(this.todo.id, newAssignedUsers);
     }
-
   }
 }
