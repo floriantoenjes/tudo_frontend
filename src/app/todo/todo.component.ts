@@ -17,8 +17,8 @@ export class TodoComponent implements OnInit {
   assignedUsers: User[];
   assignedUsersAfter: String[];
   assignedUsersAfterReal: User[] = [];
-  tags: String;
   originalContacts: User[];
+  tags: String;
 
   constructor(private todoService: TodoService, private userService: UserService, private route: ActivatedRoute, private router: Router) {
     this.todo.todoForm = new TodoForm();
@@ -27,30 +27,32 @@ export class TodoComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.todoListId = +params['todoListId'];
-      this.todoService.getTodo(+params['todoId']).then(response => {
-        this.todo = response;
-        this.assignedUsers = this.todo['assignedUsers'];
+      this.todoService.getTodo(+params['todoId']).then(todo => {
+        this.todo = todo;
+        const assignedUsers: User[] = todo['assignedUsers'];
+        this.assignedUsers = assignedUsers;
 
-        this.getContacts();
+        this.getContacts().then(contacts => {
+          this.contacts = contacts;
+          this.originalContacts = contacts;
+          this.contacts = this.filterContactsForAssignedUsers(contacts, assignedUsers);
+        });
 
-        this.tags = response.tags.toString();
+        this.tags = todo.tags.toString();
       });
     });
-
   }
 
-  getContacts(): void {
-    this.userService.getContacts().then(response => {
-      this.contacts = response;
-      this.originalContacts = response;
-      this.filterContactsForAssignedUsers();
+  getContacts(): Promise<User[]> {
+    return this.userService.getContacts().then(response => {
+      return response;
     });
   }
 
-  filterContactsForAssignedUsers(): void {
-    this.contacts = this.contacts.filter(contact => {
-      for (let i = 0; i < this.assignedUsers.length; i++) {
-        if (this.assignedUsers[i].username === contact.username) {
+  filterContactsForAssignedUsers(contacts: User[], assignedUsers: User[]): User[] {
+    return contacts.filter(contact => {
+      for (let i = 0; i < assignedUsers.length; i++) {
+        if (assignedUsers[i].username === contact.username) {
           return false;
         }
       }
@@ -66,27 +68,11 @@ export class TodoComponent implements OnInit {
 
     this.assignedUsersAfterReal = [];
 
-    console.log('UsersAfter');
-    console.log(this.assignedUsersAfter);
-
     if (this.assignedUsersAfter) {
 
       this.assignedUsersAfter.forEach(assignedUserName => {
         for (let i = 0; i < this.originalContacts.length; i++) {
-
-          console.log('forName');
-          console.log(this.originalContacts[i].username);
-          console.log(assignedUserName);
-
-          console.log('Length');
-          console.log(this.originalContacts.length);
-          console.log(this.assignedUsersAfter.length);
-
           if (this.originalContacts[i].username === assignedUserName) {
-
-            console.log('For ID');
-            console.log(this.originalContacts[i].id);
-
             const user: User = new User();
             user.username = assignedUserName;
             user.id = this.originalContacts[i].id;
@@ -95,8 +81,6 @@ export class TodoComponent implements OnInit {
         }
       });
 
-      console.log('UsersReal');
-      console.log(this.assignedUsersAfterReal);
 
       this.todoService.addAssignees(this.todo.id, this.assignedUsersAfterReal);
 
