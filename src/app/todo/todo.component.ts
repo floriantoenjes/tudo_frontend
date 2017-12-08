@@ -14,6 +14,7 @@ export class TodoComponent implements OnInit {
   todoListId: Number;
   todo: Todo = new Todo();
   contacts: User[];
+  assignedUsers: User[];
 
   constructor(private todoService: TodoService, private userService: UserService, private route: ActivatedRoute, private router: Router) {
     this.todo.todoForm = new TodoForm();
@@ -24,17 +25,31 @@ export class TodoComponent implements OnInit {
       this.todoListId = +params['todoListId'];
       this.todoService.getTodo(+params['todoId']).then(response => {
         this.todo = response;
+        this.assignedUsers = this.todo['assignedUsers'];
       });
     });
 
     this.userService.getContacts().then(response => {
       this.contacts = response;
+
+      this.contacts = this.contacts.filter(contact => {
+        for (let i = 0; i < this.assignedUsers.length; i++) {
+          if (this.assignedUsers[i].username === contact.username) {
+            return false;
+          }
+        }
+        return true;
+      });
+
     });
   }
 
   onSubmit() {
     this.todoService.updateTodo(this.todo).then(response => {
-      console.log(response);
+
+      console.log('Assigned User:');
+      console.log(this.assignedUsers);
+
       this.router.navigateByUrl('todo_list/1');
     });
   }
