@@ -4,6 +4,7 @@ import {TodoList} from './todo-list.model';
 import {Todo} from './todo.model';
 import {TodoForm} from './todo-form.model';
 import {TodoHead} from './todo-head.model';
+import {User} from './user.model';
 
 @Injectable()
 export class TodoService {
@@ -142,8 +143,19 @@ export class TodoService {
       });
   }
 
-  addAssignee(todoId: Number, assigneeId: Number): Promise<void> {
-    return this.http.put(`http://localhost:8080/api/v1/todos/${todoId}/assignedUsers`, '', {
+  addAssignees(todoId: Number, assignees: User[]): Promise<void> {
+
+    let body: String = '';
+
+    assignees.forEach(assignee => {
+      body += `http://localhost:8080/api/v1/users/${assignee.id}\n`;
+    });
+
+    console.log('Body:');
+    console.log(body);
+
+    return this.http.put(`http://localhost:8080/api/v1/todos/${todoId}/assignedUsers`,
+      body, {
       headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
         .set('Content-Type', 'text/uri-list')
     })
