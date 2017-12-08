@@ -19,9 +19,9 @@
     <tr>
       <th>Assignee:</th>
       <td>
-        <select multiple>
+        <select multiple [(ngModel)]="assignedUsersAfter" name="assignedUsersAfter">
           <option *ngFor="let contact of contacts">{{contact.username}}</option>
-          <option *ngFor="let assignedUser of assignedUsers" selected="selected">{{assignedUser.username}}</option>
+          <option *ngFor="let assignedUser of assignedUsers" selected="selected" >{{assignedUser.username}}</option>
         </select>
       </td>
     </tr>
