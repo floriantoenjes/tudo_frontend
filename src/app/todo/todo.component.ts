@@ -60,5 +60,11 @@ export class TodoComponent implements OnInit {
     this.todoService.updateTodo(this.todo).then(response => {
       this.router.navigateByUrl('todo_list/1');
     });
+
+    this.assignedUsersAfter.forEach(assignedUserAfter => {
+      if (!this.assignedUsers.includes(assignedUserAfter)) {
+        this.todoService.addAssignee(this.todo.id, assignedUserAfter.id);
+      }
+    });
   }
 }
