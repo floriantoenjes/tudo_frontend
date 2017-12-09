@@ -46,6 +46,7 @@ export class UserService {
       });
   }
 
+  // ToDo: Extract into utilities class
   getId(restEntity: Object): Number {
     const selfLink = restEntity['_links']['self']['href'];
     const splitted = selfLink.split('/');
