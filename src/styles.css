@@ -84,3 +84,7 @@ h2 {
 .contact-request-table td {
   padding: 0.25em;
 }
+
+.todo-list-form {
+  margin-top: 1em;
+}
