@@ -143,7 +143,7 @@ export class TodoService {
       });
   }
 
-  addAssignees(todoId: Number, assignees: User[]): Promise<void> {
+  addAssignees(todoId: Number, assignees: User[]): Promise<Object> {
 
     let body: String = '';
 
@@ -161,8 +161,7 @@ export class TodoService {
     })
       .toPromise()
       .then(response => {
-        console.log('Response:');
-        console.log(response);
+        return response;
       });
   }
 

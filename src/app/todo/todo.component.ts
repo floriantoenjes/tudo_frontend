@@ -61,15 +61,16 @@ export class TodoComponent implements OnInit {
 
   onSubmit() {
     this.todo.tags = this.tags.split(',');
+    this.todo.tags = this.todo.tags.map(tag => tag.trim());
 
     this.todoService.updateTodo(this.todo).then(response => {
       this.router.navigateByUrl('todo_list/1');
     });
 
     const newAssignedUsers = [];
-    this.mapToUserModel(this.assignedUsersBinding, newAssignedUsers);
 
     if (this.assignedUsersBinding !== undefined) {
+      this.mapToUserModel(this.assignedUsersBinding, newAssignedUsers);
       this.todoService.addAssignees(this.todo.id, newAssignedUsers);
     }
   }
