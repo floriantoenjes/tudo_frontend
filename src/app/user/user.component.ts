@@ -8,7 +8,9 @@ import {ActivatedRoute} from '@angular/router';
   templateUrl: './user.component.html'
 })
 export class UserComponent implements OnInit {
-  user: User;
+  user: User = new User();
+  contacts: User[];
+  isContact: Boolean;
 
   constructor(private userService: UserService, private route: ActivatedRoute) {
   }
@@ -18,6 +20,16 @@ export class UserComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.userService.getUser(+params['userId']).then(response => {
         this.user = response;
+
+        this.userService.getContacts().then(contacts => {
+          this.contacts = contacts;
+          this.contacts.forEach(contact => {
+            if (contact.username === this.user.username) {
+              this.isContact = true;
+              return;
+            }
+          });
+        });
       });
     });
   }

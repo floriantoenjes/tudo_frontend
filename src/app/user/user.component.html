@@ -1,7 +1,11 @@
 <div class="col-sm-6 text-center user-detail-container">
   <h2>{{user.username}}</h2>
-  <p>Florian is a contact.</p>
-  <p>Florian is not a contact yet.</p>
-  <button class="btn btn-success">Send contact request</button>
-  <button class="btn btn-danger">Remove</button>
+  <div *ngIf="isContact">
+    <p>Florian is a contact.</p>
+    <button class="btn btn-danger">Remove</button>
+  </div>
+  <div *ngIf="!isContact">
+    <p >Florian is not a contact yet.</p>
+    <button class="btn btn-success">Send contact request</button>
+  </div>
 </div>
