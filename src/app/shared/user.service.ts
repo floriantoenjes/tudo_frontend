@@ -17,11 +17,10 @@ export class UserService {
         const users: User[] = response['_embedded']['users'];
 
         users.forEach(user => {
-          const selfLink: String = user['_links']['self']['href'];
-          user.id = Number(selfLink.substr(selfLink.length - 1, 1));
+          user.id = this.getId(user);
         });
 
-        return response['_embedded']['users'] as User[];
+        return users;
       });
   }
 
@@ -45,5 +44,15 @@ export class UserService {
       .then(response => {
         return response['_embedded']['users'] as User[];
       });
+  }
+
+  getId(restEntity: Object): Number {
+    const selfLink = restEntity['_links']['self']['href'];
+    const splitted = selfLink.split('/');
+    if (splitted[splitted.length - 1] === '') {
+      return Number(splitted[splitted.length - 2]);
+    } else {
+      return Number(splitted[splitted.length - 1]);
+    }
   }
 }
