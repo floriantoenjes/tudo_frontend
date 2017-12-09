@@ -11,6 +11,7 @@ export class UserComponent implements OnInit {
   user: User = new User();
   contacts: User[];
   isContact: Boolean;
+  isContactRequestSent: Boolean;
   loaded: Boolean = false;
 
   constructor(private userService: UserService, private route: ActivatedRoute) {
@@ -37,6 +38,8 @@ export class UserComponent implements OnInit {
   }
 
   sendContactRequest(): void {
-    this.userService.sendContactRequest(this.user);
+    this.userService.sendContactRequest(this.user).then(response => {
+      this.isContactRequestSent = true;
+    });
   }
 }
