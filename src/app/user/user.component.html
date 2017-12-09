@@ -1,4 +1,4 @@
-<div class="col-sm-6 text-center user-detail-container">
+<div *ngIf="loaded" class="col-sm-6 text-center user-detail-container">
   <h2>{{user.username}}</h2>
   <div *ngIf="isContact">
     <p>Florian is a contact.</p>

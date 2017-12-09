@@ -11,6 +11,7 @@ export class UserComponent implements OnInit {
   user: User = new User();
   contacts: User[];
   isContact: Boolean;
+  loaded: Boolean = false;
 
   constructor(private userService: UserService, private route: ActivatedRoute) {
   }
@@ -29,6 +30,7 @@ export class UserComponent implements OnInit {
               return;
             }
           });
+          this.loaded = true;
         });
       });
     });
