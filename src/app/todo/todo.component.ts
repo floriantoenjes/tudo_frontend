@@ -22,6 +22,8 @@ export class TodoComponent implements OnInit {
   contacts: User[];
   tags: String;
 
+  wasCompleted: Boolean;
+
   constructor(private todoService: TodoService, private userService: UserService, private route: ActivatedRoute, private router: Router) {
     this.todo.todoForm = new TodoForm();
   }
@@ -36,6 +38,9 @@ export class TodoComponent implements OnInit {
 
       this.todoService.getTodo(+params['todoId']).then(todo => {
         this.todo = todo;
+        if (this.todo.todoForm.completed) {
+          this.wasCompleted = true;
+        }
 
         const assignedUsers: User[] = todo['assignedUsers'];
         this.assignedUsers = assignedUsers;
@@ -70,6 +75,12 @@ export class TodoComponent implements OnInit {
   onSubmit() {
     this.todo.tags = this.tags.split(',');
     this.todo.tags = this.todo.tags.map(tag => tag.trim());
+
+    if (!this.wasCompleted && this.todo.todoForm.completed) {
+      this.todo.todoForm.completedAt = new Date();
+    } else if (this.wasCompleted && !this.todo.todoForm.completed) {
+      this.todo.todoForm.completedAt = null;
+    }
 
     this.todoService.updateTodo(this.todo).then(response => {
       this.router.navigateByUrl('todo_list/1');
