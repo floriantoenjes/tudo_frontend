@@ -21,16 +21,15 @@ export class TodoService {
         const todoLists: TodoList[] = response['_embedded']['todoLists'] as TodoList[];
 
         todoLists.forEach(todoList => {
-          todoList.id = this.getId(todoList._links);
+          todoList.id = this.getId(todoList);
         });
 
-        console.log(todoLists);
         return response['_embedded']['todoLists'] as TodoList[];
       });
   }
 
-  getId(_links: Object): Number {
-    const selfLink = _links['self']['href'];
+  getId(restEntity: Object): Number {
+    const selfLink = restEntity['_links']['self']['href'];
     const splitted = selfLink.split('/');
     if (splitted[splitted.length - 1] === '') {
       return Number(splitted[splitted.length - 2]);
@@ -57,8 +56,7 @@ export class TodoService {
       .toPromise()
       .then(response => {
         const newTodoList: TodoList = response as TodoList;
-        const selfLink: String = newTodoList._links['self']['href'];
-        newTodoList.id = Number(selfLink.substr(selfLink.length - 1, 1));
+        newTodoList.id = this.getId(response);
 
         return newTodoList;
       });
@@ -74,11 +72,8 @@ export class TodoService {
         const todos: Todo[] = response['_embedded']['todos'];
 
         todos.forEach(todo => {
-          const selfLink: String = todo['_links']['self']['href'];
-          // ToDo: Use split instead of last digit to fetch values with many digits and not only one
-          todo.id = Number(selfLink.substr(selfLink.length - 1, 1));
+          todo.id = this.getId(todo);
         });
-        console.log(todos);
         return todos;
       });
   }
@@ -91,9 +86,7 @@ export class TodoService {
       .toPromise()
       .then(response => {
         const todo: Todo = response as Todo;
-
-        const selfLink: String = todo['_links']['self']['href'];
-        todo.id = Number(selfLink.substr(selfLink.length - 1, 1));
+        todo.id = this.getId(response);
 
         return todo;
       });
