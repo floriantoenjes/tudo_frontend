@@ -25,13 +25,21 @@ export class UserComponent implements OnInit {
 
         this.userService.getContacts().then(contacts => {
           this.contacts = contacts;
-          this.contacts.forEach(contact => {
-            if (contact.username === this.user.username) {
-              this.isContact = true;
-              return;
-            }
+
+          this.userService.getContactRequest(this.user.id).then(res => {
+            this.isContactRequestSent = true;
+            return;
+          }).catch( error => {
+          }).then( obj => {
+            this.contacts.forEach(contact => {
+              if (contact.username === this.user.username) {
+                this.isContact = true;
+                return;
+              }
+            });
+            this.loaded = true;
           });
-          this.loaded = true;
+
         });
       });
     });

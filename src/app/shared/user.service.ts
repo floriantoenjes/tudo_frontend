@@ -62,6 +62,17 @@ export class UserService {
       });
   }
 
+  getContactRequest(userId: Number): Promise<Object> {
+    return this.http.get(
+      `http://localhost:8080/api/v1/contactRequests/search/findBySenderIdAndReceiverId?senderId=1&receiverId=${userId}`, {
+      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+    })
+      .toPromise()
+      .then(response => {
+        return response;
+      });
+  }
+
   // ToDo: Extract into utilities class
   getId(restEntity: Object): Number {
     const selfLink = restEntity['_links']['self']['href'];
