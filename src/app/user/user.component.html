@@ -2,7 +2,7 @@
   <h2>{{user.username}}</h2>
   <div *ngIf="isContact">
     <p>Florian is a contact.</p>
-    <button class="btn btn-danger">Remove</button>
+    <button class="btn btn-danger" (click)="removeContact()">Remove</button>
   </div>
   <div *ngIf="isContactRequestSent">
     <p>Contact request sent.</p>

@@ -50,4 +50,11 @@ export class UserComponent implements OnInit {
       this.isContactRequestSent = true;
     });
   }
+
+  removeContact(): void {
+    this.userService.removeContact(this.user.id).then(response => {
+      this.isContactRequestSent = false;
+      this.isContact = false;
+    });
+  }
 }

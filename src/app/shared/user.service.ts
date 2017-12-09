@@ -73,6 +73,17 @@ export class UserService {
       });
   }
 
+  removeContact(userId: Number): Promise<Object> {
+    return this.http.delete(`http://localhost:8080/api/v1/users/1/contacts/${userId}`, {
+      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+        .set('Content-Type', 'application/json')
+    })
+      .toPromise()
+      .then(response => {
+        return response;
+      });
+  }
+
   // ToDo: Extract into utilities class
   getId(restEntity: Object): Number {
     const selfLink = restEntity['_links']['self']['href'];
