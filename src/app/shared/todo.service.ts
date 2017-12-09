@@ -40,6 +40,21 @@ export class TodoService {
       });
   }
 
+  addTodoList(todoList: TodoList): Promise<TodoList> {
+    return this.http.post('http://localhost:8080/api/v1/todoLists/', todoList, {
+      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+        .set('Content-Type', 'application/json')
+    })
+      .toPromise()
+      .then(response => {
+        const newTodoList: TodoList = response as TodoList;
+        const selfLink: String = newTodoList._links['self']['href'];
+        newTodoList.id = Number(selfLink.substr(selfLink.length - 1, 1));
+
+        return newTodoList;
+      });
+  }
+
   getTodos(todoListId: Number): Promise<Todo[]> {
     return this.http.get(`http://localhost:8080/api/v1/todoLists/${todoListId}/todos?projection=todoProjection`, {
       headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
