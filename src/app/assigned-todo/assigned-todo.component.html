@@ -1,5 +1,5 @@
 <div class="col-sm-12 text-center">
-  <h4 class="todo-list-backlink"><a href="list.html">My Second Todo List</a></h4>
+  <h4 class="todo-list-backlink"><a routerLink="/assigned_todo_list">Assigned Todos</a></h4>
   <h2>{{todo.name}}</h2>
 </div>
 <table class="todo-attribute-table">
@@ -18,7 +18,7 @@
   <tr>
     <th>Assignee:</th>
     <td>
-      {{todo.assignedUsers[0].username}}
+      {{assignedUsers}}
     </td>
   </tr>
   <tr>
@@ -46,7 +46,7 @@
   <tr>
     <th>Tags:</th>
     <td>
-      <p>{{todo.tags}}</p>
+      {{tags}}
     </td>
   </tr>
   <tr>

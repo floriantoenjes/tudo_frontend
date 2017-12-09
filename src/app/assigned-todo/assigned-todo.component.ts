@@ -9,6 +9,8 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class AssignedTodoComponent implements OnInit {
   todo: Todo;
+  tags: String;
+  assignedUsers: String = '';
 
 
   constructor(private todoService: TodoService, private route: ActivatedRoute) {
@@ -18,6 +20,13 @@ export class AssignedTodoComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.todoService.getTodo(+params['todoId']).then(response => {
         this.todo = response;
+        this.tags = this.todo.tags.join(', ');
+
+        const assignedUsernames: String[] = [];
+        this.todo['assignedUsers'].forEach(assignedUser => {
+          assignedUsernames.push(assignedUser.username);
+        });
+        this.assignedUsers = assignedUsernames.join(', ');
       });
     });
   }
