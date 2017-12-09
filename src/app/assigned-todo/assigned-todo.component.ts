@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Todo} from '../shared/todo.model';
 import {TodoService} from '../shared/todo.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {TodoForm} from '../shared/todo-form.model';
 
 @Component({
@@ -13,8 +13,10 @@ export class AssignedTodoComponent implements OnInit {
   tags: String;
   assignedUsers: String = '';
 
+  wasCompleted: Boolean;
 
-  constructor(private todoService: TodoService, private route: ActivatedRoute) {
+
+  constructor(private todoService: TodoService, private route: ActivatedRoute, private router: Router) {
     this.todo.todoForm = new TodoForm();
   }
 
@@ -23,6 +25,10 @@ export class AssignedTodoComponent implements OnInit {
       this.todoService.getTodo(+params['todoId']).then(response => {
         this.todo = response;
         this.tags = this.todo.tags.join(', ');
+
+        if (this.todo.todoForm.completed) {
+          this.wasCompleted = true;
+        }
 
         const assignedUsernames: String[] = [];
         this.todo['assignedUsers'].forEach(assignedUser => {
@@ -34,6 +40,11 @@ export class AssignedTodoComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if (!this.wasCompleted && this.todo.todoForm.completed) {
+      this.todo.todoForm.completedAt = new Date();
+    } else if (this.wasCompleted && !this.todo.todoForm.completed) {
+      this.todo.todoForm.completedAt = null;
+    }
 
   }
 }

@@ -57,12 +57,12 @@
     <tr>
       <th>Completed:</th>
       <td>
-        <input type="checkbox" [(ngModel)]="todo.todoForm.completed"/>
+        <input type="checkbox" name="completed" [(ngModel)]="todo.todoForm.completed"/>
       </td>
     </tr>
   </table>
   <div class="text-center btn-list">
-    <button type="button" class="btn btn-success">Save</button>
+    <button type="submit" class="btn btn-success">Save</button>
     <button type="button" class="btn btn-danger">Delete</button>
   </div>
 </form>
