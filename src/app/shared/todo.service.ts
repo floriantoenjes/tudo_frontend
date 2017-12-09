@@ -21,13 +21,22 @@ export class TodoService {
         const todoLists: TodoList[] = response['_embedded']['todoLists'] as TodoList[];
 
         todoLists.forEach(todoList => {
-          const selfLink: String = todoList._links['self']['href'];
-          todoList.id = Number(selfLink.substr(selfLink.length - 1, 1));
+          todoList.id = this.getId(todoList._links);
         });
 
         console.log(todoLists);
         return response['_embedded']['todoLists'] as TodoList[];
       });
+  }
+
+  getId(_links: Object): Number {
+    const selfLink = _links['self']['href'];
+    const splitted = selfLink.split('/');
+    if (splitted[splitted.length - 1] === '') {
+      return Number(splitted[splitted.length - 2]);
+    } else {
+      return Number(splitted[splitted.length - 1]);
+    }
   }
 
   getTodoList(todoListId: Number): Promise<TodoList> {
