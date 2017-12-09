@@ -13,14 +13,14 @@ import {TodoList} from '../shared/todo-list.model';
 })
 export class TodoComponent implements OnInit {
   todoListId: Number;
+  todoList: TodoList = new TodoList();
+
   todo: Todo = new Todo();
   filteredContacts: User[];
   assignedUsers: User[];
   assignedUsersBinding: String[];
   contacts: User[];
   tags: String;
-
-  todoList: TodoList;
 
   constructor(private todoService: TodoService, private userService: UserService, private route: ActivatedRoute, private router: Router) {
     this.todo.todoForm = new TodoForm();
