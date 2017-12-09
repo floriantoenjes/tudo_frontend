@@ -37,7 +37,7 @@ export class TodoComponent implements OnInit {
           this.filteredContacts = this.filterContactsForAssignedUsers(contacts, assignedUsers);
         });
 
-        this.tags = todo.tags.toString();
+        this.tags = todo.tags.join(', ');
       });
     });
   }
