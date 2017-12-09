@@ -46,5 +46,9 @@ export class AssignedTodoComponent implements OnInit {
       this.todo.todoForm.completedAt = null;
     }
 
+    this.todoService.updateTodoForm(this.todo.todoForm).then(response => {
+      this.router.navigateByUrl('assigned_todo_list');
+    });
+
   }
 }

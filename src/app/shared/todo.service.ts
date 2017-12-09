@@ -157,6 +157,17 @@ export class TodoService {
     });
   }
 
+  updateTodoForm(todoForm: TodoForm): Promise<TodoForm> {
+    return this.http.put(`http://localhost:8080/api/v1/todoForms/${todoForm.id}`, todoForm, {
+      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+        .set('Content-Type', 'application/json')
+    })
+      .toPromise()
+      .then(response => {
+        return response as TodoForm;
+      });
+  }
+
   clearAssignees(todoId: Number): Promise<void> {
     return this.http.put(`http://localhost:8080/api/v1/todos/${todoId}/assignedUsers`, '', {
       headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
@@ -182,9 +193,9 @@ export class TodoService {
 
     return this.http.put(`http://localhost:8080/api/v1/todos/${todoId}/assignedUsers`,
       body, {
-      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
-        .set('Content-Type', 'text/uri-list')
-    })
+        headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+          .set('Content-Type', 'text/uri-list')
+      })
       .toPromise()
       .then(response => {
         return response;
