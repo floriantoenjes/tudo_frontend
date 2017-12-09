@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {TodoForm} from '../shared/todo-form.model';
 import {User} from '../shared/user.model';
 import {UserService} from '../shared/user.service';
+import {TodoList} from '../shared/todo-list.model';
 
 @Component({
   selector: 'app-todo',
@@ -19,6 +20,8 @@ export class TodoComponent implements OnInit {
   contacts: User[];
   tags: String;
 
+  todoList: TodoList;
+
   constructor(private todoService: TodoService, private userService: UserService, private route: ActivatedRoute, private router: Router) {
     this.todo.todoForm = new TodoForm();
   }
@@ -26,6 +29,11 @@ export class TodoComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.todoListId = +params['todoListId'];
+
+      this.todoService.getTodoList(this.todoListId).then(response => {
+        this.todoList = response;
+      });
+
       this.todoService.getTodo(+params['todoId']).then(todo => {
         this.todo = todo;
 
