@@ -30,6 +30,16 @@ export class TodoService {
       });
   }
 
+  getTodoList(todoListId: Number): Promise<TodoList> {
+    return this.http.get(`http://localhost:8080/api/v1/todoLists/${todoListId}`, {
+      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+    })
+      .toPromise().then(response => {
+        return response as TodoList;
+      });
+  }
+
   getTodos(todoListId: Number): Promise<Todo[]> {
     return this.http.get(`http://localhost:8080/api/v1/todoLists/${todoListId}/todos?projection=todoProjection`, {
       headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
