@@ -35,4 +35,8 @@ export class UserComponent implements OnInit {
       });
     });
   }
+
+  sendContactRequest(): void {
+    this.userService.sendContactRequest(this.user);
+  }
 }

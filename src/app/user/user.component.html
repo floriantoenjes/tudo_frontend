@@ -6,6 +6,6 @@
   </div>
   <div *ngIf="!isContact">
     <p >Florian is not a contact yet.</p>
-    <button class="btn btn-success">Send contact request</button>
+    <button class="btn btn-success" (click)="sendContactRequest()">Send contact request</button>
   </div>
 </div>
