@@ -103,11 +103,10 @@ export class TodoService {
         const todos: Todo[] = response['_embedded']['todos'] as Todo[];
 
         todos.forEach(todo => {
-          const selfLink: String = todo['_links']['self']['href'];
-          todo.id = Number(selfLink.substr(selfLink.length - 1, 1));
+          todo.id = this.getId(todo);
         });
 
-        return response['_embedded']['todos'] as Todo[];
+        return todos;
       });
   }
 
