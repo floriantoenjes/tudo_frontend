@@ -18,4 +18,10 @@ export class AssignedTodoListComponent implements OnInit {
       this.todos = todos;
     });
   }
+
+  updateTodo(todo: Todo): void {
+    this.todoService.updateTodo(todo).then(updatedTodo => {
+      console.log(updatedTodo);
+    });
+  }
 }
