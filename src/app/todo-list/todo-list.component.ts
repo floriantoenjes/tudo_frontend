@@ -9,7 +9,7 @@ import {TodoList} from '../shared/todo-list.model';
   templateUrl: 'todo-list.component.html'
 })
 export class TodoListComponent implements OnInit {
-  todoList: TodoList;
+  todoList: TodoList =  new TodoList();
   todos: Todo[];
 
   constructor(private todoService: TodoService, private route: ActivatedRoute) {
@@ -24,6 +24,12 @@ export class TodoListComponent implements OnInit {
       this.todoService.getTodos(+params['todoListId']).then(response => {
         this.todos = response;
       });
+    });
+  }
+
+  updateTodo(todo: Todo): void {
+    this.todoService.updateTodo(todo).then(updatedTodo => {
+      console.log(updatedTodo);
     });
   }
 }
