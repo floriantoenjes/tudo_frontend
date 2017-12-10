@@ -8,9 +8,9 @@
       <th>Accept</th>
       <th>Decline</th>
     </tr>
-    <tr>
-      <td>Paul</td>
-      <td>05.12.2017</td>
+    <tr *ngFor="let contactRequest of contactRequests">
+      <td>{{contactRequest.sender.username}}</td>
+      <td>{{contactRequest.sendAt}}</td>
       <td>
         <button class="btn btn-success">Accept</button>
       </td>
@@ -18,26 +18,26 @@
         <button class="btn btn-danger">Decline</button>
       </td>
     </tr>
-    <tr>
-      <td>User1</td>
-      <td>05.12.2017</td>
-      <td>
-        <button class="btn btn-success">Accept</button>
-      </td>
-      <td>
-        <button class="btn btn-danger">Decline</button>
-      </td>
-    </tr>
-    <tr>
-      <td>User2</td>
-      <td>05.12.2017</td>
-      <td>
-        <button class="btn btn-success">Accept</button>
-      </td>
-      <td>
-        <button class="btn btn-danger">Decline</button>
-      </td>
-    </tr>
+    <!--<tr>-->
+      <!--<td>User1</td>-->
+      <!--<td>05.12.2017</td>-->
+      <!--<td>-->
+        <!--<button class="btn btn-success">Accept</button>-->
+      <!--</td>-->
+      <!--<td>-->
+        <!--<button class="btn btn-danger">Decline</button>-->
+      <!--</td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+      <!--<td>User2</td>-->
+      <!--<td>05.12.2017</td>-->
+      <!--<td>-->
+        <!--<button class="btn btn-success">Accept</button>-->
+      <!--</td>-->
+      <!--<td>-->
+        <!--<button class="btn btn-danger">Decline</button>-->
+      <!--</td>-->
+    <!--</tr>-->
 
   </table>
 </div>

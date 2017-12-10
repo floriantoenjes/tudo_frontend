@@ -70,7 +70,7 @@ export class UserService {
       })
       .toPromise()
       .then(response => {
-        return response as ContactRequest[];
+        return response['_embedded']['contactRequests'] as ContactRequest[];
       });
   }
 
