@@ -92,6 +92,17 @@ export class TodoService {
       });
   }
 
+  createTodo(todo: Todo): Promise<Todo> {
+    return this.http.post('http://localhost:8080/api/v1/todos', todo, {
+      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+        .set('Content-Type', 'application/json')
+    })
+      .toPromise()
+      .then(response => {
+        return response as Todo;
+      });
+  }
+
   getAssignedTodos(): Promise<Todo[]> {
     return this.http.get('http://localhost:8080/api/v1/todos/search/findAllByAssignedUsersContaining?assignee=/api/v1/users/3/' +
       '&projection=todoProjection', {

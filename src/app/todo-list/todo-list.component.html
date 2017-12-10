@@ -110,3 +110,10 @@
     <!--</td>-->
   <!--</tr>-->
 </table>
+
+<div class="text-center">
+  <form (submit)="onSubmit()">
+    <input type="text" name="newTodoName" [(ngModel)]="newTodo.name" placeholder="Enter todo name..." required/>
+    <button type="submit" class="btn btn-success">Add</button>
+  </form>
+</div>

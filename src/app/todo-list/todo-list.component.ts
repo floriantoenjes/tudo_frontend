@@ -11,6 +11,7 @@ import {TodoList} from '../shared/todo-list.model';
 export class TodoListComponent implements OnInit {
   todoList: TodoList =  new TodoList();
   todos: Todo[];
+  newTodo: Todo = new Todo();
 
   constructor(private todoService: TodoService, private route: ActivatedRoute) {
   }
@@ -30,6 +31,12 @@ export class TodoListComponent implements OnInit {
   updateTodo(todo: Todo): void {
     this.todoService.updateTodo(todo).then(updatedTodo => {
       console.log(updatedTodo);
+    });
+  }
+
+  onSubmit(): void {
+    this.todoService.createTodo(this.newTodo).then( response => {
+      console.log(response);
     });
   }
 }
