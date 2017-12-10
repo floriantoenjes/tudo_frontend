@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../shared/user.service';
 import {User} from '../shared/user.model';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -14,7 +14,7 @@ export class UserComponent implements OnInit {
   isContactRequestSent: Boolean;
   loaded: Boolean = false;
 
-  constructor(private userService: UserService, private route: ActivatedRoute) {
+  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) {
   }
 
 
@@ -53,8 +53,10 @@ export class UserComponent implements OnInit {
 
   removeContact(): void {
     this.userService.removeContact(this.user.id).then(response => {
-      this.isContactRequestSent = false;
-      this.isContact = false;
+      // this.isContactRequestSent = false;
+      // this.isContact = false;
+
+      this.router.navigateByUrl('/contacts');
     });
   }
 }

@@ -16,9 +16,9 @@ export class UserService {
       .then(response => {
         const users: User[] = response['_embedded']['users'];
 
-        users.forEach(user => {
-          user.id = this.getId(user);
-        });
+        // users.forEach(user => {
+        //   user.id = this.getId(user);
+        // });
 
         return users;
       });
