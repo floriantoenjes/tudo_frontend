@@ -12,7 +12,7 @@
       <td>{{contactRequest.sender.username}}</td>
       <td>{{contactRequest.sendAt}}</td>
       <td>
-        <button class="btn btn-success">Accept</button>
+        <button class="btn btn-success" (click)="acceptContact(contactRequest)">Accept</button>
       </td>
       <td>
         <button class="btn btn-danger">Decline</button>

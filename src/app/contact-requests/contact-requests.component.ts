@@ -18,4 +18,11 @@ export class ContactRequestsComponent implements OnInit {
     );
   }
 
+  acceptContact(contactRequest: ContactRequest): void {
+    this.userService.addContact(contactRequest.sender.id).then(response => {
+      const index = this.contactRequests.indexOf(contactRequest);
+      this.contactRequests.splice(index, 1);
+    });
+  }
+
 }

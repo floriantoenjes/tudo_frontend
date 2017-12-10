@@ -85,6 +85,19 @@ export class UserService {
       });
   }
 
+  addContact(userId: Number): Promise<void> {
+    const body: String = `http://localhost:8080/api/v1/users/${userId}`;
+
+    return this.http.post(`http://localhost:8080/api/v1/users/1/contacts`, body, {
+      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+        .set('Content-Type', 'text/uri-list')
+    })
+      .toPromise()
+      .then(response => {
+        console.log(response);
+      });
+  }
+
   removeContact(userId: Number): Promise<Object> {
     return this.http.delete(`http://localhost:8080/api/v1/users/1/contacts/${userId}`, {
       headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
