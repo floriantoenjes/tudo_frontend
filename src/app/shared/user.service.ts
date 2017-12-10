@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {User} from './user.model';
+import {ContactRequest} from './contact-request.model';
 
 @Injectable()
 export class UserService {
@@ -59,6 +60,17 @@ export class UserService {
       .toPromise()
       .then(response => {
         return response;
+      });
+  }
+
+  getContactRequests(): Promise<ContactRequest[]> {
+    return this.http.get(
+      'http://localhost:8080/api/v1/contactRequests/search/findAllByReceiverId?receiverId=1&projection=contactRequestProjection', {
+        headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+      })
+      .toPromise()
+      .then(response => {
+        return response as ContactRequest[];
       });
   }
 
