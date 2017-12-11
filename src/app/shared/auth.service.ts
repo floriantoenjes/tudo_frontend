@@ -30,6 +30,10 @@ export class AuthService {
       });
   }
 
+  signOut(): void {
+    localStorage.removeItem('token');
+  }
+
   getToken(): string {
     return localStorage.getItem('token');
   }
