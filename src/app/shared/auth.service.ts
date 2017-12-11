@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
+import {User} from './user.model';
 
 @Injectable()
 export class AuthService {
@@ -20,20 +21,40 @@ export class AuthService {
       .then(response => {
         const jwt = response.headers.get('Authorization');
 
-        console.log(jwt);
-        const base64Url = jwt.split('.')[1];
-        const base64 = base64Url.replace('-', '+').replace('_', '/');
-        const decodedJWT = JSON.parse(window.atob(base64));
-
-        console.log(decodedJWT);
+        console.log(this.decodeJWT(jwt));
 
         this.setToken(jwt);
         return response;
       });
   }
 
+  getToken(): string {
+    return localStorage.getItem('token');
+  }
+
   setToken(token: string): void {
     localStorage.setItem('token', token);
+  }
+
+  decodeJWT(token: string): Object {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace('-', '+').replace('_', '/');
+    return JSON.parse(window.atob(base64));
+  }
+
+  isLoggedIn(): Boolean {
+    return this.getToken() !== null;
+  }
+
+  getCurrentUser(): User {
+    if (this.isLoggedIn()) {
+      const decodedToken: Object = this.decodeJWT(this.getToken());
+      const currentUser: User = new User();
+      currentUser.id = decodedToken['jti'];
+      currentUser.username = decodedToken['sub'];
+
+      return currentUser;
+    }
   }
 
 }
