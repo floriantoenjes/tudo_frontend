@@ -3,6 +3,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {TodoList} from './todo-list.model';
 import {Todo} from './todo.model';
 import {TodoForm} from './todo-form.model';
+import {TodoHead} from './todo-head.model';
+import {User} from './user.model';
 
 @Injectable()
 export class TodoService {
@@ -19,12 +21,44 @@ export class TodoService {
         const todoLists: TodoList[] = response['_embedded']['todoLists'] as TodoList[];
 
         todoLists.forEach(todoList => {
-          const selfLink: String = todoList._links['self']['href'];
-          todoList.id = Number(selfLink.substr(selfLink.length - 1, 1));
+          todoList.id = this.getId(todoList);
         });
 
-        console.log(todoLists);
         return response['_embedded']['todoLists'] as TodoList[];
+      });
+  }
+
+  getId(restEntity: Object): Number {
+    const selfLink = restEntity['_links']['self']['href'];
+    const splitted = selfLink.split('/');
+    if (splitted[splitted.length - 1] === '') {
+      return Number(splitted[splitted.length - 2]);
+    } else {
+      return Number(splitted[splitted.length - 1]);
+    }
+  }
+
+  getTodoList(todoListId: Number): Promise<TodoList> {
+    return this.http.get(`http://localhost:8080/api/v1/todoLists/${todoListId}`, {
+      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+    })
+      .toPromise().then(response => {
+        return response as TodoList;
+      });
+  }
+
+  addTodoList(todoList: TodoList): Promise<TodoList> {
+    return this.http.post('http://localhost:8080/api/v1/todoLists/', todoList, {
+      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+        .set('Content-Type', 'application/json')
+    })
+      .toPromise()
+      .then(response => {
+        const newTodoList: TodoList = response as TodoList;
+        newTodoList.id = this.getId(response);
+
+        return newTodoList;
       });
   }
 
@@ -38,10 +72,8 @@ export class TodoService {
         const todos: Todo[] = response['_embedded']['todos'];
 
         todos.forEach(todo => {
-          const selfLink: String = todo['_links']['self']['href'];
-          todo.id = Number(selfLink.substr(selfLink.length - 1, 1));
+          todo.id = this.getId(todo);
         });
-        console.log(todos);
         return todos;
       });
   }
@@ -53,7 +85,24 @@ export class TodoService {
     })
       .toPromise()
       .then(response => {
-        return response as Todo;
+        const todo: Todo = response as Todo;
+        todo.id = this.getId(response);
+
+        return todo;
+      });
+  }
+
+  createTodo(todo: Todo): Promise<Todo> {
+    return this.http.post('http://localhost:8080/api/v1/todos/?projection=todoProjection', todo, {
+      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+        .set('Content-Type', 'application/json')
+    })
+      .toPromise()
+      .then(response => {
+        const newTodo = response as Todo;
+        newTodo.id = this.getId(newTodo);
+
+        return newTodo;
       });
   }
 
@@ -68,11 +117,10 @@ export class TodoService {
         const todos: Todo[] = response['_embedded']['todos'] as Todo[];
 
         todos.forEach(todo => {
-          const selfLink: String = todo['_links']['self']['href'];
-          todo.id = Number(selfLink.substr(selfLink.length - 1, 1));
+          todo.id = this.getId(todo);
         });
 
-        return response['_embedded']['todos'] as Todo[];
+        return todos;
       });
   }
 
@@ -86,5 +134,87 @@ export class TodoService {
         return response as TodoForm;
       });
   }
+
+  updateTodo(todo: Todo): Promise<Todo> {
+    const todoHead: TodoHead = new TodoHead();
+    todoHead.name = todo.name;
+    todoHead.createdAt = todo.createdAt;
+    todoHead.description = todo.description;
+    todoHead.dueDate = todo.dueDate;
+    todoHead.location = todo.location;
+    todoHead.tags = todo.tags;
+
+    const todoForm: TodoForm = todo.todoForm;
+
+    const promises: Promise<Object>[] = [];
+
+    promises.push(this.http.put(`http://localhost:8080/api/v1/todos/${todo.id}`, todoHead, {
+      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+        .set('Content-Type', 'application/json')
+    })
+      .toPromise());
+
+    promises.push(this.http.put(`http://localhost:8080/api/v1/todoForms/${todoForm.id}`, todoForm, {
+      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+        .set('Content-Type', 'application/json')
+    })
+      .toPromise());
+
+    return Promise.all(promises).then(values => {
+      const newTodo: Todo = new Todo();
+      newTodo.todoForm = new TodoForm();
+
+      Object.assign(newTodo, values[0]);
+      Object.assign(newTodo.todoForm, values[1]);
+
+      return newTodo;
+    });
+  }
+
+  updateTodoForm(todoForm: TodoForm): Promise<TodoForm> {
+    return this.http.put(`http://localhost:8080/api/v1/todoForms/${todoForm.id}`, todoForm, {
+      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+        .set('Content-Type', 'application/json')
+    })
+      .toPromise()
+      .then(response => {
+        return response as TodoForm;
+      });
+  }
+
+  clearAssignees(todoId: Number): Promise<void> {
+    return this.http.put(`http://localhost:8080/api/v1/todos/${todoId}/assignedUsers`, '', {
+      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+        .set('Content-Type', 'text/uri-list')
+    })
+      .toPromise()
+      .then(response => {
+        console.log('Response:');
+        console.log(response);
+      });
+  }
+
+  addAssignees(todoId: Number, assignees: User[]): Promise<Object> {
+
+    let body: String = '';
+
+    assignees.forEach(assignee => {
+      body += `http://localhost:8080/api/v1/users/${assignee.id}\n`;
+    });
+
+    console.log('Body:');
+    console.log(body);
+
+    return this.http.put(`http://localhost:8080/api/v1/todos/${todoId}/assignedUsers`,
+      body, {
+        headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+          .set('Content-Type', 'text/uri-list')
+      })
+      .toPromise()
+      .then(response => {
+        return response;
+      });
+  }
+
 
 }

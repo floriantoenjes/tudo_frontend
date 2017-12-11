@@ -16,7 +16,8 @@ export class UsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.getUsers().then(response => {
-      this.users = response;
+      // ToDo: Change id to be the one of the signed in user
+      this.users = response.filter(user => user.id !== 1);
     });
   }
 }

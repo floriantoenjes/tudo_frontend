@@ -1,16 +1,20 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../shared/user.service';
 import {User} from '../shared/user.model';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html'
 })
 export class UserComponent implements OnInit {
-  user: User;
+  user: User = new User();
+  contacts: User[];
+  isContact: Boolean;
+  isContactRequestSent: Boolean;
+  loaded: Boolean = false;
 
-  constructor(private userService: UserService, private route: ActivatedRoute) {
+  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) {
   }
 
 
@@ -18,7 +22,41 @@ export class UserComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.userService.getUser(+params['userId']).then(response => {
         this.user = response;
+
+        this.userService.getContacts().then(contacts => {
+          this.contacts = contacts;
+
+          this.userService.getContactRequest(this.user.id).then(res => {
+            this.isContactRequestSent = true;
+            return;
+          }).catch( error => {
+          }).then( obj => {
+            this.contacts.forEach(contact => {
+              if (contact.username === this.user.username) {
+                this.isContact = true;
+                return;
+              }
+            });
+            this.loaded = true;
+          });
+
+        });
       });
+    });
+  }
+
+  sendContactRequest(): void {
+    this.userService.sendContactRequest(this.user).then(response => {
+      this.isContactRequestSent = true;
+    });
+  }
+
+  removeContact(): void {
+    this.userService.removeContact(this.user.id).then(response => {
+      // this.isContactRequestSent = false;
+      // this.isContact = false;
+
+      this.router.navigateByUrl('/contacts');
     });
   }
 }

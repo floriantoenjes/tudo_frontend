@@ -1,66 +1,68 @@
-<div class="col-sm-12 text-center">
-  <h4 class="todo-list-backlink"><a href="list.html">My Second Todo List</a></h4>
-  <h2>{{todo.name}}</h2>
-</div>
-<table class="todo-attribute-table">
-  <tr>
-    <th>Description:</th>
-    <td>
-      <p>{{todo.description}}</p>
-    </td>
-  </tr>
-  <tr>
-    <th>Progress in %:</th>
-    <td>
-      <input type="number" min="0" max="100" value="{{todo.todoForm.progress}}" />
-    </td>
-  </tr>
-  <tr>
-    <th>Assignee:</th>
-    <td>
-      {{todo.assignedUsers[0].username}}
-    </td>
-  </tr>
-  <tr>
-    <th>Created at:</th>
-    <td>
-      {{todo.createdAt}}
-    </td>
-  </tr>
-  <tr>
-    <th>Due date:</th>
-    <td>{{todo.dueDate}}</td>
-  </tr>
-  <tr>
-    <th>Last updated:</th>
-    <td>
-      {{todo.todoForm.lastUpdated}}
-    </td>
-  </tr>
-  <tr>
-    <th>Completed at:</th>
-    <td>
-      {{todo.todoForm.completedAt}}
-    </td>
-  </tr>
-  <tr>
-    <th>Tags:</th>
-    <td>
-      <p>{{todo.tags}}</p>
-    </td>
-  </tr>
-  <tr>
-    <th>Location:</th>
-    <td>{{todo.location}}</td>
-  </tr>
-  <tr>
-    <th>Completed:</th>
-    <td>
-      <input type="checkbox" [(ngModel)]="todo.todoForm.completed"/>
-    </td>
-  </tr>
-</table>
-<div class="text-center btn-list">
-  <button type="button" class="btn btn-success">Save</button>
-  <button type="button" class="btn btn-danger">Delete</button>
-</div>
+<form (submit)="onSubmit()">
+  <div class="col-sm-12 text-center">
+    <h4 class="todo-list-backlink"><a routerLink="/assigned_todo_list">Assigned Todos</a></h4>
+    <h2>{{todo.name}}</h2>
+  </div>
+  <table class="todo-attribute-table">
+    <tr>
+      <th>Description:</th>
+      <td>
+        <p>{{todo.description}}</p>
+      </td>
+    </tr>
+    <tr>
+      <th>Progress in %:</th>
+      <td>
+        <input type="number" min="0" max="100" name="progress" [(ngModel)]="todo.todoForm.progress" />
+      </td>
+    </tr>
+    <tr>
+      <th>Assignee:</th>
+      <td>
+        {{assignedUsers}}
+      </td>
+    </tr>
+    <tr>
+      <th>Created at:</th>
+      <td>
+        {{todo.createdAt}}
+      </td>
+    </tr>
+    <tr>
+      <th>Due date:</th>
+      <td>{{todo.dueDate}}</td>
+    </tr>
+    <tr>
+      <th>Last updated:</th>
+      <td>
+        {{todo.todoForm.lastUpdated}}
+      </td>
+    </tr>
+    <tr>
+      <th>Completed at:</th>
+      <td>
+        {{todo.todoForm.completedAt}}
+      </td>
+    </tr>
+    <tr>
+      <th>Tags:</th>
+      <td>
+        {{tags}}
+      </td>
+    </tr>
+    <tr>
+      <th>Location:</th>
+      <td>{{todo.location}}</td>
+    </tr>
+    <tr>
+      <th>Completed:</th>
+      <td>
+        <input type="checkbox" name="completed" [(ngModel)]="todo.todoForm.completed"/>
+      </td>
+    </tr>
+  </table>
+  <div class="text-center btn-list">
+    <button type="submit" class="btn btn-success">Save</button>
+    <button type="button" class="btn btn-danger">Delete</button>
+  </div>
+</form>

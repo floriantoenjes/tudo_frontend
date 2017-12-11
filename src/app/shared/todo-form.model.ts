@@ -3,4 +3,5 @@ export class TodoForm {
   completed: Boolean;
   completedAt: Date;
   lastUpdated: Date;
+  id: Number;
 }

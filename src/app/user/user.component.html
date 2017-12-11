@@ -1,7 +1,14 @@
-<div class="col-sm-6 text-center user-detail-container">
+<div *ngIf="loaded" class="col-sm-6 text-center user-detail-container">
   <h2>{{user.username}}</h2>
-  <p>Florian is a contact.</p>
-  <p>Florian is not a contact yet.</p>
-  <button class="btn btn-success">Send contact request</button>
-  <button class="btn btn-danger">Remove</button>
+  <div *ngIf="isContact">
+    <p>{{user.username}} is a contact.</p>
+    <button class="btn btn-danger" (click)="removeContact()">Remove</button>
+  </div>
+  <div *ngIf="isContactRequestSent">
+    <p>Contact request sent.</p>
+  </div>
+  <div *ngIf="!isContactRequestSent && !isContact">
+    <p>{{user.username}} is not a contact yet.</p>
+    <button class="btn btn-success" (click)="sendContactRequest()">Send contact request</button>
+  </div>
 </div>

@@ -8,6 +8,8 @@ import {TodoList} from '../shared/todo-list.model';
 })
 export class TodoListOverviewComponent implements OnInit {
   todoLists: TodoList[];
+  newTodoList: TodoList = new TodoList();
+
   constructor(private todoService: TodoService) {
 
   }
@@ -16,5 +18,12 @@ export class TodoListOverviewComponent implements OnInit {
     this.todoService.getTodoLists().then(response => {
       this.todoLists = response;
     });
+  }
+
+  onSubmit(): void {
+    this.todoService.addTodoList(this.newTodoList).then(response => {
+      this.todoLists.push(response);
+    });
+
   }
 }

@@ -12,7 +12,7 @@ html {
 }
 
 .todo-list-heading {
-  margin-top: 15vh;
+  /*margin-top: 15vh;*/
 }
 
 
@@ -21,7 +21,7 @@ html {
 }
 
 .todo-table td {
-  padding: 0.5em;
+  padding: 0.5em 2em;
 }
 
 nav {
@@ -83,4 +83,8 @@ h2 {
 
 .contact-request-table td {
   padding: 0.25em;
+}
+
+.todo-list-form {
+  margin-top: 1em;
 }
