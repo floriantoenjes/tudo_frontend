@@ -42,7 +42,7 @@ export class AuthService {
     return JSON.parse(window.atob(base64));
   }
 
-  isLoggedIn(): Boolean {
+  isLoggedIn(): boolean {
     return this.getToken() !== null;
   }
 

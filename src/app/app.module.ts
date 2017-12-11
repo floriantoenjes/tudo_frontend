@@ -19,9 +19,10 @@ import {FormsModule} from '@angular/forms';
 import {UserService} from './shared/user.service';
 import { SignInComponent } from './sign-in/sign-in.component';
 import {AuthService} from './shared/auth.service';
+import {SignInGuard} from './shared/sign-in.guard';
 
 const appRoutes: Routes = [
-  {pathMatch: 'full', path: '', component: TodoListOverviewComponent},
+  {pathMatch: 'full', path: '', component: TodoListOverviewComponent, canActivate: [SignInGuard]},
   {pathMatch: 'full', path: 'todo_list/:todoListId', component: TodoListComponent},
   {pathMatch: 'full', path: 'todo_list/:todoListId/todo/:todoId', component: TodoComponent},
   {pathMatch: 'full', path: 'users', component: UsersComponent},
@@ -54,7 +55,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FormsModule
   ],
-  providers: [TodoService, UserService, AuthService],
+  providers: [TodoService, UserService, AuthService, SignInGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
