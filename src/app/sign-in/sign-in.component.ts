@@ -16,11 +16,10 @@ export class SignInComponent implements OnInit {
   }
 
   onSubmit() {
-    this.authService.signIn(this.username, this.password);
-      // .then(response => {
-      //   console.log('Auth');
-      //   console.log(response);
-      // });
+    this.authService.signIn(this.username, this.password)
+      .then(response => {
+        console.log(response);
+      });
   }
 
 }
