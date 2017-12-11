@@ -21,6 +21,8 @@ export class AuthService {
       .then(response => {
         const jwt = response.headers.get('Authorization');
 
+        console.log('JWT');
+        console.log(jwt);
         console.log(this.decodeJWT(jwt));
 
         this.setToken(jwt);
