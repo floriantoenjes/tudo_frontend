@@ -35,6 +35,8 @@ export class AuthService {
   }
 
   getToken(): string {
+    console.log('JWT-Sent');
+    console.log(localStorage.getItem('token'));
     return localStorage.getItem('token');
   }
 
