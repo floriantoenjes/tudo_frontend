@@ -26,7 +26,7 @@ export class UserComponent implements OnInit {
         this.userService.getContacts().then(contacts => {
           this.contacts = contacts;
 
-          this.userService.getContactRequest(this.user.id).then(res => {
+          this.userService.getContactRequest(this.user.username).then(res => {
             this.isContactRequestSent = true;
             return;
           }).catch( error => {

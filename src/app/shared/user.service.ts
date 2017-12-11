@@ -80,9 +80,9 @@ export class UserService {
       });
   }
 
-  getContactRequest(userId: Number): Promise<Object> {
+  getContactRequest(username: String): Promise<Object> {
     return this.http.get(
-      `http://localhost:8080/api/v1/contactRequests/search/findBySenderIdAndReceiverId?senderId=${this.authService.getUserId()}&receiverId=${userId}`, {
+      `http://localhost:8080/api/v1/contactRequests/search/findBySenderUsernameAndReceiverUsername?senderName=${this.authService.getCurrentUser().username}&receiverName=${username}`, {
       headers: new HttpHeaders()
         .set('Authorization', this.authService.getToken())
     })
