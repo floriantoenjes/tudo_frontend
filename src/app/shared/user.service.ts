@@ -10,7 +10,8 @@ export class UserService {
 
   getUsers(): Promise<User[]> {
     return this.http.get('http://localhost:8080/api/v1/users', {
-      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+      headers: new HttpHeaders()
+        .set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
         .set('Content-Type', 'application/x-www-form-urlencoded')
     })
       .toPromise()
@@ -27,7 +28,8 @@ export class UserService {
 
   getUser(userId: Number): Promise<User> {
     return this.http.get(`http://localhost:8080/api/v1/users/${userId}`, {
-      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+      headers: new HttpHeaders()
+        .set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
         .set('Content-Type', 'application/x-www-form-urlencoded')
     })
       .toPromise()
@@ -38,7 +40,8 @@ export class UserService {
 
   getContacts(): Promise<User[]> {
     return this.http.get('http://localhost:8080/api/v1/users/1/contacts', {
-      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+      headers: new HttpHeaders()
+        .set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
         .set('Content-Type', 'application/x-www-form-urlencoded')
     })
       .toPromise()
@@ -54,7 +57,8 @@ export class UserService {
     };
 
     return this.http.post('http://localhost:8080/api/v1/contactRequests', body, {
-      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+      headers: new HttpHeaders()
+        .set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
         .set('Content-Type', 'application/json')
     })
       .toPromise()
@@ -66,7 +70,8 @@ export class UserService {
   getContactRequests(): Promise<ContactRequest[]> {
     return this.http.get(
       'http://localhost:8080/api/v1/contactRequests/search/findAllByReceiverId?receiverId=1&projection=contactRequestProjection', {
-        headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+        headers: new HttpHeaders()
+          .set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
       })
       .toPromise()
       .then(response => {
@@ -77,7 +82,8 @@ export class UserService {
   getContactRequest(userId: Number): Promise<Object> {
     return this.http.get(
       `http://localhost:8080/api/v1/contactRequests/search/findBySenderIdAndReceiverId?senderId=1&receiverId=${userId}`, {
-      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+      headers: new HttpHeaders()
+        .set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
     })
       .toPromise()
       .then(response => {
@@ -89,7 +95,8 @@ export class UserService {
     const body: String = `http://localhost:8080/api/v1/users/${userId}`;
 
     return this.http.post(`http://localhost:8080/api/v1/users/1/contacts`, body, {
-      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+      headers: new HttpHeaders()
+        .set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
         .set('Content-Type', 'text/uri-list')
     })
       .toPromise()
@@ -100,7 +107,8 @@ export class UserService {
 
   removeContact(userId: Number): Promise<Object> {
     return this.http.delete(`http://localhost:8080/api/v1/users/1/contacts/${userId}`, {
-      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+      headers: new HttpHeaders()
+        .set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
         .set('Content-Type', 'application/json')
     })
       .toPromise()
