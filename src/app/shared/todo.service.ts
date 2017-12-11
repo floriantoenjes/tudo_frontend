@@ -14,7 +14,8 @@ export class TodoService {
   }
 
   getTodoLists(): Promise<TodoList[]> {
-    return this.http.get('http://localhost:8080/api/v1/todoLists/search/findAllByCreator?creator=/api/v1/users/1', {
+    return this.http.get(
+      `http://localhost:8080/api/v1/todoLists/search/findAllByCreator?creator=/api/v1/users/${this.authService.getUserId()}`, {
       headers: new HttpHeaders()
         .set('Authorization', this.authService.getToken())
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -114,7 +115,8 @@ export class TodoService {
   }
 
   getAssignedTodos(): Promise<Todo[]> {
-    return this.http.get('http://localhost:8080/api/v1/todos/search/findAllByAssignedUsersContaining?assignee=/api/v1/users/3/' +
+    return this.http.get(
+      `http://localhost:8080/api/v1/todos/search/findAllByAssignedUsersContaining?assignee=/api/v1/users/${this.authService.getUserId()}/` +
       '&projection=todoProjection', {
       headers: new HttpHeaders()
         .set('Authorization', this.authService.getToken())

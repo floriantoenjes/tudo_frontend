@@ -60,4 +60,8 @@ export class AuthService {
     }
   }
 
+  getUserId(): Number {
+    return this.getCurrentUser().id;
+  }
+
 }
