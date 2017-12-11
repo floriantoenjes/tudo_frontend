@@ -50,6 +50,7 @@ export class AuthService {
     if (this.isLoggedIn()) {
       const decodedToken: Object = this.decodeJWT(this.getToken());
       const currentUser: User = new User();
+
       currentUser.id = decodedToken['jti'];
       currentUser.username = decodedToken['sub'];
 
