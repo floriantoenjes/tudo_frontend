@@ -42,7 +42,8 @@ export class TodoService {
 
   getTodoList(todoListId: Number): Promise<TodoList> {
     return this.http.get(`http://localhost:8080/api/v1/todoLists/${todoListId}`, {
-      headers: new HttpHeaders().set('Authorization', this.authService.getToken())
+      headers: new HttpHeaders()
+        .set('Authorization', this.authService.getToken())
         .set('Content-Type', 'application/x-www-form-urlencoded')
     })
       .toPromise().then(response => {
@@ -52,7 +53,8 @@ export class TodoService {
 
   addTodoList(todoList: TodoList): Promise<TodoList> {
     return this.http.post('http://localhost:8080/api/v1/todoLists/', todoList, {
-      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+      headers: new HttpHeaders()
+        .set('Authorization', this.authService.getToken())
         .set('Content-Type', 'application/json')
     })
       .toPromise()
@@ -83,7 +85,8 @@ export class TodoService {
 
   getTodo(todoId: Number): Promise<Todo> {
     return this.http.get(`http://localhost:8080/api/v1/todos/${todoId}?projection=todoProjection`, {
-      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+      headers: new HttpHeaders()
+        .set('Authorization', this.authService.getToken())
         .set('Content-Type', 'application/x-www-form-urlencoded')
     })
       .toPromise()
@@ -97,7 +100,8 @@ export class TodoService {
 
   createTodo(todo: Todo): Promise<Todo> {
     return this.http.post('http://localhost:8080/api/v1/todos/?projection=todoProjection', todo, {
-      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+      headers: new HttpHeaders()
+        .set('Authorization', this.authService.getToken())
         .set('Content-Type', 'application/json')
     })
       .toPromise()
@@ -112,7 +116,8 @@ export class TodoService {
   getAssignedTodos(): Promise<Todo[]> {
     return this.http.get('http://localhost:8080/api/v1/todos/search/findAllByAssignedUsersContaining?assignee=/api/v1/users/3/' +
       '&projection=todoProjection', {
-      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjM6cGFzc3dvcmQ=')
+      headers: new HttpHeaders()
+        .set('Authorization', this.authService.getToken())
         .set('Content-Type', 'application/x-www-form-urlencoded')
     })
       .toPromise()
@@ -129,7 +134,8 @@ export class TodoService {
 
   getTodoForm(todoFormId: Number): Promise<TodoForm> {
     return this.http.get(`http://localhost:8080/api/v1/todos/${todoFormId}/todoForm`, {
-      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+      headers: new HttpHeaders()
+        .set('Authorization', this.authService.getToken())
         .set('Content-Type', 'application/x-www-form-urlencoded')
     })
       .toPromise()
@@ -152,13 +158,15 @@ export class TodoService {
     const promises: Promise<Object>[] = [];
 
     promises.push(this.http.put(`http://localhost:8080/api/v1/todos/${todo.id}`, todoHead, {
-      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+      headers: new HttpHeaders()
+        .set('Authorization', this.authService.getToken())
         .set('Content-Type', 'application/json')
     })
       .toPromise());
 
     promises.push(this.http.put(`http://localhost:8080/api/v1/todoForms/${todoForm.id}`, todoForm, {
-      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+      headers: new HttpHeaders()
+        .set('Authorization', this.authService.getToken())
         .set('Content-Type', 'application/json')
     })
       .toPromise());
@@ -176,7 +184,8 @@ export class TodoService {
 
   updateTodoForm(todoForm: TodoForm): Promise<TodoForm> {
     return this.http.put(`http://localhost:8080/api/v1/todoForms/${todoForm.id}`, todoForm, {
-      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+      headers: new HttpHeaders()
+        .set('Authorization', this.authService.getToken())
         .set('Content-Type', 'application/json')
     })
       .toPromise()
@@ -187,7 +196,8 @@ export class TodoService {
 
   clearAssignees(todoId: Number): Promise<void> {
     return this.http.put(`http://localhost:8080/api/v1/todos/${todoId}/assignedUsers`, '', {
-      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+      headers: new HttpHeaders()
+        .set('Authorization', this.authService.getToken())
         .set('Content-Type', 'text/uri-list')
     })
       .toPromise()
@@ -210,7 +220,8 @@ export class TodoService {
 
     return this.http.put(`http://localhost:8080/api/v1/todos/${todoId}/assignedUsers`,
       body, {
-        headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+        headers: new HttpHeaders()
+          .set('Authorization', this.authService.getToken())
           .set('Content-Type', 'text/uri-list')
       })
       .toPromise()
