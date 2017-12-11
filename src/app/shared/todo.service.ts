@@ -93,13 +93,16 @@ export class TodoService {
   }
 
   createTodo(todo: Todo): Promise<Todo> {
-    return this.http.post('http://localhost:8080/api/v1/todos', todo, {
+    return this.http.post('http://localhost:8080/api/v1/todos/?projection=todoProjection', todo, {
       headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
         .set('Content-Type', 'application/json')
     })
       .toPromise()
       .then(response => {
-        return response as Todo;
+        const newTodo = response as Todo;
+        newTodo.id = this.getId(newTodo);
+
+        return newTodo;
       });
   }
 

@@ -3,6 +3,7 @@ import {TodoService} from '../shared/todo.service';
 import {Todo} from '../shared/todo.model';
 import {ActivatedRoute} from '@angular/router';
 import {TodoList} from '../shared/todo-list.model';
+import {TodoForm} from '../shared/todo-form.model';
 
 @Component({
   selector: 'app-todo-list',
@@ -35,8 +36,11 @@ export class TodoListComponent implements OnInit {
   }
 
   onSubmit(): void {
+
+    this.newTodo['todoList'] = this.todoList['_links']['self']['href'];
+
     this.todoService.createTodo(this.newTodo).then( response => {
-      console.log(response);
+      this.todos.push(response);
     });
   }
 }
