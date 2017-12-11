@@ -1,12 +1,12 @@
-<form>
+<form (submit)="onSubmit()">
 <table class="centered-block">
   <tr>
   <td><label for="username">Username:</label></td>
-    <td><input type="text" id="username"/></td>
+    <td><input type="text" id="username" name="username" [(ngModel)]="username"/></td>
   </tr>
   <tr>
     <td><label for="username">Password:</label></td>
-    <td><input type="text" id="password"/></td>
+    <td><input type="text" id="password" name="password" [(ngModel)]="password"/></td>
   </tr>
   <tr>
     <button class="btn-info" type="submit">Sign in</button>
