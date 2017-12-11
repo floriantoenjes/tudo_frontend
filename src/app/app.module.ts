@@ -17,6 +17,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {TodoService} from './shared/todo.service';
 import {FormsModule} from '@angular/forms';
 import {UserService} from './shared/user.service';
+import { SignInComponent } from './sign-in/sign-in.component';
 
 const appRoutes: Routes = [
   {pathMatch: 'full', path: '', component: TodoListOverviewComponent},
@@ -27,7 +28,8 @@ const appRoutes: Routes = [
   {pathMatch: 'full', path: 'contact_requests', component: ContactRequestsComponent},
   {pathMatch: 'full', path: 'assigned_todo_list', component: AssignedTodoListComponent},
   {pathMatch: 'full', path: 'assigned_todo_list/:todoId', component: AssignedTodoComponent},
-  {pathMatch: 'full', path: 'users/:userId', component: UserComponent}
+  {pathMatch: 'full', path: 'users/:userId', component: UserComponent},
+  {pathMatch: 'full', path: 'sign_in', component: SignInComponent}
   ];
 
 @NgModule({
@@ -42,7 +44,8 @@ const appRoutes: Routes = [
     ContactRequestsComponent,
     AssignedTodoListComponent,
     AssignedTodoComponent,
-    UserComponent
+    UserComponent,
+    SignInComponent
   ],
   imports: [
     BrowserModule,
