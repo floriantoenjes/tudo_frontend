@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../shared/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-sign-in',
@@ -10,7 +11,7 @@ export class SignInComponent implements OnInit {
   username: String;
   password: String;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -18,7 +19,7 @@ export class SignInComponent implements OnInit {
   onSubmit() {
     this.authService.signIn(this.username, this.password)
       .then(response => {
-        console.log(this.authService.getCurrentUser());
+        this.router.navigateByUrl('');
       });
   }
 
