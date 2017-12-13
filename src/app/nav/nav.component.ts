@@ -7,7 +7,6 @@ import {AuthService} from '../shared/auth.service';
 })
 export class NavComponent {
 
-
   constructor(private authService: AuthService) {
   }
 

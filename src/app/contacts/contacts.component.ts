@@ -13,7 +13,6 @@ export class ContactsComponent implements OnInit {
   constructor(private userService: UserService) {
   }
 
-
   ngOnInit(): void {
     this.userService.getContacts().then(response => {
       this.users = response;
