@@ -24,7 +24,7 @@ export class TodoComponent implements OnInit {
 
   wasCompleted: Boolean;
 
-  constructor(private todoService: TodoService, private userService: UserService, private route: ActivatedRoute, private router: Router) {
+  constructor(private route: ActivatedRoute, private router: Router, private todoService: TodoService, private userService: UserService) {
     this.todo.todoForm = new TodoForm();
   }
 
