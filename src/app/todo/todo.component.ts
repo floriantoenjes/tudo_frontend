@@ -72,7 +72,7 @@ export class TodoComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  saveTodo() {
     this.todo.tags = this.tags.split(',');
     this.todo.tags = this.todo.tags.map(tag => tag.trim());
 
