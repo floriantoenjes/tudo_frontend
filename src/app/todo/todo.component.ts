@@ -83,7 +83,7 @@ export class TodoComponent implements OnInit {
     }
 
     this.todoService.updateTodo(this.todo).then(response => {
-      this.router.navigateByUrl('todo_list/1');
+      this.router.navigateByUrl(`todo_list/${this.todoListId}`);
     });
 
     const newAssignedUsers = [];
@@ -104,6 +104,12 @@ export class TodoComponent implements OnInit {
           newAssignedUsers.push(user);
         }
       }
+    });
+  }
+
+  deleteTodo(): void {
+    this.todoService.deleteTodo(this.todo).then(response => {
+      this.router.navigateByUrl(`/todo_list/${this.todoListId}`);
     });
   }
 }
