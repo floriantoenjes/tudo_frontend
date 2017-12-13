@@ -14,7 +14,6 @@ export class UsersComponent implements OnInit {
   constructor(private authService: AuthService, private userService: UserService) {
   }
 
-
   ngOnInit(): void {
     this.userService.getUsers().then(response => {
       // ToDo: Change to triple equals
