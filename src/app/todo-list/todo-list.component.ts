@@ -43,4 +43,10 @@ export class TodoListComponent implements OnInit {
       this.todos.push(response);
     });
   }
+
+  deleteTodo(todo: Todo): void {
+    this.todoService.deleteTodo(todo).then(response => {
+      this.todos.splice(this.todos.indexOf(todo), 1);
+    });
+  }
 }

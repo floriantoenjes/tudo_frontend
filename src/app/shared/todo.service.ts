@@ -114,6 +114,18 @@ export class TodoService {
       });
   }
 
+  deleteTodo(todo: Todo): Promise<void> {
+    return this.http.delete(`http://localhost:8080/api/v1/todos/${todo.id}`, {
+      headers: new HttpHeaders()
+        .set('Authorization', this.authService.getToken())
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+    })
+      .toPromise()
+      .then(response => {
+        console.log('Todo deleted.');
+      });
+  }
+
   getAssignedTodos(): Promise<Todo[]> {
     return this.http.get(
       `http://localhost:8080/api/v1/todos/search/findAllByAssignedUsersContaining?assignee=/api/v1/users/${this.authService.getUserId()}/` +
