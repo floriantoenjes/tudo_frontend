@@ -16,11 +16,10 @@ export class SignInComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSubmit() {
+  signIn() {
     this.authService.signIn(this.username, this.password)
       .then(response => {
         this.router.navigateByUrl('');
       });
   }
-
 }
