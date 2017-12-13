@@ -70,7 +70,8 @@ export class UserService {
 
   getContactRequests(): Promise<ContactRequest[]> {
     return this.http.get(
-      `http://localhost:8080/api/v1/contactRequests/search/findAllByReceiverUsername?receiverName=${this.authService.getCurrentUser().username}&projection=contactRequestProjection`, {
+      `http://localhost:8080/api/v1/contactRequests/search/findAllByReceiverUsername?` +
+    `receiverName=${this.authService.getCurrentUser().username}&projection=contactRequestProjection`, {
         headers: new HttpHeaders()
           .set('Authorization', this.authService.getToken())
       })
@@ -82,7 +83,8 @@ export class UserService {
 
   getContactRequest(username: String): Promise<Object> {
     return this.http.get(
-      `http://localhost:8080/api/v1/contactRequests/search/findBySenderUsernameAndReceiverUsername?senderName=${this.authService.getCurrentUser().username}&receiverName=${username}`, {
+      `http://localhost:8080/api/v1/contactRequests/search/findBySenderUsernameAndReceiverUsername?` +
+      `senderName=${this.authService.getCurrentUser().username}&receiverName=${username}`, {
       headers: new HttpHeaders()
         .set('Authorization', this.authService.getToken())
     })
