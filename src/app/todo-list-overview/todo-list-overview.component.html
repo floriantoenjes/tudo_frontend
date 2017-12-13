@@ -7,21 +7,10 @@
       <a routerLink="/todo_list/{{todoList.id}}" routerLinkActive="active">{{todoList.name}}</a>
     </td>
   </tr>
-
-  <!--<tr>-->
-    <!--<td>-->
-      <!--<a href="list.html">My Second Todo List</a>-->
-    <!--</td>-->
-  <!--</tr>-->
-  <!--<tr>-->
-    <!--<td>-->
-      <!--<a href="list.html">My Third Todo List</a>-->
-    <!--</td>-->
-  <!--</tr>-->
 </table>
 
 <div class="text-center todo-list-form">
-  <form (submit)="onSubmit()">
+  <form (submit)="addTodoList()">
     <input type="text" name="newTodoListName" [(ngModel)]="newTodoList.name" placeholder="Enter todo list name..." required/>
     <button type="submit" class="btn btn-success">Add</button>
   </form>

@@ -20,7 +20,7 @@ export class TodoListOverviewComponent implements OnInit {
     });
   }
 
-  onSubmit(): void {
+  addTodoList(): void {
     this.todoService.addTodoList(this.newTodoList).then(response => {
       this.todoLists.push(response);
     });
