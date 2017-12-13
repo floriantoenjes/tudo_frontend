@@ -20,8 +20,8 @@ export class AuthService {
       .toPromise()
       .then(response => {
         const jwt = response.headers.get('Authorization');
-
         this.setToken(jwt);
+
         return response;
       });
   }

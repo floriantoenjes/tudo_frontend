@@ -31,16 +31,6 @@ export class TodoService {
       });
   }
 
-  getId(restEntity: Object): Number {
-    const selfLink = restEntity['_links']['self']['href'];
-    const splitted = selfLink.split('/');
-    if (splitted[splitted.length - 1] === '') {
-      return Number(splitted[splitted.length - 2]);
-    } else {
-      return Number(splitted[splitted.length - 1]);
-    }
-  }
-
   getTodoList(todoListId: Number): Promise<TodoList> {
     return this.http.get(`http://localhost:8080/api/v1/todoLists/${todoListId}`, {
       headers: new HttpHeaders()
@@ -80,6 +70,7 @@ export class TodoService {
         todos.forEach(todo => {
           todo.id = this.getId(todo);
         });
+
         return todos;
       });
   }
@@ -122,7 +113,7 @@ export class TodoService {
     })
       .toPromise()
       .then(response => {
-        console.log('Todo deleted.');
+        return;
       });
   }
 
@@ -216,21 +207,16 @@ export class TodoService {
     })
       .toPromise()
       .then(response => {
-        console.log('Response:');
-        console.log(response);
+        return;
       });
   }
 
-  addAssignees(todoId: Number, assignees: User[]): Promise<Object> {
-
+  addAssignees(todoId: Number, assignees: User[]): Promise<void> {
     let body: String = '';
 
     assignees.forEach(assignee => {
       body += `http://localhost:8080/api/v1/users/${assignee.id}\n`;
     });
-
-    console.log('Body:');
-    console.log(body);
 
     return this.http.put(`http://localhost:8080/api/v1/todos/${todoId}/assignedUsers`,
       body, {
@@ -240,9 +226,18 @@ export class TodoService {
       })
       .toPromise()
       .then(response => {
-        return response;
+        return;
       });
   }
 
+  getId(restEntity: Object): Number {
+    const selfLink = restEntity['_links']['self']['href'];
+    const splitted = selfLink.split('/');
+    if (splitted[splitted.length - 1] === '') {
+      return Number(splitted[splitted.length - 2]);
+    } else {
+      return Number(splitted[splitted.length - 1]);
+    }
+  }
 
 }
