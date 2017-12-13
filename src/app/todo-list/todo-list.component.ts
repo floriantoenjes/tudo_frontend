@@ -14,7 +14,7 @@ export class TodoListComponent implements OnInit {
   todos: Todo[];
   newTodo: Todo = new Todo();
 
-  constructor(private todoService: TodoService, private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private todoService: TodoService) {
   }
 
   ngOnInit(): void {
@@ -29,18 +29,17 @@ export class TodoListComponent implements OnInit {
     });
   }
 
-  updateTodo(todo: Todo): void {
-    this.todoService.updateTodo(todo).then(updatedTodo => {
-      console.log(updatedTodo);
-    });
-  }
-
-  onSubmit(): void {
-
+  addTodo(): void {
     this.newTodo['todoList'] = this.todoList['_links']['self']['href'];
 
     this.todoService.createTodo(this.newTodo).then( response => {
       this.todos.push(response);
+    });
+  }
+
+  updateTodo(todo: Todo): void {
+    this.todoService.updateTodo(todo).then(updatedTodo => {
+      console.log(updatedTodo);
     });
   }
 
