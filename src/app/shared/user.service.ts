@@ -7,7 +7,7 @@ import {AuthService} from './auth.service';
 @Injectable()
 export class UserService {
 
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  constructor(private authService: AuthService, private http: HttpClient) { }
 
   getUsers(): Promise<User[]> {
     return this.http.get('http://localhost:8080/api/v1/users', {
