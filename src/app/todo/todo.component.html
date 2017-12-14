@@ -17,6 +17,12 @@
       </td>
     </tr>
     <tr>
+      <th>Priority:</th>
+      <td>
+        <input type="number" min="0" max="10" name="priority" [(ngModel)]="todo.priority"/>
+      </td>
+    </tr>
+    <tr>
       <th>Assignee:</th>
       <td>
         <select multiple [(ngModel)]="assignedUsersBinding" name="assignedUsersBinding">
