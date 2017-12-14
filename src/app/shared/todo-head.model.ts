@@ -3,6 +3,7 @@ export class TodoHead {
   description: String;
   createdAt: Date;
   dueDate: Date;
+  priority: Number;
   tags: String[];
   location: null;
 }

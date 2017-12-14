@@ -155,6 +155,7 @@ export class TodoService {
     todoHead.createdAt = todo.createdAt;
     todoHead.description = todo.description;
     todoHead.dueDate = todo.dueDate;
+    todoHead.priority = todo.priority;
     todoHead.location = todo.location;
     todoHead.tags = todo.tags;
 

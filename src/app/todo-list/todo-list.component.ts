@@ -38,9 +38,7 @@ export class TodoListComponent implements OnInit {
   }
 
   updateTodo(todo: Todo): void {
-    this.todoService.updateTodo(todo).then(updatedTodo => {
-      console.log(updatedTodo);
-    });
+    this.todoService.updateTodo(todo);
   }
 
   deleteTodo(todo: Todo): void {

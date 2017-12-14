@@ -6,6 +6,7 @@
     <th>Todo</th>
     <th>Progress</th>
     <th>Completed</th>
+    <th>Priority</th>
     <th>Remove</th>
   </tr>
   <tr *ngFor="let todo of todos">
@@ -15,6 +16,9 @@
     </td>
     <td class="text-center">
       <input type="checkbox" [(ngModel)]="todo.todoForm.completed" (change)="updateTodo(todo)"/>
+    </td>
+    <td>
+      <input type="number" min="0" max="10" [(ngModel)]="todo.priority" (change)="updateTodo(todo)"/>
     </td>
     <td>
       <button type="button" class="btn btn-danger" (click)="deleteTodo(todo)">Delete</button>

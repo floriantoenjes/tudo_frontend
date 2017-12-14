@@ -9,4 +9,5 @@ export class Todo {
   location: null;
   id: Number;
   todoForm: TodoForm;
+  priority: Number;
 }
