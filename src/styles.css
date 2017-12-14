@@ -88,3 +88,7 @@ h2 {
 .todo-list-form {
   margin-top: 1em;
 }
+
+.line-through {
+  text-decoration: line-through;
+}

@@ -9,7 +9,7 @@
     <th>Remove</th>
   </tr>
   <tr *ngFor="let todo of todos">
-    <td><a routerLink="/todo_list/1/todo/{{todo.id}}">{{todo.name}}</a></td>
+    <td [ngClass]="{'line-through': todo.todoForm.completed}"><a routerLink="/todo_list/1/todo/{{todo.id}}">{{todo.name}}</a></td>
     <td class="text-center">
       {{todo.todoForm.progress}}%
     </td>
