@@ -4,6 +4,8 @@ import {Todo} from '../shared/todo.model';
 import {ActivatedRoute} from '@angular/router';
 import {TodoList} from '../shared/todo-list.model';
 import {TodoForm} from '../shared/todo-form.model';
+import {Subject} from 'rxjs/Subject';
+import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
 @Component({
   selector: 'app-todo-list',
@@ -13,6 +15,8 @@ export class TodoListComponent implements OnInit {
   todoList: TodoList =  new TodoList();
   todos: Todo[];
   newTodo: Todo = new Todo();
+
+  todoSubject: Subject<Todo> = new Subject<Todo>();
 
   constructor(private route: ActivatedRoute, private todoService: TodoService) {
   }
@@ -28,6 +32,19 @@ export class TodoListComponent implements OnInit {
         this.sortByPriority(this.todos);
       });
     });
+
+    this.todoSubject.asObservable().pipe(
+      debounceTime(300),
+      distinctUntilChanged(null, x => {
+        return x.priority;
+      })
+    ).subscribe(todo => {
+      this.updateTodo(todo);
+    });
+  }
+
+  updatePriority(todo: Todo) {
+    this.todoSubject.next(todo);
   }
 
   addTodo(): void {
