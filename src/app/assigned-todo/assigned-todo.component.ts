@@ -16,7 +16,7 @@ export class AssignedTodoComponent implements OnInit {
   wasCompleted: Boolean;
 
 
-  constructor(private todoService: TodoService, private route: ActivatedRoute, private router: Router) {
+  constructor(private route: ActivatedRoute, private router: Router, private todoService: TodoService) {
     this.todo.todoForm = new TodoForm();
   }
 
@@ -39,7 +39,7 @@ export class AssignedTodoComponent implements OnInit {
     });
   }
 
-  onSubmit(): void {
+  updateTodoForm(): void {
     if (!this.wasCompleted && this.todo.todoForm.completed) {
       this.todo.todoForm.completedAt = new Date();
     } else if (this.wasCompleted && !this.todo.todoForm.completed) {
@@ -49,6 +49,5 @@ export class AssignedTodoComponent implements OnInit {
     this.todoService.updateTodoForm(this.todo.todoForm).then(response => {
       this.router.navigateByUrl('assigned_todo_list');
     });
-
   }
 }

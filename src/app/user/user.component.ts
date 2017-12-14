@@ -26,7 +26,7 @@ export class UserComponent implements OnInit {
         this.userService.getContacts().then(contacts => {
           this.contacts = contacts;
 
-          this.userService.getContactRequest(this.user.id).then(res => {
+          this.userService.getContactRequest(this.user.username).then(res => {
             this.isContactRequestSent = true;
             return;
           }).catch( error => {
@@ -39,7 +39,6 @@ export class UserComponent implements OnInit {
             });
             this.loaded = true;
           });
-
         });
       });
     });
@@ -53,9 +52,6 @@ export class UserComponent implements OnInit {
 
   removeContact(): void {
     this.userService.removeContact(this.user.id).then(response => {
-      // this.isContactRequestSent = false;
-      // this.isContact = false;
-
       this.router.navigateByUrl('/contacts');
     });
   }

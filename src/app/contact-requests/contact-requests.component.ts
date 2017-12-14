@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ContactRequest} from '../shared/contact-request.model';
 import {UserService} from '../shared/user.service';
 

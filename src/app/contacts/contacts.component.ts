@@ -13,10 +13,16 @@ export class ContactsComponent implements OnInit {
   constructor(private userService: UserService) {
   }
 
-
   ngOnInit(): void {
     this.userService.getContacts().then(response => {
       this.users = response;
+      this.sortUsers(this.users);
+    });
+  }
+
+  sortUsers(users: User[]) {
+    users.sort((user1, user2) => {
+      return user1.username.localeCompare(user2.username.toString());
     });
   }
 }

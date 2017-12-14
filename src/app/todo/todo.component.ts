@@ -24,7 +24,7 @@ export class TodoComponent implements OnInit {
 
   wasCompleted: Boolean;
 
-  constructor(private todoService: TodoService, private userService: UserService, private route: ActivatedRoute, private router: Router) {
+  constructor(private route: ActivatedRoute, private router: Router, private todoService: TodoService, private userService: UserService) {
     this.todo.todoForm = new TodoForm();
   }
 
@@ -72,7 +72,7 @@ export class TodoComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  saveTodo() {
     this.todo.tags = this.tags.split(',');
     this.todo.tags = this.todo.tags.map(tag => tag.trim());
 
@@ -83,7 +83,7 @@ export class TodoComponent implements OnInit {
     }
 
     this.todoService.updateTodo(this.todo).then(response => {
-      this.router.navigateByUrl('todo_list/1');
+      this.router.navigateByUrl(`todo_list/${this.todoListId}`);
     });
 
     const newAssignedUsers = [];
@@ -104,6 +104,12 @@ export class TodoComponent implements OnInit {
           newAssignedUsers.push(user);
         }
       }
+    });
+  }
+
+  deleteTodo(): void {
+    this.todoService.deleteTodo(this.todo).then(response => {
+      this.router.navigateByUrl(`/todo_list/${this.todoListId}`);
     });
   }
 }

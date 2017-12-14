@@ -4,6 +4,8 @@ import {Todo} from '../shared/todo.model';
 import {ActivatedRoute} from '@angular/router';
 import {TodoList} from '../shared/todo-list.model';
 import {TodoForm} from '../shared/todo-form.model';
+import {Subject} from 'rxjs/Subject';
+import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
 @Component({
   selector: 'app-todo-list',
@@ -14,7 +16,9 @@ export class TodoListComponent implements OnInit {
   todos: Todo[];
   newTodo: Todo = new Todo();
 
-  constructor(private todoService: TodoService, private route: ActivatedRoute) {
+  todoSubject: Subject<Todo> = new Subject<Todo>();
+
+  constructor(private route: ActivatedRoute, private todoService: TodoService) {
   }
 
   ngOnInit(): void {
@@ -25,22 +29,50 @@ export class TodoListComponent implements OnInit {
 
       this.todoService.getTodos(+params['todoListId']).then(response => {
         this.todos = response;
+        this.sortByPriority(this.todos);
       });
     });
-  }
 
-  updateTodo(todo: Todo): void {
-    this.todoService.updateTodo(todo).then(updatedTodo => {
-      console.log(updatedTodo);
+    this.todoSubject.asObservable().pipe(
+      debounceTime(300),
+      distinctUntilChanged(null, x => {
+        return x.priority;
+      })
+    ).subscribe(todo => {
+      this.updateTodo(todo);
     });
   }
 
-  onSubmit(): void {
+  updatePriority(todo: Todo) {
+    this.todoSubject.next(todo);
+  }
 
+  addTodo(): void {
     this.newTodo['todoList'] = this.todoList['_links']['self']['href'];
 
     this.todoService.createTodo(this.newTodo).then( response => {
       this.todos.push(response);
+    });
+  }
+
+  updateTodo(todo: Todo): void {
+    this.todoService.updateTodo(todo);
+    this.sortByPriority(this.todos);
+  }
+
+  deleteTodo(todo: Todo): void {
+    this.todoService.deleteTodo(todo).then(response => {
+      this.todos.splice(this.todos.indexOf(todo), 1);
+    });
+  }
+
+  sortByPriority(todos: Todo[]): void {
+    todos.sort((todo1, todo2) => {
+      if (todo1.priority === todo2.priority) {
+        return todo1.name.localeCompare(todo2.name.toString());
+      } else {
+        return +todo2.priority - +todo1.priority ;
+      }
     });
   }
 }

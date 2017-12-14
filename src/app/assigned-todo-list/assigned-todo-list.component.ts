@@ -13,14 +13,13 @@ export class AssignedTodoListComponent implements OnInit {
   constructor(private todoService: TodoService) {
   }
 
-
   ngOnInit(): void {
     this.todoService.getAssignedTodos().then(todos => {
       this.todos = todos;
     });
   }
 
-  updateTodo(todoForm: TodoForm): void {
+  updateTodoForm(todoForm: TodoForm): void {
     this.todoService.updateTodoForm(todoForm).then(updatedTodo => {
       console.log(updatedTodo);
     });

@@ -17,17 +17,21 @@ import {HttpClientModule} from '@angular/common/http';
 import {TodoService} from './shared/todo.service';
 import {FormsModule} from '@angular/forms';
 import {UserService} from './shared/user.service';
+import { SignInComponent } from './sign-in/sign-in.component';
+import {AuthService} from './shared/auth.service';
+import {SignInGuard} from './shared/sign-in.guard';
 
 const appRoutes: Routes = [
-  {pathMatch: 'full', path: '', component: TodoListOverviewComponent},
-  {pathMatch: 'full', path: 'todo_list/:todoListId', component: TodoListComponent},
-  {pathMatch: 'full', path: 'todo_list/:todoListId/todo/:todoId', component: TodoComponent},
-  {pathMatch: 'full', path: 'users', component: UsersComponent},
-  {pathMatch: 'full', path: 'contacts', component: ContactsComponent},
-  {pathMatch: 'full', path: 'contact_requests', component: ContactRequestsComponent},
-  {pathMatch: 'full', path: 'assigned_todo_list', component: AssignedTodoListComponent},
-  {pathMatch: 'full', path: 'assigned_todo_list/:todoId', component: AssignedTodoComponent},
-  {pathMatch: 'full', path: 'users/:userId', component: UserComponent}
+  {pathMatch: 'full', path: '', component: TodoListOverviewComponent, canActivate: [SignInGuard]},
+  {pathMatch: 'full', path: 'todo_list/:todoListId', component: TodoListComponent, canActivate: [SignInGuard]},
+  {pathMatch: 'full', path: 'todo_list/:todoListId/todo/:todoId', component: TodoComponent, canActivate: [SignInGuard]},
+  {pathMatch: 'full', path: 'users', component: UsersComponent, canActivate: [SignInGuard]},
+  {pathMatch: 'full', path: 'contacts', component: ContactsComponent, canActivate: [SignInGuard]},
+  {pathMatch: 'full', path: 'contact_requests', component: ContactRequestsComponent, canActivate: [SignInGuard]},
+  {pathMatch: 'full', path: 'assigned_todo_list', component: AssignedTodoListComponent, canActivate: [SignInGuard]},
+  {pathMatch: 'full', path: 'assigned_todo_list/:todoId', component: AssignedTodoComponent, canActivate: [SignInGuard]},
+  {pathMatch: 'full', path: 'users/:userId', component: UserComponent, canActivate: [SignInGuard]},
+  {pathMatch: 'full', path: 'sign_in', component: SignInComponent}
   ];
 
 @NgModule({
@@ -42,7 +46,8 @@ const appRoutes: Routes = [
     ContactRequestsComponent,
     AssignedTodoListComponent,
     AssignedTodoComponent,
-    UserComponent
+    UserComponent,
+    SignInComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +55,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FormsModule
   ],
-  providers: [TodoService, UserService],
+  providers: [TodoService, UserService, AuthService, SignInGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

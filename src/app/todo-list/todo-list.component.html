@@ -1,5 +1,3 @@
-
-
 <div class="col-sm-12 text-center">
   <h2>{{todoList.name}}</h2>
 </div>
@@ -7,112 +5,29 @@
   <tr class="text-center">
     <th>Todo</th>
     <th>Progress</th>
-    <!--<th>Due Date</th>-->
-    <!--<th>Assignee</th>-->
+    <th>Priority</th>
     <th>Completed</th>
     <th>Remove</th>
   </tr>
   <tr *ngFor="let todo of todos">
-    <td><a routerLink="/todo_list/1/todo/{{todo.id}}">{{todo.name}}</a></td>
+    <td [ngClass]="{'line-through': todo.todoForm.completed}"><a routerLink="/todo_list/1/todo/{{todo.id}}">{{todo.name}}</a></td>
     <td class="text-center">
       {{todo.todoForm.progress}}%
     </td>
-    <!--<td>-->
-      <!--<input type="number" min="0" max="100" value="{{todo.todoForm.progress}}">-->
-    <!--</td>-->
-    <!--<td>{{todo.dueDate}}</td>-->
-    <!--<td>-->
-      <!--<select>-->
-        <!--<option *ngFor="let assignedUser of todo.assignedUsers">{{assignedUser.username}}</option>-->
-      <!--</select>-->
-    <!--</td>-->
+    <td>
+      <input type="number" min="0" max="10" [(ngModel)]="todo.priority" (change)="updatePriority(todo)"/>
+    </td>
     <td class="text-center">
       <input type="checkbox" [(ngModel)]="todo.todoForm.completed" (change)="updateTodo(todo)"/>
     </td>
     <td>
-      <button type="button" class="btn btn-danger">Delete</button>
+      <button type="button" class="btn btn-danger" (click)="deleteTodo(todo)">Delete</button>
     </td>
   </tr>
-  <!--<tr>-->
-    <!--<td><a href="#">Go swimming</a></td>-->
-    <!--<td>-->
-      <!--<input type="number" min="0" max="100" value="100">-->
-    <!--</td>-->
-    <!--<td>05.12.2017</td>-->
-    <!--<td>-->
-      <!--<select>-->
-        <!--<option>Paul</option>-->
-        <!--<option>Florian</option>-->
-      <!--</select>-->
-    <!--</td>-->
-    <!--<td class="text-center">-->
-      <!--<input type="checkbox" />-->
-    <!--</td>-->
-    <!--<td>-->
-      <!--<button type="button" class="btn btn-danger">Delete</button>-->
-    <!--</td>-->
-  <!--</tr>-->
-  <!--<tr>-->
-    <!--<td><a href="#">Go shop groceries</a></td>-->
-    <!--<td>-->
-      <!--<input type="number" min="0" max="100" value="100">-->
-    <!--</td>-->
-    <!--<td>05.12.2017</td>-->
-    <!--<td>-->
-      <!--<select>-->
-        <!--<option>Florian</option>-->
-        <!--<option>Paul</option>-->
-      <!--</select>-->
-    <!--</td>-->
-    <!--<td class="text-center">-->
-      <!--<input type="checkbox" />-->
-    <!--</td>-->
-    <!--<td>-->
-      <!--<button type="button" class="btn btn-danger">Delete</button>-->
-    <!--</td>-->
-  <!--</tr>-->
-  <!--<tr>-->
-    <!--<td><a href="#">Buy christmas gifts</a></td>-->
-    <!--<td>-->
-      <!--<input type="number" min="0" max="100" value="100">-->
-    <!--</td>-->
-    <!--<td>05.12.2017</td>-->
-    <!--<td>-->
-      <!--<select>-->
-        <!--<option>Paul</option>-->
-        <!--<option>Florian</option>-->
-      <!--</select>-->
-    <!--</td>-->
-    <!--<td class="text-center">-->
-      <!--<input type="checkbox" />-->
-    <!--</td>-->
-    <!--<td>-->
-      <!--<button type="button" class="btn btn-danger">Delete</button>-->
-    <!--</td>-->
-  <!--</tr>-->
-  <!--<tr>-->
-    <!--<td><a href="#">Run</a></td>-->
-    <!--<td>-->
-      <!--<input type="number" min="0" max="100" value="100">-->
-    <!--</td>-->
-    <!--<td>05.12.2017</td>-->
-    <!--<td>-->
-      <!--<select>-->
-        <!--<option>Florian</option>-->
-        <!--<option>Paul</option>-->
-      <!--</select>-->
-    <!--</td>-->
-    <!--<td class="text-center">-->
-      <!--<input type="checkbox" />-->
-    <!--</td>-->
-    <!--<td>-->
-      <!--<button type="button" class="btn btn-danger">Delete</button>-->
-    <!--</td>-->
-  <!--</tr>-->
 </table>
 
 <div class="text-center">
-  <form (submit)="onSubmit()">
+  <form (submit)="addTodo()">
     <input type="text" name="newTodoName" [(ngModel)]="newTodo.name" placeholder="Enter todo name..." required/>
     <button type="submit" class="btn btn-success">Add</button>
   </form>

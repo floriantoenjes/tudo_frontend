@@ -1,0 +1,18 @@
+<div class="text-center">
+  <h2>Sign In</h2>
+</div>
+<form (submit)="signIn()">
+<table class="centered-block">
+  <tr>
+  <td><label for="username">Username:</label></td>
+    <td><input type="text" id="username" name="username" [(ngModel)]="username"/></td>
+  </tr>
+  <tr>
+    <td><label for="username">Password:</label></td>
+    <td><input type="password" id="password" name="password" [(ngModel)]="password"/></td>
+  </tr>
+  <tr>
+    <button class="btn-info" type="submit">Sign in</button>
+  </tr>
+</table>
+</form>

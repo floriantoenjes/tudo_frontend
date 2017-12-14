@@ -2,32 +2,29 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {User} from './user.model';
 import {ContactRequest} from './contact-request.model';
+import {AuthService} from './auth.service';
 
 @Injectable()
 export class UserService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private authService: AuthService, private http: HttpClient) { }
 
   getUsers(): Promise<User[]> {
     return this.http.get('http://localhost:8080/api/v1/users', {
-      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+      headers: new HttpHeaders()
+        .set('Authorization', this.authService.getToken())
         .set('Content-Type', 'application/x-www-form-urlencoded')
     })
       .toPromise()
       .then(response => {
-        const users: User[] = response['_embedded']['users'];
-
-        // users.forEach(user => {
-        //   user.id = this.getId(user);
-        // });
-
-        return users;
+        return response['_embedded']['users'] as User[];
       });
   }
 
   getUser(userId: Number): Promise<User> {
     return this.http.get(`http://localhost:8080/api/v1/users/${userId}`, {
-      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+      headers: new HttpHeaders()
+        .set('Authorization', this.authService.getToken())
         .set('Content-Type', 'application/x-www-form-urlencoded')
     })
       .toPromise()
@@ -37,8 +34,9 @@ export class UserService {
   }
 
   getContacts(): Promise<User[]> {
-    return this.http.get('http://localhost:8080/api/v1/users/1/contacts', {
-      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+    return this.http.get(`http://localhost:8080/api/v1/users/${this.authService.getUserId()}/contacts`, {
+      headers: new HttpHeaders()
+        .set('Authorization', this.authService.getToken())
         .set('Content-Type', 'application/x-www-form-urlencoded')
     })
       .toPromise()
@@ -50,11 +48,12 @@ export class UserService {
   sendContactRequest(user: User): Promise<Object> {
     const body: Object = {
       receiver: `http://localhost:8080/api/v1/users/${user.id}`,
-      sender: 'http://localhost:8080/api/v1/users/1'
+      sender: `http://localhost:8080/api/v1/users/${this.authService.getUserId()}`
     };
 
     return this.http.post('http://localhost:8080/api/v1/contactRequests', body, {
-      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+      headers: new HttpHeaders()
+        .set('Authorization', this.authService.getToken())
         .set('Content-Type', 'application/json')
     })
       .toPromise()
@@ -65,8 +64,10 @@ export class UserService {
 
   getContactRequests(): Promise<ContactRequest[]> {
     return this.http.get(
-      'http://localhost:8080/api/v1/contactRequests/search/findAllByReceiverId?receiverId=1&projection=contactRequestProjection', {
-        headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+      `http://localhost:8080/api/v1/contactRequests/search/findAllByReceiverUsername?` +
+    `receiverName=${this.authService.getCurrentUser().username}&projection=contactRequestProjection`, {
+        headers: new HttpHeaders()
+          .set('Authorization', this.authService.getToken())
       })
       .toPromise()
       .then(response => {
@@ -74,10 +75,12 @@ export class UserService {
       });
   }
 
-  getContactRequest(userId: Number): Promise<Object> {
+  getContactRequest(username: String): Promise<Object> {
     return this.http.get(
-      `http://localhost:8080/api/v1/contactRequests/search/findBySenderIdAndReceiverId?senderId=1&receiverId=${userId}`, {
-      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+      `http://localhost:8080/api/v1/contactRequests/search/findBySenderUsernameAndReceiverUsername?` +
+      `senderName=${this.authService.getCurrentUser().username}&receiverName=${username}`, {
+      headers: new HttpHeaders()
+        .set('Authorization', this.authService.getToken())
     })
       .toPromise()
       .then(response => {
@@ -88,8 +91,9 @@ export class UserService {
   addContact(userId: Number): Promise<void> {
     const body: String = `http://localhost:8080/api/v1/users/${userId}`;
 
-    return this.http.post(`http://localhost:8080/api/v1/users/1/contacts`, body, {
-      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+    return this.http.post(`http://localhost:8080/api/v1/users/${this.authService.getUserId()}/contacts`, body, {
+      headers: new HttpHeaders()
+        .set('Authorization', this.authService.getToken())
         .set('Content-Type', 'text/uri-list')
     })
       .toPromise()
@@ -99,8 +103,9 @@ export class UserService {
   }
 
   removeContact(userId: Number): Promise<Object> {
-    return this.http.delete(`http://localhost:8080/api/v1/users/1/contacts/${userId}`, {
-      headers: new HttpHeaders().set('Authorization', 'Basic dXNlcjpwYXNzd29yZA==')
+    return this.http.delete(`http://localhost:8080/api/v1/users/${this.authService.getUserId()}/contacts/${userId}`, {
+      headers: new HttpHeaders()
+        .set('Authorization', this.authService.getToken())
         .set('Content-Type', 'application/json')
     })
       .toPromise()
