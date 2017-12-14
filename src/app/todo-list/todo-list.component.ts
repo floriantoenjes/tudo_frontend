@@ -25,6 +25,7 @@ export class TodoListComponent implements OnInit {
 
       this.todoService.getTodos(+params['todoListId']).then(response => {
         this.todos = response;
+        this.sortByPriority(this.todos);
       });
     });
   }
@@ -39,11 +40,18 @@ export class TodoListComponent implements OnInit {
 
   updateTodo(todo: Todo): void {
     this.todoService.updateTodo(todo);
+    this.sortByPriority(this.todos);
   }
 
   deleteTodo(todo: Todo): void {
     this.todoService.deleteTodo(todo).then(response => {
       this.todos.splice(this.todos.indexOf(todo), 1);
+    });
+  }
+
+  sortByPriority(todos: Todo[]): void {
+    todos.sort((todo1, todo2) => {
+      return +todo2.priority - +todo1.priority ;
     });
   }
 }
