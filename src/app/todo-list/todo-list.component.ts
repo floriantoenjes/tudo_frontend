@@ -54,6 +54,7 @@ export class TodoListComponent implements OnInit {
 
     this.todoService.createTodo(this.newTodo).then( response => {
       this.todos.push(response);
+      this.sortByPriority(this.todos);
     });
   }
 
