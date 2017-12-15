@@ -1,7 +1,7 @@
 <div class="col-sm-6 text-center centered-block">
   <h2>Contact Requests</h2>
-
-  <table class="centered-block contact-request-table">
+  <h3 *ngIf="contactRequests.length == 0">You don't have any contact requests.</h3>
+  <table *ngIf="contactRequests.length > 0" class="centered-block contact-request-table">
     <tr class="text-center">
       <th>Username</th>
       <th>Send at</th>
