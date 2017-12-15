@@ -35,15 +35,17 @@ export class TodoListComponent implements OnInit {
 
     this.todoSubject.asObservable().pipe(
       debounceTime(300),
-      distinctUntilChanged(null, todo => {
-        return todo.priority;
+      distinctUntilChanged((todoObj1, todoObj2) => {
+        return todoObj1.priority === todoObj2.priority && todoObj1.progress === todoObj2.progress;
+      }, (todoObj: Todo) => {
+        return {priority: todoObj.priority, progress: todoObj.todoForm.progress};
       })
     ).subscribe(todo => {
       this.updateTodo(todo);
     });
   }
 
-  updatePriority(todo: Todo) {
+  updateTodoSubscription(todo: Todo) {
     this.todoSubject.next(todo);
   }
 
