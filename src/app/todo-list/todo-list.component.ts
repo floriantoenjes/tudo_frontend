@@ -70,6 +70,12 @@ export class TodoListComponent implements OnInit {
 
   sortByPriority(todos: Todo[]): void {
     todos.sort((todo1, todo2) => {
+      if (todo1.todoForm.completed && !todo2.todoForm.completed) {
+        return 1;
+      } else if (!todo1.todoForm.completed && todo2.todoForm.completed) {
+        return -1;
+      }
+
       if (todo1.priority === todo2.priority) {
         return todo1.name.localeCompare(todo2.name.toString());
       } else {
