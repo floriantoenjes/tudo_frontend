@@ -1,5 +1,6 @@
 <div class="col-sm-12 text-center">
   <h2>Assigned Todos</h2>
+  <h3 *ngIf="todos.length == 0">There are no Todos assigned to you.</h3>
 </div>
 <table *ngIf="todos.length > 0" class="todo-table">
   <tr class="text-center">
@@ -11,7 +12,7 @@
   <tr *ngFor="let todo of todos">
     <td [ngClass]="{'line-through': todo.todoForm.completed}"><a routerLink="/assigned_todo_list/{{todo.id}}">{{todo.name}}</a></td>
     <td>
-      <input type="number"  min="0" max="100" [(ngModel)]="todo.todoForm.progress" (change)="updateTodoSubscription(todo)"/> %
+      <input type="number" class="progress-input" min="0" max="100" [(ngModel)]="todo.todoForm.progress" (change)="updateTodoSubscription(todo)"/> %
     </td>
     <td>
       {{todo.priority}}

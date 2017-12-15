@@ -92,3 +92,11 @@ h2 {
 .line-through {
   text-decoration: line-through;
 }
+
+.progress-input {
+  width: 2.8em;
+}
+
+.priority-input {
+  width: 2.5em;
+}

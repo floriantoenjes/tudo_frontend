@@ -12,10 +12,10 @@
   <tr *ngFor="let todo of todos">
     <td [ngClass]="{'line-through': todo.todoForm.completed}"><a routerLink="/todo_list/1/todo/{{todo.id}}">{{todo.name}}</a></td>
     <td class="text-center">
-      <input type="number"  min="0" max="100" [(ngModel)]="todo.todoForm.progress" (change)="updateTodoSubscription(todo)"/> %
+      <input type="number" class="progress-input"  min="0" max="100" [(ngModel)]="todo.todoForm.progress" (change)="updateTodoSubscription(todo)"/> %
     </td>
     <td>
-      <input type="number" min="0" max="10" [(ngModel)]="todo.priority" (change)="updateTodoSubscription(todo)"/>
+      <input type="number" class="priority-input" min="0" max="10" [(ngModel)]="todo.priority" (change)="updateTodoSubscription(todo)"/>
     </td>
     <td class="text-center">
       <input type="checkbox" [(ngModel)]="todo.todoForm.completed" (change)="updateTodo(todo)"/>
