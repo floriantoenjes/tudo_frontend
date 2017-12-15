@@ -8,7 +8,7 @@ import {UserService} from '../shared/user.service';
   styleUrls: ['./contact-requests.component.css']
 })
 export class ContactRequestsComponent implements OnInit {
-  contactRequests: ContactRequest[];
+  contactRequests: ContactRequest[] = [];
 
   constructor(private userService: UserService) { }
 

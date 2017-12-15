@@ -10,7 +10,7 @@ import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
   templateUrl: './assigned-todo-list.component.html'
 })
 export class AssignedTodoListComponent implements OnInit {
-  todos: Todo[];
+  todos: Todo[] = [];
   todoSubject: Subject<Todo> = new Subject<Todo>();
 
   constructor(private todoService: TodoService) {

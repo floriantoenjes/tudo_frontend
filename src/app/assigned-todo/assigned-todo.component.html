@@ -25,23 +25,23 @@
     <tr>
       <th>Created at:</th>
       <td>
-        {{todo.createdAt}}
+        {{todo.createdAt | date}}
       </td>
     </tr>
     <tr>
       <th>Due date:</th>
-      <td>{{todo.dueDate}}</td>
+      <td>{{todo.dueDate | date}}</td>
     </tr>
     <tr>
       <th>Last updated:</th>
       <td>
-        {{todo.todoForm.lastUpdated}}
+        {{todo.todoForm.lastUpdated | date}}
       </td>
     </tr>
     <tr>
       <th>Completed at:</th>
       <td>
-        {{todo.todoForm.completedAt}}
+        {{todo.todoForm.completedAt | date}}
       </td>
     </tr>
     <tr>

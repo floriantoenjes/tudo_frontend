@@ -41,16 +41,16 @@
       <th>Due date:</th>
       <td>
         <!--ToDo: Convert datetime format-->
-        <input type="date" name="dueDate" [(ngModel)]="todo.dueDate" />
+        <input type="date" name="dueDate" [ngModel]="todo.dueDate | date:'yyyy-MM-dd'" (ngModelChange)="todo.dueDate=$event"/>
       </td>
     </tr>
     <tr>
       <th>Last updated:</th>
-      <td>{{todo.todoForm.lastUpdated}}</td>
+      <td>{{todo.todoForm.lastUpdated | date}}</td>
     </tr>
     <tr>
       <th>Completed at:</th>
-      <td>{{todo.todoForm.completedAt}}</td>
+      <td>{{todo.todoForm.completedAt | date}}</td>
     </tr>
     <tr>
       <th>Tags:</th>

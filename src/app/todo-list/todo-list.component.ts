@@ -13,7 +13,7 @@ import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 })
 export class TodoListComponent implements OnInit {
   todoList: TodoList =  new TodoList();
-  todos: Todo[];
+  todos: Todo[] = [];
   newTodo: Todo = new Todo();
 
   todoSubject: Subject<Todo> = new Subject<Todo>();
