@@ -11,7 +11,7 @@
   <tr *ngFor="let todo of todos">
     <td [ngClass]="{'line-through': todo.todoForm.completed}"><a routerLink="/assigned_todo_list/{{todo.id}}">{{todo.name}}</a></td>
     <td>
-      {{todo.todoForm.progress}}%
+      <input type="number"  min="0" max="100" [(ngModel)]="todo.todoForm.progress" (change)="updateTodoSubscription(todo)"/> %
     </td>
     <td>
       {{todo.priority}}

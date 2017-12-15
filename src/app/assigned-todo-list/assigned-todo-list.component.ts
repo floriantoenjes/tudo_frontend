@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {TodoService} from '../shared/todo.service';
 import {Todo} from '../shared/todo.model';
 import {TodoForm} from '../shared/todo-form.model';
+import {Subject} from 'rxjs/Subject';
+import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
 @Component({
   selector: 'app-assigned-todo-list',
@@ -9,6 +11,7 @@ import {TodoForm} from '../shared/todo-form.model';
 })
 export class AssignedTodoListComponent implements OnInit {
   todos: Todo[];
+  todoSubject: Subject<Todo> = new Subject<Todo>();
 
   constructor(private todoService: TodoService) {
   }
@@ -18,12 +21,25 @@ export class AssignedTodoListComponent implements OnInit {
       this.todos = todos;
       this.sortByPriority(this.todos);
     });
+
+    this.todoSubject.asObservable().pipe(
+      debounceTime(300),
+      distinctUntilChanged(null, todo => {
+        return todo.todoForm.progress;
+      })
+    ).subscribe(todo => {
+      this.updateTodoForm(todo.todoForm);
+    });
   }
 
   updateTodoForm(todoForm: TodoForm): void {
     this.todoService.updateTodoForm(todoForm).then(updatedTodo => {
       this.sortByPriority(this.todos);
     });
+  }
+
+  updateTodoSubscription(todo: Todo) {
+    this.todoSubject.next(todo);
   }
 
   // ToDo: Move to utility class
