@@ -5,12 +5,16 @@
   <tr class="text-center">
     <th>Todo</th>
     <th>Progress</th>
+    <th>Priority</th>
     <th>Completed</th>
   </tr>
   <tr *ngFor="let todo of todos">
-    <td><a routerLink="/assigned_todo_list/{{todo.id}}">{{todo.name}}</a></td>
+    <td [ngClass]="{'line-through': todo.todoForm.completed}"><a routerLink="/assigned_todo_list/{{todo.id}}">{{todo.name}}</a></td>
     <td>
       {{todo.todoForm.progress}}%
+    </td>
+    <td>
+      {{todo.priority}}
     </td>
     <td class="text-center">
       <input type="checkbox" [(ngModel)]="todo.todoForm.completed" (change)="updateTodoForm(todo.todoForm)"/>
