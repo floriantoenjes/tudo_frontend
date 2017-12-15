@@ -35,8 +35,8 @@ export class TodoListComponent implements OnInit {
 
     this.todoSubject.asObservable().pipe(
       debounceTime(300),
-      distinctUntilChanged(null, x => {
-        return x.priority;
+      distinctUntilChanged(null, todo => {
+        return todo.priority;
       })
     ).subscribe(todo => {
       this.updateTodo(todo);
