@@ -1,23 +1,25 @@
-<div class="col-sm-6 text-center centered-block">
-  <h2>Contact Requests</h2>
-  <h3 *ngIf="contactRequests.length == 0">You don't have any contact requests.</h3>
-  <table *ngIf="contactRequests.length > 0" class="centered-block contact-request-table">
-    <tr class="text-center">
-      <th>Username</th>
-      <th>Send at</th>
-      <th>Accept</th>
-      <th>Decline</th>
-    </tr>
-    <tr *ngFor="let contactRequest of contactRequests">
-      <td>{{contactRequest.sender.username}}</td>
-      <td>{{contactRequest.sendAt | date:'medium'}}</td>
-      <td>
-        <button class="btn btn-success" (click)="acceptContact(contactRequest)">Accept</button>
-      </td>
-      <td>
-        <!--ToDo: Add option to decline contact requests-->
-        <button class="btn btn-danger">Decline</button>
-      </td>
-    </tr>
-  </table>
+<div class="row justify-content-center">
+  <div class="col-3 text-center">
+    <h2>Contact Requests</h2>
+    <h3 *ngIf="contactRequests.length == 0">You don't have any contact requests.</h3>
+    <table *ngIf="contactRequests.length > 0" class="contact-request-table">
+      <tr class="text-center">
+        <th>Username</th>
+        <th>Send at</th>
+        <th>Accept</th>
+        <th>Decline</th>
+      </tr>
+      <tr *ngFor="let contactRequest of contactRequests">
+        <td>{{contactRequest.sender.username}}</td>
+        <td>{{contactRequest.sendAt | date:'medium'}}</td>
+        <td>
+          <button class="btn btn-success" (click)="acceptContact(contactRequest)">Accept</button>
+        </td>
+        <td>
+          <!--ToDo: Add option to decline contact requests-->
+          <button class="btn btn-danger">Decline</button>
+        </td>
+      </tr>
+    </table>
+  </div>
 </div>
