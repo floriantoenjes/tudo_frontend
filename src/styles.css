@@ -21,6 +21,22 @@ h2 {
   cursor: pointer;
 }
 
+.todo-list-backlink {
+  margin-top: 1em;
+}
+
+.todo-attribute-table {
+  margin: 1em auto 0 auto;
+}
+
+.todo-attribute-table th {
+  padding-right: 1.5em;
+}
+
+.todo-attribute-table td {
+  padding: 0.5em;
+}
+
 .sign-in-table {
   margin: 0 auto;
 }
