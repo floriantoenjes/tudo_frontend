@@ -1,17 +1,19 @@
-<div class="col-sm-12 text-center todo-list-heading">
-  <h2>Todo Lists</h2>
-</div>
-<table class="todo-list-table text-center">
-  <tr *ngFor="let todoList of todoLists">
-    <td>
-      <a routerLink="/todo_list/{{todoList.id}}" routerLinkActive="active">{{todoList.name}}</a>
-    </td>
-  </tr>
-</table>
+<div class="row justify-content-center">
+  <div class="col-sm-4 text-center">
+    <h2>Todo Lists</h2>
+    <table class="table todo-list-table">
+      <tr *ngFor="let todoList of todoLists">
+        <td>
+          <a routerLink="/todo_list/{{todoList.id}}" routerLinkActive="active">{{todoList.name}}</a>
+        </td>
+      </tr>
+    </table>
 
-<div class="text-center todo-list-form">
-  <form (submit)="addTodoList()">
-    <input type="text" name="newTodoListName" [(ngModel)]="newTodoList.name" placeholder="Enter todo list name..." required/>
-    <button type="submit" class="btn btn-success">Add</button>
-  </form>
+    <div class="todo-list-form">
+      <form (submit)="addTodoList()">
+        <input type="text" name="newTodoListName" [(ngModel)]="newTodoList.name" placeholder="Enter todo list name..." required/>
+        <button type="submit" class="btn btn-success">Add</button>
+      </form>
+    </div>
+  </div>
 </div>

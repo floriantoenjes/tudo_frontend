@@ -4,7 +4,8 @@ import {TodoList} from '../shared/todo-list.model';
 
 @Component({
   selector: 'app-todo-list',
-  templateUrl: 'todo-list-overview.component.html'
+  templateUrl: 'todo-list-overview.component.html',
+  styleUrls: ['./todo-list-overview.component.css']
 })
 export class TodoListOverviewComponent implements OnInit {
   todoLists: TodoList[];
