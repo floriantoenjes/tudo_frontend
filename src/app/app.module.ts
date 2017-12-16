@@ -20,6 +20,7 @@ import {UserService} from './shared/user.service';
 import { SignInComponent } from './sign-in/sign-in.component';
 import {AuthService} from './shared/auth.service';
 import {SignInGuard} from './shared/sign-in.guard';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 const appRoutes: Routes = [
   {pathMatch: 'full', path: '', component: TodoListOverviewComponent, canActivate: [SignInGuard]},
@@ -47,7 +48,8 @@ const appRoutes: Routes = [
     AssignedTodoListComponent,
     AssignedTodoComponent,
     UserComponent,
-    SignInComponent
+    SignInComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
