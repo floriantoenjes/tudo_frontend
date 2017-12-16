@@ -10,7 +10,7 @@
         <th>Remove</th>
       </tr>
       <tr *ngFor="let todo of todos">
-        <td [ngClass]="{'line-through': todo.todoForm.completed}"><a routerLink="/todo_list/1/todo/{{todo.id}}">{{todo.name}}</a></td>
+        <td [ngClass]="{'line-through': todo.todoForm.completed}"><a routerLink="/todo_list/{{todoList.id}}/todo/{{todo.id}}">{{todo.name}}</a></td>
         <td>
           <input type="number" class="progress-input"  min="0" max="100" [(ngModel)]="todo.todoForm.progress" (change)="updateTodoSubscription(todo)"/> %
         </td>

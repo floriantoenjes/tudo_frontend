@@ -38,7 +38,10 @@ export class TodoService {
         .set('Content-Type', 'application/x-www-form-urlencoded')
     })
       .toPromise().then(response => {
-        return response as TodoList;
+        const todoList: TodoList = response as TodoList;
+        todoList.id = this.getId(todoList);
+
+        return todoList;
       });
   }
 
