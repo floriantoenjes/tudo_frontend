@@ -9,7 +9,8 @@ import {TodoList} from '../shared/todo-list.model';
 
 @Component({
   selector: 'app-todo',
-  templateUrl: 'todo.component.html'
+  templateUrl: 'todo.component.html',
+  styleUrls: ['./todo.component.css']
 })
 export class TodoComponent implements OnInit {
   todoListId: Number;

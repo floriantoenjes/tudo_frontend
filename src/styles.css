@@ -13,22 +13,6 @@ h2 {
   padding: 0.5em;
 }
 
-.todo-attribute-table {
-  margin: 1em auto 0 auto;
-}
-
-.todo-attribute-table th {
-  padding-right: 1.5em;
-}
-
-.todo-attribute-table td {
-  padding: 0.5em;
-}
-
-.todo-list-backlink {
-  margin-top: 1em;
-}
-
 .btn-list {
   padding: 1em;
 }
