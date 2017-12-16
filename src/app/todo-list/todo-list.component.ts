@@ -9,7 +9,8 @@ import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
 @Component({
   selector: 'app-todo-list',
-  templateUrl: 'todo-list.component.html'
+  templateUrl: 'todo-list.component.html',
+  styleUrls: ['./todo-list.component.css']
 })
 export class TodoListComponent implements OnInit {
   todoList: TodoList =  new TodoList();
