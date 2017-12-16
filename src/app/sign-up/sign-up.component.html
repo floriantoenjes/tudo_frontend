@@ -2,19 +2,23 @@
   <h2>Sign Up</h2>
 </div>
 <div class="row justify-content-center">
-  <form>
+  <form (submit)="signUp()">
     <table>
       <tr>
         <td><label for="username">Username:</label></td>
-        <td><input type="text" id="username" name="username"/></td>
+        <td><input type="text" id="username" name="username" [(ngModel)]="user.username"/></td>
+      </tr>
+      <tr>
+        <td><label for="email">Email:</label></td>
+        <td><input type="email" id="email" name="email" [(ngModel)]="user.email"/></td>
       </tr>
       <tr>
         <td><label for="password">Password:</label></td>
-        <td><input type="password" id="password" name="password"/></td>
+        <td><input type="password" id="password" name="password" [(ngModel)]="user.password"/></td>
       </tr>
       <tr>
         <td><label for="password-again">Password:</label></td>
-        <td><input type="password" id="password-again" name="password-again"/></td>
+        <td><input type="password" id="password-again" name="password-again" [(ngModel)]="passwordAgain"/></td>
       </tr>
       <tr>
         <td colspan="2">

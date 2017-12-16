@@ -33,7 +33,7 @@ const appRoutes: Routes = [
   {pathMatch: 'full', path: 'assigned_todo_list/:todoId', component: AssignedTodoComponent, canActivate: [SignInGuard]},
   {pathMatch: 'full', path: 'users/:userId', component: UserComponent, canActivate: [SignInGuard]},
   {pathMatch: 'full', path: 'sign_in', component: SignInComponent},
-  {pathMatch: 'full', path: 'sign_in', component: SignUpComponent}
+  {pathMatch: 'full', path: 'sign_up', component: SignUpComponent}
   ];
 
 @NgModule({
