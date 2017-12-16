@@ -1,23 +1,25 @@
-<div class="col-sm-12 text-center">
-  <h2>Assigned Todos</h2>
-  <h3 *ngIf="todos.length == 0">There are no Todos assigned to you.</h3>
+<div class="row justify-content-center">
+  <div class="col-4 text-center">
+    <h2>Assigned Todos</h2>
+    <h3 *ngIf="todos.length == 0">There are no Todos assigned to you.</h3>
+    <table *ngIf="todos.length > 0" class="table todo-table">
+      <tr>
+        <th>Todo</th>
+        <th>Progress</th>
+        <th>Priority</th>
+        <th>Completed</th>
+      </tr>
+      <tr *ngFor="let todo of todos">
+        <td [ngClass]="{'line-through': todo.todoForm.completed}"><a routerLink="/assigned_todo_list/{{todo.id}}">{{todo.name}}</a></td>
+        <td>
+          <input type="number" class="progress-input" min="0" max="100" [(ngModel)]="todo.todoForm.progress" (change)="updateTodoSubscription(todo)"/> %
+        </td>
+        <td>
+          {{todo.priority}}
+        </td>
+        <td>
+          <input type="checkbox" [(ngModel)]="todo.todoForm.completed" (change)="updateTodoForm(todo.todoForm)"/>
+        </td>
+    </table>
+  </div>
 </div>
-<table *ngIf="todos.length > 0" class="todo-table">
-  <tr class="text-center">
-    <th>Todo</th>
-    <th>Progress</th>
-    <th>Priority</th>
-    <th>Completed</th>
-  </tr>
-  <tr *ngFor="let todo of todos">
-    <td [ngClass]="{'line-through': todo.todoForm.completed}"><a routerLink="/assigned_todo_list/{{todo.id}}">{{todo.name}}</a></td>
-    <td>
-      <input type="number" class="progress-input" min="0" max="100" [(ngModel)]="todo.todoForm.progress" (change)="updateTodoSubscription(todo)"/> %
-    </td>
-    <td>
-      {{todo.priority}}
-    </td>
-    <td class="text-center">
-      <input type="checkbox" [(ngModel)]="todo.todoForm.completed" (change)="updateTodoForm(todo.todoForm)"/>
-    </td>
-</table>
