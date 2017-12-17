@@ -6,6 +6,7 @@ import {TodoForm} from './todo-form.model';
 import {TodoHead} from './todo-head.model';
 import {User} from './user.model';
 import {AuthService} from './auth.service';
+import {ServiceUtils} from './service-utils';
 
 @Injectable()
 export class TodoService {
@@ -24,7 +25,7 @@ export class TodoService {
         const todoLists: TodoList[] = response['_embedded']['todoLists'] as TodoList[];
 
         todoLists.forEach(todoList => {
-          todoList.id = this.getId(todoList);
+          todoList.id = ServiceUtils.getId(todoList);
         });
 
         return response['_embedded']['todoLists'] as TodoList[];
@@ -39,7 +40,7 @@ export class TodoService {
     })
       .toPromise().then(response => {
         const todoList: TodoList = response as TodoList;
-        todoList.id = this.getId(todoList);
+        todoList.id = ServiceUtils.getId(todoList);
 
         return todoList;
       });
@@ -54,7 +55,7 @@ export class TodoService {
       .toPromise()
       .then(response => {
         const newTodoList: TodoList = response as TodoList;
-        newTodoList.id = this.getId(response);
+        newTodoList.id = ServiceUtils.getId(response);
 
         return newTodoList;
       });
@@ -71,7 +72,7 @@ export class TodoService {
         const todos: Todo[] = response['_embedded']['todos'];
 
         todos.forEach(todo => {
-          todo.id = this.getId(todo);
+          todo.id = ServiceUtils.getId(todo);
         });
 
         return todos;
@@ -87,7 +88,7 @@ export class TodoService {
       .toPromise()
       .then(response => {
         const todo: Todo = response as Todo;
-        todo.id = this.getId(response);
+        todo.id = ServiceUtils.getId(response);
 
         return todo;
       });
@@ -102,7 +103,7 @@ export class TodoService {
       .toPromise()
       .then(response => {
         const newTodo = response as Todo;
-        newTodo.id = this.getId(newTodo);
+        newTodo.id = ServiceUtils.getId(newTodo);
 
         return newTodo;
       });
@@ -133,7 +134,7 @@ export class TodoService {
         const todos: Todo[] = response['_embedded']['todos'] as Todo[];
 
         todos.forEach(todo => {
-          todo.id = this.getId(todo);
+          todo.id = ServiceUtils.getId(todo);
         });
 
         return todos;
@@ -232,16 +233,6 @@ export class TodoService {
       .then(response => {
         return;
       });
-  }
-
-  getId(restEntity: Object): Number {
-    const selfLink = restEntity['_links']['self']['href'];
-    const splitted = selfLink.split('/');
-    if (splitted[splitted.length - 1] === '') {
-      return Number(splitted[splitted.length - 2]);
-    } else {
-      return Number(splitted[splitted.length - 1]);
-    }
   }
 
 }
