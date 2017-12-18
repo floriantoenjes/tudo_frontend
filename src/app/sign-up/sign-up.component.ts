@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from '../shared/user.model';
+import {AuthService} from '../shared/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -10,13 +12,18 @@ export class SignUpComponent implements OnInit {
   user: User = new User();
   passwordAgain: String;
 
-  constructor() { }
+  constructor(private authservice: AuthService, private router: Router) { }
 
   ngOnInit() {
   }
 
   signUp(): void {
-    console.log(this.user);
+    if (this.user.password === this.passwordAgain) {
+      this.authservice.signUp(this.user).then(response => {
+        this.authservice.signIn(this.user.username, this.user.password).then(()  => {
+          this.router.navigateByUrl('');
+        });
+      });
+    }
   }
-
 }

@@ -7,9 +7,9 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  signIn(username: String, password: String): Promise<HttpResponse<Object>> {
+  signIn(username: String, password: String): Promise<void> {
 
-    return this.http.post('http://127.0.0.1:8080/api/v1/login', {
+    return this.http.post('http://localhost:8080/api/v1/login', {
       'username': username,
       'password': password
     }, {
@@ -21,13 +21,22 @@ export class AuthService {
       .then(response => {
         const jwt = response.headers.get('Authorization');
         this.setToken(jwt);
-
-        return response;
       });
   }
 
   signOut(): void {
     localStorage.removeItem('token');
+  }
+
+  signUp(user: User): Promise<User> {
+    return this.http.post('http://localhost:8080/api/v1/users', user, {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+    })
+      .toPromise()
+      .then(response => {
+        return response as User;
+      });
   }
 
   getToken(): string {
