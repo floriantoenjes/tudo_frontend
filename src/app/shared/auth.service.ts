@@ -1,9 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {User} from './user.model';
+import {Subject} from 'rxjs/Subject';
 
 @Injectable()
 export class AuthService {
+  isUserSignedIn: Subject<Boolean> = new Subject<Boolean>();
 
   constructor(private http: HttpClient) { }
 
@@ -21,11 +23,13 @@ export class AuthService {
       .then(response => {
         const jwt = response.headers.get('Authorization');
         this.setToken(jwt);
+        this.isUserSignedIn.next(true);
       });
   }
 
   signOut(): void {
     localStorage.removeItem('token');
+    this.isUserSignedIn.next(false);
   }
 
   signUp(user: User): Promise<User> {
@@ -53,12 +57,12 @@ export class AuthService {
     return JSON.parse(window.atob(base64));
   }
 
-  isLoggedIn(): boolean {
+  isSignedIn(): boolean {
     return this.getToken() !== null;
   }
 
   getCurrentUser(): User {
-    if (this.isLoggedIn()) {
+    if (this.isSignedIn()) {
       const decodedToken: Object = this.decodeJWT(this.getToken());
       const currentUser: User = new User();
 

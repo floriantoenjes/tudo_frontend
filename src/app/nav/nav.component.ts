@@ -1,13 +1,21 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../shared/auth.service';
 
 @Component({
   selector: 'app-nav',
   templateUrl: 'nav.component.html'
 })
-export class NavComponent {
+export class NavComponent implements OnInit {
+  isSignedIn: Boolean;
 
   constructor(private authService: AuthService) {
+    this.authService.isUserSignedIn.subscribe(value => {
+      this.isSignedIn = value;
+    });
+  }
+
+  ngOnInit(): void {
+    this.isSignedIn = this.authService.isSignedIn();
   }
 
   signOut(): void {
