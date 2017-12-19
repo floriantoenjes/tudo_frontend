@@ -32,7 +32,7 @@ export class TodoService {
       });
   }
 
-  getTodoList(todoListId: Number): Promise<TodoList> {
+  getTodoList(todoListId: number): Promise<TodoList> {
     return this.http.get(`http://localhost:8080/api/v1/todoLists/${todoListId}`, {
       headers: new HttpHeaders()
         .set('Authorization', this.authService.getToken())
@@ -61,7 +61,7 @@ export class TodoService {
       });
   }
 
-  getTodos(todoListId: Number): Promise<Todo[]> {
+  getTodos(todoListId: number): Promise<Todo[]> {
     return this.http.get(`http://localhost:8080/api/v1/todoLists/${todoListId}/todos?projection=todoProjection`, {
       headers: new HttpHeaders()
         .set('Authorization', this.authService.getToken())
@@ -79,7 +79,7 @@ export class TodoService {
       });
   }
 
-  getTodo(todoId: Number): Promise<Todo> {
+  getTodo(todoId: number): Promise<Todo> {
     return this.http.get(`http://localhost:8080/api/v1/todos/${todoId}?projection=todoProjection`, {
       headers: new HttpHeaders()
         .set('Authorization', this.authService.getToken())
@@ -141,7 +141,7 @@ export class TodoService {
       });
   }
 
-  getTodoForm(todoFormId: Number): Promise<TodoForm> {
+  getTodoForm(todoFormId: number): Promise<TodoForm> {
     return this.http.get(`http://localhost:8080/api/v1/todos/${todoFormId}/todoForm`, {
       headers: new HttpHeaders()
         .set('Authorization', this.authService.getToken())
@@ -204,7 +204,7 @@ export class TodoService {
       });
   }
 
-  clearAssignees(todoId: Number): Promise<void> {
+  clearAssignees(todoId: number): Promise<void> {
     return this.http.put(`http://localhost:8080/api/v1/todos/${todoId}/assignedUsers`, '', {
       headers: new HttpHeaders()
         .set('Authorization', this.authService.getToken())
@@ -216,7 +216,7 @@ export class TodoService {
       });
   }
 
-  addAssignees(todoId: Number, assignees: User[]): Promise<void> {
+  addAssignees(todoId: number, assignees: User[]): Promise<void> {
     let body: String = '';
 
     assignees.forEach(assignee => {

@@ -13,13 +13,13 @@ import {TodoList} from '../shared/models/todo-list.model';
   styleUrls: ['./todo.component.css']
 })
 export class TodoComponent implements OnInit {
-  todoListId: Number;
+  todoListId: number;
   todoList: TodoList = new TodoList();
 
   todo: Todo = new Todo();
   filteredContacts: User[];
   assignedUsers: User[];
-  assignedUsersBinding: String[];
+  assignedUsersBinding: string[];
   contacts: User[];
   tags: String;
 
@@ -95,7 +95,7 @@ export class TodoComponent implements OnInit {
     }
   }
 
-  mapToUserModel(assignedUsersBinding: String[], newAssignedUsers: User[]) {
+  mapToUserModel(assignedUsersBinding: string[], newAssignedUsers: User[]) {
     this.assignedUsersBinding.forEach(assignedUserName => {
       for (let i = 0; i < this.contacts.length; i++) {
         if (this.contacts[i].username === assignedUserName) {
