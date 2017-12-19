@@ -9,7 +9,7 @@ import {AuthService} from '../shared/auth.service';
 })
 export class UsersComponent implements OnInit {
   title: String = 'User List';
-  users: User[];
+  users: User[] = [];
 
   constructor(private authService: AuthService, private userService: UserService) {
   }

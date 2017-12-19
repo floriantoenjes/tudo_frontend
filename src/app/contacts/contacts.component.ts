@@ -9,7 +9,7 @@ import {User} from '../shared/user.model';
 export class ContactsComponent implements OnInit {
   title: String = 'Contact List';
   noUsersMessage: String = 'You don\'t have any contacts yet.';
-  users: User[];
+  users: User[] = [];
 
   constructor(private userService: UserService) {
   }
