@@ -21,7 +21,7 @@ export class UserService {
       });
   }
 
-  getUser(userId: Number): Promise<User> {
+  getUser(userId: number): Promise<User> {
     return this.http.get(`http://localhost:8080/api/v1/users/${userId}`, {
       headers: new HttpHeaders()
         .set('Authorization', this.authService.getToken())
@@ -75,7 +75,7 @@ export class UserService {
       });
   }
 
-  getContactRequest(username: String): Promise<Object> {
+  getContactRequest(username: string): Promise<Object> {
     return this.http.get(
       `http://localhost:8080/api/v1/contactRequests/search/findBySenderUsernameAndReceiverUsername?` +
       `senderName=${this.authService.getCurrentUser().username}&receiverName=${username}`, {
@@ -88,7 +88,7 @@ export class UserService {
       });
   }
 
-  addContact(userId: Number): Promise<void> {
+  addContact(userId: number): Promise<void> {
     const body: String = `http://localhost:8080/api/v1/users/${userId}`;
 
     return this.http.post(`http://localhost:8080/api/v1/users/${this.authService.getUserId()}/contacts`, body, {
@@ -102,7 +102,7 @@ export class UserService {
       });
   }
 
-  removeContact(userId: Number): Promise<Object> {
+  removeContact(userId: number): Promise<Object> {
     return this.http.delete(`http://localhost:8080/api/v1/users/${this.authService.getUserId()}/contacts/${userId}`, {
       headers: new HttpHeaders()
         .set('Authorization', this.authService.getToken())
