@@ -7,8 +7,8 @@ import {User} from '../shared/models/user.model';
   templateUrl: '../users/users.component.html'
 })
 export class ContactsComponent implements OnInit {
-  title: String = 'Contact List';
-  noUsersMessage: String = 'You don\'t have any contacts yet.';
+  title = 'Contact List';
+  noUsersMessage = 'You don\'t have any contacts yet.';
   users: User[] = [];
 
   constructor(private userService: UserService) {
