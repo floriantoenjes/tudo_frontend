@@ -5,7 +5,7 @@ import {Subject} from 'rxjs/Subject';
 
 @Injectable()
 export class AuthService {
-  isUserSignedIn: Subject<Boolean> = new Subject<Boolean>();
+  isUserSignedIn: Subject<boolean> = new Subject<boolean>();
 
   constructor(private http: HttpClient) { }
 

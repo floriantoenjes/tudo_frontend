@@ -6,7 +6,7 @@ import {AuthService} from '../shared/services/auth.service';
   templateUrl: 'nav.component.html'
 })
 export class NavComponent implements OnInit {
-  isSignedIn: Boolean;
+  isSignedIn: boolean;
 
   constructor(private authService: AuthService) {
     this.authService.isUserSignedIn.subscribe(value => {
