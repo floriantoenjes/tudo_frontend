@@ -21,7 +21,7 @@ export class TodoComponent implements OnInit {
   assignedUsers: User[];
   assignedUsersBinding: string[];
   contacts: User[];
-  tags: String;
+  tags: string;
 
   wasCompleted: Boolean;
 

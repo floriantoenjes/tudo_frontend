@@ -8,7 +8,7 @@ import {AuthService} from '../shared/services/auth.service';
   templateUrl: 'users.component.html'
 })
 export class UsersComponent implements OnInit {
-  title: String = 'User List';
+  title = 'User List';
   users: User[] = [];
 
   constructor(private authService: AuthService, private userService: UserService) {
