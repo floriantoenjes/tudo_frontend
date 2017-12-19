@@ -1,13 +1,13 @@
 import {TodoForm} from './todo-form.model';
 
 export class Todo {
-  name: String;
-  description: String;
+  name: string;
+  description: string;
   createdAt: Date;
   dueDate: Date;
-  tags: String[];
+  tags: string[];
   location: null;
-  id: Number;
+  id: number;
   todoForm: TodoForm;
-  priority: Number;
+  priority: number;
 }
