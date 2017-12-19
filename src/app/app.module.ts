@@ -21,6 +21,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import {AuthService} from './shared/auth.service';
 import {SignInGuard} from './shared/sign-in.guard';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import {AlreadySignedInGuard} from './shared/already-signed-in.guard';
 
 const appRoutes: Routes = [
   {pathMatch: 'full', path: '', component: TodoListOverviewComponent, canActivate: [SignInGuard]},
@@ -32,8 +33,8 @@ const appRoutes: Routes = [
   {pathMatch: 'full', path: 'assigned_todo_list', component: AssignedTodoListComponent, canActivate: [SignInGuard]},
   {pathMatch: 'full', path: 'assigned_todo_list/:todoId', component: AssignedTodoComponent, canActivate: [SignInGuard]},
   {pathMatch: 'full', path: 'users/:userId', component: UserComponent, canActivate: [SignInGuard]},
-  {pathMatch: 'full', path: 'sign_in', component: SignInComponent},
-  {pathMatch: 'full', path: 'sign_up', component: SignUpComponent}
+  {pathMatch: 'full', path: 'sign_in', component: SignInComponent, canActivate: [AlreadySignedInGuard]},
+  {pathMatch: 'full', path: 'sign_up', component: SignUpComponent, canActivate: [AlreadySignedInGuard]}
   ];
 
 @NgModule({
@@ -58,7 +59,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FormsModule
   ],
-  providers: [TodoService, UserService, AuthService, SignInGuard],
+  providers: [TodoService, UserService, AuthService, SignInGuard, AlreadySignedInGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
