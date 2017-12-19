@@ -8,7 +8,7 @@ import {AuthService} from '../shared/services/auth.service';
   templateUrl: 'users.component.html'
 })
 export class UsersComponent implements OnInit {
-  title: String = 'User List';
+  title = 'User List';
   users: User[] = [];
 
   constructor(private authService: AuthService, private userService: UserService) {
@@ -16,8 +16,7 @@ export class UsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.getUsers().then(response => {
-      // ToDo: Change to triple equals
-      this.users = response.filter(user => user.id != this.authService.getUserId());
+      this.users = response.filter(user => user.id !== Number(this.authService.getUserId()));
     });
   }
 }

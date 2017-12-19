@@ -1,4 +1,4 @@
 export class TodoList {
-  name: String;
-  id: Number;
+  name: string;
+  id: number;
 }

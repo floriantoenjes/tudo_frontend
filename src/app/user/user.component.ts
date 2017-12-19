@@ -10,9 +10,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class UserComponent implements OnInit {
   user: User = new User();
   contacts: User[];
-  isContact: Boolean;
-  isContactRequestSent: Boolean;
-  loaded: Boolean = false;
+  isContact: boolean;
+  isContactRequestSent: boolean;
+  loaded: boolean = false;
 
   constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) {
   }

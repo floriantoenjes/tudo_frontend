@@ -8,8 +8,8 @@ import {Router} from '@angular/router';
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent implements OnInit {
-  username: String;
-  password: String;
+  username: string;
+  password: string;
 
   constructor(private authService: AuthService, private router: Router) { }
 

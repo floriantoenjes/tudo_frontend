@@ -1,9 +1,9 @@
 export class TodoHead {
-  name: String;
-  description: String;
+  name: string;
+  description: string;
   createdAt: Date;
   dueDate: Date;
-  priority: Number;
-  tags: String[];
+  priority: number;
+  tags: string[];
   location: null;
 }

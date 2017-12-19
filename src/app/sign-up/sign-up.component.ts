@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
 })
 export class SignUpComponent implements OnInit {
   user: User = new User();
-  passwordAgain: String;
+  passwordAgain: string;
 
   constructor(private authservice: AuthService, private router: Router) { }
 

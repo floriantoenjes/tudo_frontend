@@ -5,11 +5,11 @@ import {Subject} from 'rxjs/Subject';
 
 @Injectable()
 export class AuthService {
-  isUserSignedIn: Subject<Boolean> = new Subject<Boolean>();
+  isUserSignedIn: Subject<boolean> = new Subject<boolean>();
 
   constructor(private http: HttpClient) { }
 
-  signIn(username: String, password: String): Promise<void> {
+  signIn(username: string, password: string): Promise<void> {
 
     return this.http.post('http://localhost:8080/api/v1/login', {
       'username': username,
@@ -73,7 +73,7 @@ export class AuthService {
     }
   }
 
-  getUserId(): Number {
+  getUserId(): number {
     return this.getCurrentUser().id;
   }
 
