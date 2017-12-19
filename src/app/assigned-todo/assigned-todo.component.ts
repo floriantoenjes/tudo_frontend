@@ -10,8 +10,8 @@ import {TodoForm} from '../shared/models/todo-form.model';
 })
 export class AssignedTodoComponent implements OnInit {
   todo: Todo = new Todo();
-  tags: String;
-  assignedUsers: String = '';
+  tags: string;
+  assignedUsers = '';
 
   wasCompleted: Boolean;
 
