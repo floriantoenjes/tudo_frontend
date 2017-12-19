@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import {Todo} from '../shared/todo.model';
-import {TodoService} from '../shared/todo.service';
+import {Component, OnInit} from '@angular/core';
+import {Todo} from '../shared/models/todo.model';
+import {TodoService} from '../shared/services/todo.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {TodoForm} from '../shared/todo-form.model';
+import {TodoForm} from '../shared/models/todo-form.model';
 
 @Component({
   selector: 'app-assigned-todo',

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {User} from './user.model';
-import {ContactRequest} from './contact-request.model';
+import {User} from '../models/user.model';
+import {ContactRequest} from '../models/contact-request.model';
 import {AuthService} from './auth.service';
 
 @Injectable()

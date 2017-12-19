@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {TodoService} from '../shared/todo.service';
-import {Todo} from '../shared/todo.model';
+import {TodoService} from '../shared/services/todo.service';
+import {Todo} from '../shared/models/todo.model';
 import {ActivatedRoute} from '@angular/router';
-import {TodoList} from '../shared/todo-list.model';
-import {TodoForm} from '../shared/todo-form.model';
+import {TodoList} from '../shared/models/todo-list.model';
+import {TodoForm} from '../shared/models/todo-form.model';
 import {Subject} from 'rxjs/Subject';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 

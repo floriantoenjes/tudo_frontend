@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {TodoService} from '../shared/todo.service';
-import {Todo} from '../shared/todo.model';
-import {TodoForm} from '../shared/todo-form.model';
+import {Component, OnInit} from '@angular/core';
+import {TodoService} from '../shared/services/todo.service';
+import {Todo} from '../shared/models/todo.model';
+import {TodoForm} from '../shared/models/todo-form.model';
 import {Subject} from 'rxjs/Subject';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 

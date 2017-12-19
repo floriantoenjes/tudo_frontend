@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ContactRequest} from '../shared/contact-request.model';
-import {UserService} from '../shared/user.service';
+import {ContactRequest} from '../shared/models/contact-request.model';
+import {UserService} from '../shared/services/user.service';
 
 @Component({
   selector: 'app-contact-requests',

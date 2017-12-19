@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {Todo} from '../shared/todo.model';
-import {TodoService} from '../shared/todo.service';
+import {Todo} from '../shared/models/todo.model';
+import {TodoService} from '../shared/services/todo.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {TodoForm} from '../shared/todo-form.model';
-import {User} from '../shared/user.model';
-import {UserService} from '../shared/user.service';
-import {TodoList} from '../shared/todo-list.model';
+import {TodoForm} from '../shared/models/todo-form.model';
+import {User} from '../shared/models/user.model';
+import {UserService} from '../shared/services/user.service';
+import {TodoList} from '../shared/models/todo-list.model';
 
 @Component({
   selector: 'app-todo',

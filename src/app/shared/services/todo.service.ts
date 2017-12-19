@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {TodoList} from './todo-list.model';
-import {Todo} from './todo.model';
-import {TodoForm} from './todo-form.model';
-import {TodoHead} from './todo-head.model';
-import {User} from './user.model';
+import {TodoList} from '../models/todo-list.model';
+import {Todo} from '../models/todo.model';
+import {TodoForm} from '../models/todo-form.model';
+import {TodoHead} from '../models/todo-head.model';
+import {User} from '../models/user.model';
 import {AuthService} from './auth.service';
-import {ServiceUtils} from './service-utils';
+import {ServiceUtils} from '../service-utils';
 
 @Injectable()
 export class TodoService {
