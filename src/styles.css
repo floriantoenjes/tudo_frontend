@@ -60,3 +60,12 @@ h2 {
 .priority-input {
   width: 2.75em;
 }
+
+.alert {
+  margin: 1em auto 0 auto;
+  width: 25%;
+}
+
+.close {
+  cursor: pointer;
+}

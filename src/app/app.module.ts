@@ -22,6 +22,8 @@ import {AuthService} from './shared/services/auth.service';
 import {SignInGuard} from './shared/guards/sign-in.guard';
 import {SignUpComponent} from './sign-up/sign-up.component';
 import {AlreadySignedInGuard} from './shared/guards/already-signed-in.guard';
+import { AlertComponent } from './alert/alert.component';
+import {AlertService} from './shared/services/alert.service';
 
 const appRoutes: Routes = [
   {pathMatch: 'full', path: '', component: TodoListOverviewComponent, canActivate: [SignInGuard]},
@@ -51,7 +53,8 @@ const appRoutes: Routes = [
     AssignedTodoComponent,
     UserComponent,
     SignInComponent,
-    SignUpComponent
+    SignUpComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,7 +62,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FormsModule
   ],
-  providers: [TodoService, UserService, AuthService, SignInGuard, AlreadySignedInGuard],
+  providers: [TodoService, UserService, AuthService, AlertService, SignInGuard, AlreadySignedInGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
