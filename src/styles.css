@@ -62,6 +62,9 @@ h2 {
 }
 
 .alert {
+  position: absolute;
+  left: 37%;
+
   margin: 1em auto 0 auto;
   width: 25%;
 }
