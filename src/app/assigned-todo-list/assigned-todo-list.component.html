@@ -1,5 +1,5 @@
 <div class="row justify-content-center">
-  <div class="col-4 text-center">
+  <div *ngIf="loaded" class="col-4 text-center">
     <h2>Assigned Todos</h2>
     <h3 *ngIf="todos.length == 0">There are no todos assigned to you.</h3>
     <table *ngIf="todos.length > 0" class="table todo-table">

@@ -9,13 +9,15 @@ import {UserService} from '../shared/services/user.service';
 })
 export class ContactRequestsComponent implements OnInit {
   contactRequests: ContactRequest[] = [];
+  loaded = false;
 
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.userService.getContactRequests().then(response =>
-      this.contactRequests = response
-    );
+    this.userService.getContactRequests().then(response => {
+      this.contactRequests = response;
+      this.loaded = true;
+    });
   }
 
   acceptContact(contactRequest: ContactRequest): void {

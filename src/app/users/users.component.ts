@@ -10,6 +10,7 @@ import {AuthService} from '../shared/services/auth.service';
 export class UsersComponent implements OnInit {
   title = 'User List';
   users: User[] = [];
+  loaded = false;
 
   constructor(private authService: AuthService, private userService: UserService) {
   }
@@ -17,6 +18,7 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUsers().then(response => {
       this.users = response.filter(user => user.id !== Number(this.authService.getUserId()));
+      this.loaded = true;
     });
   }
 }

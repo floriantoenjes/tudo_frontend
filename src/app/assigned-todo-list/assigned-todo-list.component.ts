@@ -12,6 +12,7 @@ import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 export class AssignedTodoListComponent implements OnInit {
   todos: Todo[] = [];
   todoSubject: Subject<Todo> = new Subject<Todo>();
+  loaded = false;
 
   constructor(private todoService: TodoService) {
   }
@@ -20,6 +21,7 @@ export class AssignedTodoListComponent implements OnInit {
     this.todoService.getAssignedTodos().then(todos => {
       this.todos = todos;
       this.sortByPriority(this.todos);
+      this.loaded = true;
     });
 
     this.todoSubject.asObservable().pipe(

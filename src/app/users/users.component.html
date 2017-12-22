@@ -1,5 +1,5 @@
 <div class="row justify-content-center">
-  <div class="col-4 text-center">
+  <div *ngIf="loaded" class="col-4 text-center">
     <h2>{{title}}</h2>
     <h3 *ngIf="users.length == 0">{{noUsersMessage}}</h3>
     <table class="table">

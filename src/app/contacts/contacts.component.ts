@@ -10,6 +10,7 @@ export class ContactsComponent implements OnInit {
   title = 'Contact List';
   noUsersMessage = 'You don\'t have any contacts yet.';
   users: User[] = [];
+  loaded = false;
 
   constructor(private userService: UserService) {
   }
@@ -18,6 +19,7 @@ export class ContactsComponent implements OnInit {
     this.userService.getContacts().then(response => {
       this.users = response;
       this.sortUsers(this.users);
+      this.loaded = true;
     });
   }
 
