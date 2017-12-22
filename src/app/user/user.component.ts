@@ -12,7 +12,7 @@ export class UserComponent implements OnInit {
   contacts: User[];
   isContact: boolean;
   isContactRequestSent: boolean;
-  loaded: boolean = false;
+  loaded = false;
 
   constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) {
   }
