@@ -24,6 +24,8 @@ import {SignUpComponent} from './sign-up/sign-up.component';
 import {AlreadySignedInGuard} from './shared/guards/already-signed-in.guard';
 import { AlertComponent } from './alert/alert.component';
 import {AlertService} from './shared/services/alert.service';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatFormFieldModule, MatOptionModule, MatSelectModule} from '@angular/material';
 
 const appRoutes: Routes = [
   {pathMatch: 'full', path: '', component: TodoListOverviewComponent, canActivate: [SignInGuard]},
@@ -60,7 +62,11 @@ const appRoutes: Routes = [
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatOptionModule
   ],
   providers: [TodoService, UserService, AuthService, AlertService, SignInGuard, AlreadySignedInGuard],
   bootstrap: [AppComponent]

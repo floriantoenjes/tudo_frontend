@@ -19,7 +19,7 @@ export class TodoComponent implements OnInit {
   todo: Todo = new Todo();
   filteredContacts: User[];
   assignedUsers: User[];
-  assignedUsersBinding: string[];
+  assignedUsersBinding: string[] = [];
   contacts: User[];
   tags: string;
 
@@ -43,12 +43,14 @@ export class TodoComponent implements OnInit {
           this.wasCompleted = true;
         }
 
-        const assignedUsers: User[] = todo['assignedUsers'];
-        this.assignedUsers = assignedUsers;
+        this.assignedUsers = todo['assignedUsers'];
+
+        this.assignedUsers.forEach(assignedUser => {
+          this.assignedUsersBinding.push(assignedUser.username);
+        });
 
         this.getContacts().then(contacts => {
           this.contacts = contacts;
-          this.filteredContacts = this.filterContactsForAssignedUsers(contacts, assignedUsers);
         });
 
         this.tags = todo.tags.join(', ');
@@ -62,36 +64,31 @@ export class TodoComponent implements OnInit {
     });
   }
 
-  filterContactsForAssignedUsers(contacts: User[], assignedUsers: User[]): User[] {
-    return contacts.filter(contact => {
-      for (let i = 0; i < assignedUsers.length; i++) {
-        if (assignedUsers[i].username === contact.username) {
-          return false;
-        }
-      }
-      return true;
-    });
-  }
-
   saveTodo() {
-    this.todo.tags = this.tags.split(',');
-    this.todo.tags = this.todo.tags.map(tag => tag.trim());
-
-    if (!this.wasCompleted && this.todo.todoForm.completed) {
-      this.todo.todoForm.completedAt = new Date();
-    } else if (this.wasCompleted && !this.todo.todoForm.completed) {
-      this.todo.todoForm.completedAt = null;
-    }
+    this.splitAndMapTags();
+    this.setCompletedAt();
 
     this.todoService.updateTodo(this.todo).then(response => {
       this.router.navigateByUrl(`todo_list/${this.todoListId}`);
     });
 
-    const newAssignedUsers = [];
-
-    if (this.assignedUsersBinding !== undefined) {
+    if (this.assignedUsersBinding.length > 0) {
+      const newAssignedUsers = [];
       this.mapToUserModel(this.assignedUsersBinding, newAssignedUsers);
       this.todoService.addAssignees(this.todo.id, newAssignedUsers);
+    }
+  }
+
+  splitAndMapTags() {
+    this.todo.tags = this.tags.split(',');
+    this.todo.tags = this.todo.tags.map(tag => tag.trim());
+  }
+
+  setCompletedAt() {
+    if (!this.wasCompleted && this.todo.todoForm.completed) {
+      this.todo.todoForm.completedAt = new Date();
+    } else if (this.wasCompleted && !this.todo.todoForm.completed) {
+      this.todo.todoForm.completedAt = null;
     }
   }
 
