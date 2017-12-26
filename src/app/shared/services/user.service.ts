@@ -4,6 +4,7 @@ import {User} from '../models/user.model';
 import {ContactRequest} from '../models/contact-request.model';
 import {AuthService} from './auth.service';
 import {toPromise} from 'rxjs/operator/toPromise';
+import {ServiceUtils} from '../service-utils';
 
 @Injectable()
 export class UserService {
@@ -72,7 +73,12 @@ export class UserService {
       })
       .toPromise()
       .then(response => {
-        return response['_embedded']['contactRequests'] as ContactRequest[];
+        const contactRequests: ContactRequest[] = response['_embedded']['contactRequests'] as ContactRequest[];
+        contactRequests.forEach(contactRequest => {
+          contactRequest.id = ServiceUtils.getId(contactRequest);
+        });
+
+        return contactRequests;
       });
   }
 
