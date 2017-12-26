@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {User} from '../models/user.model';
 import {ContactRequest} from '../models/contact-request.model';
 import {AuthService} from './auth.service';
+import {toPromise} from 'rxjs/operator/toPromise';
 
 @Injectable()
 export class UserService {
@@ -83,6 +84,16 @@ export class UserService {
         .set('Authorization', this.authService.getToken())
     })
       .toPromise()
+      .then(response => {
+        return response;
+      });
+  }
+
+  deleteContactRequest(contactRequest: ContactRequest): Promise<Object> {
+    return this.http.delete(`http://localhost:8080/api/v1/contactRequests/${contactRequest.id}`, {
+      headers: new HttpHeaders()
+        .set('Authorization', this.authService.getToken())
+    }).toPromise()
       .then(response => {
         return response;
       });

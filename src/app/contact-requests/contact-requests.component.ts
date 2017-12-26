@@ -27,4 +27,9 @@ export class ContactRequestsComponent implements OnInit {
     });
   }
 
+  declineContact(contactRequest: ContactRequest): void {
+    this.userService.deleteContactRequest(contactRequest).then(() => {
+      this.contactRequests.filter(cR => cR !== contactRequest);
+    });
+  }
 }
