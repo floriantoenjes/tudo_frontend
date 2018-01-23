@@ -27,7 +27,7 @@
       <td>
         <select multiple [(ngModel)]="assignedUsersBinding" name="assignedUsersBinding">
           <option *ngFor="let contact of contacts" [value]="contact.username">{{contact.username}}</option>
-          <option [value]="None">None</option>
+          <option value="None">None</option>
         </select>
       </td>
     </tr>

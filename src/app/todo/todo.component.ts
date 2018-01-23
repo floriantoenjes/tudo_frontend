@@ -42,7 +42,11 @@ export class TodoComponent implements OnInit {
         }
 
         this.assignedUsers = todo['assignedUsers'];
-        this.assignedUsers.forEach(user => this.assignedUsersBinding.push(user.username));
+        if (this.assignedUsers.length === 0) {
+          this.assignedUsersBinding.push('None');
+        } else {
+          this.assignedUsers.forEach(user => this.assignedUsersBinding.push(user.username));
+        }
 
         this.getContacts().then(contacts => {
           this.contacts = contacts;
