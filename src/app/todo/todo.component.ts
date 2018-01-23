@@ -41,6 +41,7 @@ export class TodoComponent implements OnInit {
           this.wasCompleted = true;
         }
 
+        // ToDo: Add the possibility to de-select a single selected user
         this.assignedUsers = todo['assignedUsers'];
         this.assignedUsers.forEach(user => this.assignedUsersBinding.push(user.username));
 
@@ -56,17 +57,6 @@ export class TodoComponent implements OnInit {
   getContacts(): Promise<User[]> {
     return this.userService.getContacts().then(response => {
       return response;
-    });
-  }
-
-  filterContactsForAssignedUsers(contacts: User[], assignedUsers: User[]): User[] {
-    return contacts.filter(contact => {
-      for (let i = 0; i < assignedUsers.length; i++) {
-        if (assignedUsers[i].username === contact.username) {
-          return false;
-        }
-      }
-      return true;
     });
   }
 
