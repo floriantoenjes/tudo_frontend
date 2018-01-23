@@ -41,7 +41,6 @@ export class TodoComponent implements OnInit {
           this.wasCompleted = true;
         }
 
-        // ToDo: Add the possibility to de-select a single selected user
         this.assignedUsers = todo['assignedUsers'];
         this.assignedUsers.forEach(user => this.assignedUsersBinding.push(user.username));
 
@@ -70,7 +69,9 @@ export class TodoComponent implements OnInit {
 
     const newAssignedUsers = [];
     if (this.assignedUsersBinding.length > 0) {
-      this.mapToUserModel(this.assignedUsersBinding, newAssignedUsers);
+      if (this.assignedUsersBinding[0] !== 'None') {
+        this.mapToUserModel(this.assignedUsersBinding, newAssignedUsers);
+      }
       this.todoService.addAssignees(this.todo.id, newAssignedUsers);
     }
   }
