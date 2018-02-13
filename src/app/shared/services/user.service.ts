@@ -9,12 +9,12 @@ import {ServiceUtils} from '../service-utils';
 @Injectable()
 export class UserService {
 
-  constructor(private authService: AuthService, private http: HttpClient) { }
+  constructor(private authService: AuthService, private http: HttpClient) {
+  }
 
   getUsers(): Promise<User[]> {
     return this.http.get('http://localhost:8080/api/v1/users', {
       headers: new HttpHeaders()
-        .set('Authorization', this.authService.getToken())
         .set('Content-Type', 'application/x-www-form-urlencoded')
     })
       .toPromise()
@@ -26,7 +26,6 @@ export class UserService {
   getUser(userId: number): Promise<User> {
     return this.http.get(`http://localhost:8080/api/v1/users/${userId}`, {
       headers: new HttpHeaders()
-        .set('Authorization', this.authService.getToken())
         .set('Content-Type', 'application/x-www-form-urlencoded')
     })
       .toPromise()
@@ -38,7 +37,6 @@ export class UserService {
   getContacts(): Promise<User[]> {
     return this.http.get(`http://localhost:8080/api/v1/users/${this.authService.getUserId()}/contacts`, {
       headers: new HttpHeaders()
-        .set('Authorization', this.authService.getToken())
         .set('Content-Type', 'application/x-www-form-urlencoded')
     })
       .toPromise()
@@ -55,7 +53,6 @@ export class UserService {
 
     return this.http.post('http://localhost:8080/api/v1/contactRequests', body, {
       headers: new HttpHeaders()
-        .set('Authorization', this.authService.getToken())
         .set('Content-Type', 'application/json')
     })
       .toPromise()
@@ -67,10 +64,7 @@ export class UserService {
   getContactRequests(): Promise<ContactRequest[]> {
     return this.http.get(
       `http://localhost:8080/api/v1/contactRequests/search/findAllByReceiverUsername?` +
-    `receiverName=${this.authService.getCurrentUser().username}&projection=contactRequestProjection`, {
-        headers: new HttpHeaders()
-          .set('Authorization', this.authService.getToken())
-      })
+    `receiverName=${this.authService.getCurrentUser().username}&projection=contactRequestProjection`)
       .toPromise()
       .then(response => {
         const contactRequests: ContactRequest[] = response['_embedded']['contactRequests'] as ContactRequest[];
@@ -85,10 +79,7 @@ export class UserService {
   getContactRequest(username: string): Promise<Object> {
     return this.http.get(
       `http://localhost:8080/api/v1/contactRequests/search/findBySenderUsernameAndReceiverUsername?` +
-      `senderName=${this.authService.getCurrentUser().username}&receiverName=${username}`, {
-      headers: new HttpHeaders()
-        .set('Authorization', this.authService.getToken())
-    })
+      `senderName=${this.authService.getCurrentUser().username}&receiverName=${username}`)
       .toPromise()
       .then(response => {
         return response;
@@ -96,10 +87,7 @@ export class UserService {
   }
 
   deleteContactRequest(contactRequest: ContactRequest): Promise<Object> {
-    return this.http.delete(`http://localhost:8080/api/v1/contactRequests/${contactRequest.id}`, {
-      headers: new HttpHeaders()
-        .set('Authorization', this.authService.getToken())
-    }).toPromise()
+    return this.http.delete(`http://localhost:8080/api/v1/contactRequests/${contactRequest.id}`).toPromise()
       .then(response => {
         return response;
       });
@@ -110,7 +98,6 @@ export class UserService {
 
     return this.http.post(`http://localhost:8080/api/v1/users/${this.authService.getUserId()}/contacts`, body, {
       headers: new HttpHeaders()
-        .set('Authorization', this.authService.getToken())
         .set('Content-Type', 'text/uri-list')
     })
       .toPromise()
@@ -122,7 +109,6 @@ export class UserService {
   removeContact(userId: number): Promise<Object> {
     return this.http.delete(`http://localhost:8080/api/v1/users/${this.authService.getUserId()}/contacts/${userId}`, {
       headers: new HttpHeaders()
-        .set('Authorization', this.authService.getToken())
         .set('Content-Type', 'application/json')
     })
       .toPromise()
