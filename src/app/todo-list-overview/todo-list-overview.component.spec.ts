@@ -10,10 +10,10 @@ import {RouterTestingModule} from '@angular/router/testing';
 
 describe('TodoListOverviewComponent', () => {
 
-  let spy: Spy;
-  let fixture;
   let comp;
+  let fixture;
   let todoService;
+  let spy: Spy;
 
   const testTodoLists = [
     {name: 'TodoList1', id: 1},
