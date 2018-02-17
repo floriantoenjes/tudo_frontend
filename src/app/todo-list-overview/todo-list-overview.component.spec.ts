@@ -13,12 +13,18 @@ describe('TodoListOverviewComponent', () => {
   let comp;
   let fixture;
   let todoService;
-  let spy: Spy;
+
+  let spyAddTodo: Spy;
 
   const testTodoLists = [
     {name: 'TodoList1', id: 1},
     {name: 'TodoList2', id: 2}
-    ];
+  ];
+
+  const todoResponse = {
+    name: 'TodoList',
+    id: 1
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -44,8 +50,8 @@ describe('TodoListOverviewComponent', () => {
 
     todoService = fixture.debugElement.injector.get(TodoService);
 
-    spy = spyOn(todoService, 'getTodoLists')
-      .and.returnValue(Promise.resolve(testTodoLists));
+    spyOn(todoService, 'getTodoLists').and.returnValue(Promise.resolve(testTodoLists));
+    spyAddTodo = spyOn(todoService, 'addTodoList').and.returnValue(Promise.resolve(todoResponse));
   });
 
   it('should create the component', async(() => {
@@ -53,11 +59,22 @@ describe('TodoListOverviewComponent', () => {
   }));
 
   it('should get TodoLists', async(() => {
+    expect(comp.todoLists.length).toBe(0);
     fixture.detectChanges();
 
     fixture.whenStable().then(() => {
       expect(comp.todoLists.length).toBe(2, 'fetches TodoLists');
     });
+  }));
 
+  it('should add TodoList', async(() => {
+    expect(comp.todoLists.length).toBe(0);
+    fixture.detectChanges();
+    comp.addTodoList();
+
+    fixture.whenStable().then(() => {
+      expect(spyAddTodo.calls.any()).toBe(true, 'addTodoList called');
+      expect(comp.todoLists.length).toBe(3, 'adds a TodoList');
+    });
   }));
 });
