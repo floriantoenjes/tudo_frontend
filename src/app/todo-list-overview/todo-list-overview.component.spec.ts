@@ -1,4 +1,4 @@
-import {async, TestBed, fakeAsync, tick} from '@angular/core/testing';
+import {async, TestBed, fakeAsync, tick, ComponentFixture} from '@angular/core/testing';
 import {TodoListOverviewComponent} from './todo-list-overview.component';
 import {RouterModule, Router} from '@angular/router';
 import {FormsModule} from '@angular/forms';
@@ -7,12 +7,16 @@ import Spy = jasmine.Spy;
 import {HttpClientModule} from '@angular/common/http';
 import {AuthService} from '../shared/services/auth.service';
 import {RouterTestingModule} from '@angular/router/testing';
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
 
 describe('TodoListOverviewComponent', () => {
 
-  let comp;
-  let fixture;
-  let todoService;
+  let comp: TodoListOverviewComponent;
+  let fixture: ComponentFixture<TodoListOverviewComponent>;
+  let todoService: TodoService;
+
+  let todoListEls: DebugElement[];
 
   let spyAddTodo: Spy;
 
@@ -22,7 +26,7 @@ describe('TodoListOverviewComponent', () => {
   ];
 
   const todoResponse = {
-    name: 'TodoList',
+    name: 'TodoList3',
     id: 1
   };
 
@@ -63,18 +67,26 @@ describe('TodoListOverviewComponent', () => {
     fixture.detectChanges();
 
     fixture.whenStable().then(() => {
+      fixture.detectChanges();
+      todoListEls = fixture.debugElement.queryAll(By.css('tr'));
+
       expect(comp.todoLists.length).toBe(2, 'fetches TodoLists');
+      expect(todoListEls.length).toBe(2);
     });
   }));
 
-  it('should add TodoList', async(() => {
+  it('should add a TodoList', async(() => {
     expect(comp.todoLists.length).toBe(0);
     fixture.detectChanges();
     comp.addTodoList();
 
     fixture.whenStable().then(() => {
+      fixture.detectChanges();
+      todoListEls = fixture.debugElement.queryAll(By.css('tr'));
+
       expect(spyAddTodo.calls.any()).toBe(true, 'addTodoList called');
       expect(comp.todoLists.length).toBe(3, 'adds a TodoList');
+      expect(todoListEls.length).toBe(3);
     });
   }));
 });
