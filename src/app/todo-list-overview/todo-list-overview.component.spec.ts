@@ -27,7 +27,7 @@ describe('TodoListOverviewComponent', () => {
 
   const todoResponse = {
     name: 'TodoList3',
-    id: 1
+    id: 3
   };
 
   beforeEach(async(() => {
