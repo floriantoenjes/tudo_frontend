@@ -20,7 +20,7 @@ describe('TodoListOverviewComponent', () => {
 
   let spyAddTodo: Spy;
 
-  const testTodoLists = [
+  const todoLists = [
     {name: 'TodoList1', id: 1},
     {name: 'TodoList2', id: 2}
   ];
@@ -54,7 +54,7 @@ describe('TodoListOverviewComponent', () => {
 
     todoService = fixture.debugElement.injector.get(TodoService);
 
-    spyOn(todoService, 'getTodoLists').and.returnValue(Promise.resolve(testTodoLists));
+    spyOn(todoService, 'getTodoLists').and.returnValue(Promise.resolve(todoLists));
     spyAddTodo = spyOn(todoService, 'addTodoList').and.returnValue(Promise.resolve(todoResponse));
   });
 
