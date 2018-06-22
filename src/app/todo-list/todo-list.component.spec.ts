@@ -66,7 +66,7 @@ describe('TodoListComponent', () => {
         expect(comp).toBeTruthy();
     }));
 
-    it('should get TodoList', async(() => {
+    it('should get the TodoList', async(() => {
         fixture.detectChanges();
 
         fixture.whenStable().then(() => {
