@@ -76,3 +76,7 @@ h2 {
 .error {
   color: red;
 }
+
+button[disabled]:hover {
+  cursor: not-allowed;
+}
