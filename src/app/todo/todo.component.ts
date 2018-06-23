@@ -94,7 +94,7 @@ export class TodoComponent implements OnInit {
   }
 
   mapToUserModel(assignedUsersBinding: string[], newAssignedUsers: User[]) {
-    this.assignedUsersBinding.forEach(assignedUserName => {
+    assignedUsersBinding.forEach(assignedUserName => {
       for (let i = 0; i < this.contacts.length; i++) {
         if (this.contacts[i].username === assignedUserName) {
           const user: User = new User();

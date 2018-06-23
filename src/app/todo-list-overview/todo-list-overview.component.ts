@@ -8,7 +8,7 @@ import {TodoList} from '../shared/models/todo-list.model';
   styleUrls: ['./todo-list-overview.component.css']
 })
 export class TodoListOverviewComponent implements OnInit {
-  todoLists: TodoList[];
+  todoLists: TodoList[] = [];
   newTodoList: TodoList = new TodoList();
 
   constructor(private todoService: TodoService) {

@@ -1,4 +1,4 @@
-<form (submit)="saveTodo()">
+<form (submit)="saveTodo()" #form="ngForm">
   <div class="col-sm-12 text-center">
     <h4 class="todo-list-backlink"><a routerLink="/todo_list/{{todoListId}}">{{todoList.name}}</a></h4>
     <h2><input type="text" name="name" [(ngModel)]="todo.name"/></h2>
@@ -13,13 +13,15 @@
     <tr>
       <th>Progress in %:</th>
       <td>
-        <input type="number" min="0" max="100" name="progress" [(ngModel)]="todo.todoForm.progress"/>
+        <input type="number" min="0" max="100" name="progress" [(ngModel)]="todo.todoForm.progress" appMin="0" appMax="100" #progress="ngModel"/>
+        <p class="error" *ngIf="progress.errors">enter a valid percentage</p>
       </td>
     </tr>
     <tr>
       <th>Priority:</th>
       <td>
-        <input type="number" min="0" max="10" name="priority" [(ngModel)]="todo.priority"/>
+        <input type="number" min="0" max="10" name="priority" [(ngModel)]="todo.priority" appMin="0" appMax="10" #priority="ngModel"/>
+        <p class="error" *ngIf="priority.errors">enter a priority from 0 to 10</p>
       </td>
     </tr>
     <tr>
@@ -73,7 +75,7 @@
     </tr>
   </table>
   <div class="text-center btn-list">
-    <button type="submit" class="btn btn-success">Save</button>
+    <button type="submit" class="btn btn-success" [disabled]="!form.valid">Save</button>
     <button type="button" class="btn btn-danger" (click)="deleteTodo()">Delete</button>
   </div>
 </form>
