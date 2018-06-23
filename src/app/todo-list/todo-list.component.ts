@@ -63,7 +63,7 @@ export class TodoListComponent implements OnInit {
   }
 
   addTodo(): void {
-    this.newTodo['todoList'] = this.todoList['_links']['self']['href'];
+    this.newTodo.todoList = this.todoList['_links']['self']['href'];
 
     this.todoService.createTodo(this.newTodo).then( response => {
       this.todos.push(response);

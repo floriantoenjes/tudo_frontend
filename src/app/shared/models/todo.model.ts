@@ -1,4 +1,5 @@
 import {TodoForm} from './todo-form.model';
+import { TodoList } from './todo-list.model';
 
 export class Todo {
   name: string;
@@ -10,4 +11,5 @@ export class Todo {
   id: number;
   todoForm: TodoForm;
   priority: number;
+  todoList: TodoList;
 }
