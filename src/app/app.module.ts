@@ -25,6 +25,8 @@ import {AlreadySignedInGuard} from './shared/guards/already-signed-in.guard';
 import { AlertComponent } from './alert/alert.component';
 import {AlertService} from './shared/services/alert.service';
 import {httpInterceptorProviders} from './shared/interceptors';
+import { MinDirective } from './shared/directives/min.directive';
+import { MaxDirective } from './shared/directives/max.directive';
 
 const appRoutes: Routes = [
   {pathMatch: 'full', path: '', component: TodoListOverviewComponent, canActivate: [SignInGuard]},
@@ -56,6 +58,8 @@ const appRoutes: Routes = [
     SignInComponent,
     SignUpComponent,
     AlertComponent,
+    MinDirective,
+    MaxDirective
   ],
   imports: [
     BrowserModule,

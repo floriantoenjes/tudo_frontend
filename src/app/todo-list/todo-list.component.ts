@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChildren, QueryList} from '@angular/core';
 import {TodoService} from '../shared/services/todo.service';
 import {Todo} from '../shared/models/todo.model';
 import {ActivatedRoute} from '@angular/router';
 import {TodoList} from '../shared/models/todo-list.model';
 import {Subject} from 'rxjs/Subject';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
+import { NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-todo-list',
@@ -17,6 +18,12 @@ export class TodoListComponent implements OnInit {
   newTodo: Todo = new Todo();
 
   todoSubject: Subject<Todo> = new Subject<Todo>();
+
+  @ViewChildren('progress')
+  private progressModels: QueryList<NgModel>;
+
+  @ViewChildren('priority')
+  private priorityModels: QueryList<NgModel>;
 
   constructor(private route: ActivatedRoute, private todoService: TodoService) {
   }
@@ -45,8 +52,14 @@ export class TodoListComponent implements OnInit {
     });
   }
 
-  updateTodoSubscription(todo: Todo) {
-    this.todoSubject.next(todo);
+  updateTodoSubscription(todo: Todo, index: number) {
+    if (this.isTodoValid(index)) {
+      this.todoSubject.next(todo);
+    }
+  }
+
+  isTodoValid(index: number): boolean {
+    return this.progressModels.toArray()[index].valid && this.priorityModels.toArray()[index].valid;
   }
 
   addTodo(): void {
@@ -64,7 +77,7 @@ export class TodoListComponent implements OnInit {
   }
 
   deleteTodo(todo: Todo): void {
-    this.todoService.deleteTodo(todo).then(response => {
+    this.todoService.deleteTodo(todo).then(() => {
       this.todos.splice(this.todos.indexOf(todo), 1);
     });
   }
