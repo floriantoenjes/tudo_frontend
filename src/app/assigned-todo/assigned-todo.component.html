@@ -1,4 +1,4 @@
-<form (submit)="updateTodoForm()">
+<form (submit)="updateTodoForm()" #form="ngForm">
   <div class="col-sm-12 text-center">
     <h4 class="todo-list-backlink"><a routerLink="/assigned_todo_list">Assigned Todos</a></h4>
     <h2>{{todo.name}}</h2>
@@ -13,7 +13,16 @@
     <tr>
       <th>Progress in %:</th>
       <td>
-        <input type="number" min="0" max="100" name="progress" [(ngModel)]="todo.todoForm.progress" />
+        <input 
+          type="number"
+          min="0"
+          max="100"
+          name="progress"
+          appMin="0"
+          appMax="100"
+          [(ngModel)]="todo.todoForm.progress"
+          #progress="ngModel"/>
+          <p class="error" *ngIf="progress.errors">enter a valid percentage</p>
       </td>
     </tr>
     <tr>
@@ -62,7 +71,7 @@
     </tr>
   </table>
   <div class="text-center btn-list">
-    <button type="submit" class="btn btn-success">Save</button>
+    <button type="submit" class="btn btn-success" [disabled]="!form.valid">Save</button>
     <!--<button type="button" class="btn btn-danger">Delete</button>-->
   </div>
 </form>
