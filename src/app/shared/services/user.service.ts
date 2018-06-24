@@ -94,7 +94,7 @@ export class UserService {
   }
 
   addContact(userId: number): Promise<void> {
-    const body: String = `http://localhost:8080/api/v1/users/${userId}`;
+    const body = `http://localhost:8080/api/v1/users/${userId}`;
 
     return this.http.post(`http://localhost:8080/api/v1/users/${this.authService.getUserId()}/contacts`, body, {
       headers: new HttpHeaders()

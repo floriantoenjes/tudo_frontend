@@ -30,7 +30,7 @@ export class AssignedTodoComponent implements OnInit {
           this.wasCompleted = true;
         }
 
-        const assignedUsernames: String[] = [];
+        const assignedUsernames: string[] = [];
         this.todo['assignedUsers'].forEach(assignedUser => {
           assignedUsernames.push(assignedUser.username);
         });

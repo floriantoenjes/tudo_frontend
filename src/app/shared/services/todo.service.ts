@@ -204,7 +204,7 @@ export class TodoService {
   }
 
   addAssignees(todoId: number, assignees: User[]): Promise<void> {
-    let body: String = '';
+    let body = '';
 
     assignees.forEach(assignee => {
       body += `http://localhost:8080/api/v1/users/${assignee.id}\n`;
