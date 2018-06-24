@@ -41,7 +41,7 @@ export class TodoComponent implements OnInit {
           this.wasCompleted = true;
         }
 
-        this.assignedUsers = todo['assignedUsers'];
+        this.assignedUsers = todo.assignedUsers;
         if (this.assignedUsers.length === 0) {
           this.assignedUsersBinding.push('None');
         } else {

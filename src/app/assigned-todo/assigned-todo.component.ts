@@ -31,7 +31,7 @@ export class AssignedTodoComponent implements OnInit {
         }
 
         const assignedUsernames: string[] = [];
-        this.todo['assignedUsers'].forEach(assignedUser => {
+        this.todo.assignedUsers.forEach(assignedUser => {
           assignedUsernames.push(assignedUser.username);
         });
         this.assignedUsers = assignedUsernames.join(', ');
