@@ -3,7 +3,6 @@ import { TodoListComponent } from './todo-list.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule } from '@angular/forms';
 import { TodoService } from '../shared/services/todo.service';
-import { TodoList } from '../shared/models/todo-list.model';
 import { Todo } from '../shared/models/todo.model';
 import { TodoForm } from '../shared/models/todo-form.model';
 

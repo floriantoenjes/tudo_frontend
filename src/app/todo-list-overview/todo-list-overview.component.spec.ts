@@ -1,6 +1,5 @@
 import {async, TestBed, fakeAsync, tick, ComponentFixture} from '@angular/core/testing';
 import {TodoListOverviewComponent} from './todo-list-overview.component';
-import {RouterModule, Router} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {TodoService} from '../shared/services/todo.service';
 import Spy = jasmine.Spy;
