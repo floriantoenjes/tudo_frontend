@@ -7,6 +7,7 @@ import {TodoHead} from '../models/todo-head.model';
 import {User} from '../models/user.model';
 import {AuthService} from './auth.service';
 import {ServiceUtils} from '../service-utils';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class TodoService {
@@ -16,7 +17,7 @@ export class TodoService {
 
   getTodoLists(): Promise<TodoList[]> {
     return this.http.get(
-      `http://localhost:8080/api/v1/todoLists/search/findAllByCreator?creator=/api/v1/users/${this.authService.getUserId()}`, {
+      `${environment.apiUrl}/todoLists/search/findAllByCreator?creator=/api/v1/users/${this.authService.getUserId()}`, {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/x-www-form-urlencoded')
     })
@@ -32,7 +33,7 @@ export class TodoService {
   }
 
   getTodoList(todoListId: number): Promise<TodoList> {
-    return this.http.get(`http://localhost:8080/api/v1/todoLists/${todoListId}`, {
+    return this.http.get(`${environment.apiUrl}/todoLists/${todoListId}`, {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/x-www-form-urlencoded')
     })
@@ -45,7 +46,7 @@ export class TodoService {
   }
 
   addTodoList(todoList: TodoList): Promise<TodoList> {
-    return this.http.post('http://localhost:8080/api/v1/todoLists/', todoList, {
+    return this.http.post(`${environment.apiUrl}/todoLists/`, todoList, {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
     })
@@ -59,7 +60,7 @@ export class TodoService {
   }
 
   getTodos(todoListId: number): Promise<Todo[]> {
-    return this.http.get(`http://localhost:8080/api/v1/todoLists/${todoListId}/todos?projection=todoProjection`, {
+    return this.http.get(`${environment.apiUrl}/todoLists/${todoListId}/todos?projection=todoProjection`, {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/x-www-form-urlencoded')
     })
@@ -76,7 +77,7 @@ export class TodoService {
   }
 
   getTodo(todoId: number): Promise<Todo> {
-    return this.http.get(`http://localhost:8080/api/v1/todos/${todoId}?projection=todoProjection`, {
+    return this.http.get(`${environment.apiUrl}/todos/${todoId}?projection=todoProjection`, {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/x-www-form-urlencoded')
     })
@@ -90,7 +91,7 @@ export class TodoService {
   }
 
   createTodo(todo: Todo): Promise<Todo> {
-    return this.http.post('http://localhost:8080/api/v1/todos/?projection=todoProjection', todo, {
+    return this.http.post(`${environment.apiUrl}/todos/?projection=todoProjection`, todo, {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
     })
@@ -104,7 +105,7 @@ export class TodoService {
   }
 
   deleteTodo(todo: Todo): Promise<void> {
-    return this.http.delete(`http://localhost:8080/api/v1/todos/${todo.id}`, {
+    return this.http.delete(`${environment.apiUrl}/todos/${todo.id}`, {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/x-www-form-urlencoded')
     })
@@ -116,7 +117,7 @@ export class TodoService {
 
   getAssignedTodos(): Promise<Todo[]> {
     return this.http.get(
-      `http://localhost:8080/api/v1/todos/search/findAllByAssignedUsersContaining?assignee=/api/v1/users/${this.authService.getUserId()}/` +
+      `${environment.apiUrl}/todos/search/findAllByAssignedUsersContaining?assignee=/api/v1/users/${this.authService.getUserId()}/` +
       '&projection=todoProjection', {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -134,7 +135,7 @@ export class TodoService {
   }
 
   getTodoForm(todoFormId: number): Promise<TodoForm> {
-    return this.http.get(`http://localhost:8080/api/v1/todos/${todoFormId}/todoForm`, {
+    return this.http.get(`${environment.apiUrl}/todos/${todoFormId}/todoForm`, {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/x-www-form-urlencoded')
     })
@@ -158,13 +159,13 @@ export class TodoService {
 
     const promises: Promise<Object>[] = [];
 
-    promises.push(this.http.put(`http://localhost:8080/api/v1/todos/${todo.id}`, todoHead, {
+    promises.push(this.http.put(`${environment.apiUrl}/todos/${todo.id}`, todoHead, {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
     })
       .toPromise());
 
-    promises.push(this.http.put(`http://localhost:8080/api/v1/todoForms/${todoForm.id}`, todoForm, {
+    promises.push(this.http.put(`${environment.apiUrl}/todoForms/${todoForm.id}`, todoForm, {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
     })
@@ -182,7 +183,7 @@ export class TodoService {
   }
 
   updateTodoForm(todoForm: TodoForm): Promise<TodoForm> {
-    return this.http.put(`http://localhost:8080/api/v1/todoForms/${todoForm.id}`, todoForm, {
+    return this.http.put(`${environment.apiUrl}/todoForms/${todoForm.id}`, todoForm, {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
     })
@@ -193,7 +194,7 @@ export class TodoService {
   }
 
   clearAssignees(todoId: number): Promise<void> {
-    return this.http.put(`http://localhost:8080/api/v1/todos/${todoId}/assignedUsers`, '', {
+    return this.http.put(`${environment.apiUrl}/todos/${todoId}/assignedUsers`, '', {
       headers: new HttpHeaders()
         .set('Content-Type', 'text/uri-list')
     })
@@ -207,10 +208,10 @@ export class TodoService {
     let body = '';
 
     assignees.forEach(assignee => {
-      body += `http://localhost:8080/api/v1/users/${assignee.id}\n`;
+      body += `${environment.apiUrl}/users/${assignee.id}\n`;
     });
 
-    return this.http.put(`http://localhost:8080/api/v1/todos/${todoId}/assignedUsers`,
+    return this.http.put(`${environment.apiUrl}/todos/${todoId}/assignedUsers`,
       body, {
         headers: new HttpHeaders()
           .set('Content-Type', 'text/uri-list')

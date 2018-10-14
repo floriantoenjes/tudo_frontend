@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {User} from '../models/user.model';
 import {Subject} from 'rxjs/Subject';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class AuthService {
@@ -11,7 +12,7 @@ export class AuthService {
 
   signIn(username: string, password: string): Promise<void> {
 
-    return this.http.post('http://localhost:8080/api/v1/login', {
+    return this.http.post(`${environment.apiUrl}/login`, {
       'username': username,
       'password': password
     }, {
@@ -33,7 +34,7 @@ export class AuthService {
   }
 
   signUp(user: User): Promise<User> {
-    return this.http.post('http://localhost:8080/api/v1/users', user, {
+    return this.http.post(`${environment.apiUrl}/users`, user, {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
     })

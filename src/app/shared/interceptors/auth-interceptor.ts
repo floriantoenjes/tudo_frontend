@@ -3,6 +3,7 @@ import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/com
 
 import {Observable} from 'rxjs/Observable';
 import {AuthService} from '../services/auth.service';
+import {environment} from '../../../environments/environment';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -11,7 +12,7 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (req.url !== 'http://localhost:8080/api/v1/login') {
+    if (req.url !== `${environment.apiUrl}/login`) {
       const authReq = req.clone({
         headers: req.headers.set('Authorization', this.authService.getToken())
       });

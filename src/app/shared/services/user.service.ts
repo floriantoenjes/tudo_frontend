@@ -5,6 +5,7 @@ import {ContactRequest} from '../models/contact-request.model';
 import {AuthService} from './auth.service';
 import {toPromise} from 'rxjs/operator/toPromise';
 import {ServiceUtils} from '../service-utils';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class UserService {
@@ -13,7 +14,7 @@ export class UserService {
   }
 
   getUsers(): Promise<User[]> {
-    return this.http.get('http://localhost:8080/api/v1/users', {
+    return this.http.get(`${environment.apiUrl}/users`, {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/x-www-form-urlencoded')
     })
@@ -24,7 +25,7 @@ export class UserService {
   }
 
   getUser(userId: number): Promise<User> {
-    return this.http.get(`http://localhost:8080/api/v1/users/${userId}`, {
+    return this.http.get(`${environment.apiUrl}/users/${userId}`, {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/x-www-form-urlencoded')
     })
@@ -35,7 +36,7 @@ export class UserService {
   }
 
   getContacts(): Promise<User[]> {
-    return this.http.get(`http://localhost:8080/api/v1/users/${this.authService.getUserId()}/contacts`, {
+    return this.http.get(`${environment.apiUrl}/users/${this.authService.getUserId()}/contacts`, {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/x-www-form-urlencoded')
     })
@@ -47,11 +48,11 @@ export class UserService {
 
   sendContactRequest(user: User): Promise<Object> {
     const body: Object = {
-      receiver: `http://localhost:8080/api/v1/users/${user.id}`,
-      sender: `http://localhost:8080/api/v1/users/${this.authService.getUserId()}`
+      receiver: `${environment.apiUrl}/users/${user.id}`,
+      sender: `${environment.apiUrl}/users/${this.authService.getUserId()}`
     };
 
-    return this.http.post('http://localhost:8080/api/v1/contactRequests', body, {
+    return this.http.post(`${environment.apiUrl}/contactRequests`, body, {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
     })
@@ -63,7 +64,7 @@ export class UserService {
 
   getContactRequests(): Promise<ContactRequest[]> {
     return this.http.get(
-      `http://localhost:8080/api/v1/contactRequests/search/findAllByReceiverUsername?` +
+      `${environment.apiUrl}/contactRequests/search/findAllByReceiverUsername?` +
     `receiverName=${this.authService.getCurrentUser().username}&projection=contactRequestProjection`)
       .toPromise()
       .then(response => {
@@ -78,7 +79,7 @@ export class UserService {
 
   getContactRequest(username: string): Promise<Object> {
     return this.http.get(
-      `http://localhost:8080/api/v1/contactRequests/search/findBySenderUsernameAndReceiverUsername?` +
+      `${environment.apiUrl}/contactRequests/search/findBySenderUsernameAndReceiverUsername?` +
       `senderName=${this.authService.getCurrentUser().username}&receiverName=${username}`)
       .toPromise()
       .then(response => {
@@ -87,16 +88,16 @@ export class UserService {
   }
 
   deleteContactRequest(contactRequest: ContactRequest): Promise<Object> {
-    return this.http.delete(`http://localhost:8080/api/v1/contactRequests/${contactRequest.id}`).toPromise()
+    return this.http.delete(`${environment.apiUrl}/contactRequests/${contactRequest.id}`).toPromise()
       .then(response => {
         return response;
       });
   }
 
   addContact(userId: number): Promise<void> {
-    const body = `http://localhost:8080/api/v1/users/${userId}`;
+    const body = `${environment.apiUrl}/users/${userId}`;
 
-    return this.http.post(`http://localhost:8080/api/v1/users/${this.authService.getUserId()}/contacts`, body, {
+    return this.http.post(`${environment.apiUrl}/users/${this.authService.getUserId()}/contacts`, body, {
       headers: new HttpHeaders()
         .set('Content-Type', 'text/uri-list')
     })
@@ -107,7 +108,7 @@ export class UserService {
   }
 
   removeContact(userId: number): Promise<Object> {
-    return this.http.delete(`http://localhost:8080/api/v1/users/${this.authService.getUserId()}/contacts/${userId}`, {
+    return this.http.delete(`${environment.apiUrl}/users/${this.authService.getUserId()}/contacts/${userId}`, {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/json')
     })
